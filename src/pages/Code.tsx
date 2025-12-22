@@ -1,7 +1,7 @@
 import { Navigation } from '@/components/Navigation';
 import { useLenis } from '@/hooks/useLenis';
 import { useEffect, useState } from 'react';
-import { ExternalLink, Star, GitFork, Code2 } from 'lucide-react';
+import { ExternalLink, Star, GitFork, Code2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Repository {
   id: number;
@@ -33,17 +33,20 @@ const languageColors: Record<string, string> = {
   Dart: 'bg-blue-400',
 };
 
+const REPOS_PER_PAGE = 9;
+
 const Code = () => {
   useLenis();
   const [repos, setRepos] = useState<Repository[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchRepos = async () => {
       try {
         const response = await fetch(
-          'https://api.github.com/users/jattu8602/repos?sort=updated&per_page=30'
+          'https://api.github.com/users/jattu8602/repos?sort=updated&per_page=100'
         );
         
         if (!response.ok) {
@@ -62,9 +65,18 @@ const Code = () => {
     fetchRepos();
   }, []);
 
+  const totalPages = Math.ceil(repos.length / REPOS_PER_PAGE);
+  const startIndex = (currentPage - 1) * REPOS_PER_PAGE;
+  const currentRepos = repos.slice(startIndex, startIndex + REPOS_PER_PAGE);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -125,62 +137,128 @@ const Code = () => {
           )}
 
           {!loading && !error && repos.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {repos.map((repo) => (
-                <a
-                  key={repo.id}
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="journey-card p-4 sm:p-6 hover:border-accent/50 transition-all hover:-translate-y-1 group"
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    {repo.language && (
-                      <>
-                        <span className={`w-3 h-3 rounded-full ${languageColors[repo.language] || 'bg-muted-foreground'}`} />
-                        <span className="text-muted-foreground font-body text-sm">{repo.language}</span>
-                      </>
-                    )}
-                    <ExternalLink className="w-4 h-4 ml-auto text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  
-                  <h3 className="text-lg sm:text-xl font-display font-bold mb-2 group-hover:text-accent transition-colors break-words">
-                    {repo.name}
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm font-body mb-4 line-clamp-2">
-                    {repo.description || 'No description available'}
-                  </p>
-
-                  <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-3 flex-wrap">
-                    <span className="flex items-center gap-1">
-                      <Star className="w-4 h-4" />
-                      {repo.stargazers_count}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <GitFork className="w-4 h-4" />
-                      {repo.forks_count}
-                    </span>
-                    <span className="text-xs ml-auto">
-                      {formatDate(repo.updated_at)}
-                    </span>
-                  </div>
-
-                  {repo.topics && repo.topics.length > 0 && (
-                    <div className="flex gap-2 flex-wrap">
-                      {repo.topics.slice(0, 3).map((topic) => (
-                        <span
-                          key={topic}
-                          className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded"
-                        >
-                          {topic}
-                        </span>
-                      ))}
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {currentRepos.map((repo) => (
+                  <a
+                    key={repo.id}
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="journey-card p-4 sm:p-6 hover:border-accent/50 transition-all hover:-translate-y-1 group"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      {repo.language && (
+                        <>
+                          <span className={`w-3 h-3 rounded-full ${languageColors[repo.language] || 'bg-muted-foreground'}`} />
+                          <span className="text-muted-foreground font-body text-sm">{repo.language}</span>
+                        </>
+                      )}
+                      <ExternalLink className="w-4 h-4 ml-auto text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                  )}
-                </a>
-              ))}
-            </div>
+                    
+                    <h3 className="text-lg sm:text-xl font-display font-bold mb-2 group-hover:text-accent transition-colors break-words">
+                      {repo.name}
+                    </h3>
+                    
+                    <p className="text-muted-foreground text-sm font-body mb-4 line-clamp-2">
+                      {repo.description || 'No description available'}
+                    </p>
+
+                    <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-3 flex-wrap">
+                      <span className="flex items-center gap-1">
+                        <Star className="w-4 h-4" />
+                        {repo.stargazers_count}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <GitFork className="w-4 h-4" />
+                        {repo.forks_count}
+                      </span>
+                      <span className="text-xs ml-auto">
+                        {formatDate(repo.updated_at)}
+                      </span>
+                    </div>
+
+                    {repo.topics && repo.topics.length > 0 && (
+                      <div className="flex gap-2 flex-wrap">
+                        {repo.topics.slice(0, 3).map((topic) => (
+                          <span
+                            key={topic}
+                            className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded"
+                          >
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 sm:gap-3 mt-8 sm:mt-12 flex-wrap">
+                  <button
+                    onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className="p-2 sm:p-3 rounded-lg border border-border hover:border-accent/50 hover:bg-accent/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                      // Show first, last, current and adjacent pages
+                      const showPage = page === 1 || 
+                        page === totalPages || 
+                        Math.abs(page - currentPage) <= 1;
+                      
+                      const showEllipsis = (page === 2 && currentPage > 3) || 
+                        (page === totalPages - 1 && currentPage < totalPages - 2);
+
+                      if (!showPage && !showEllipsis) return null;
+                      
+                      if (showEllipsis && !showPage) {
+                        return (
+                          <span key={page} className="px-2 text-muted-foreground">
+                            ...
+                          </span>
+                        );
+                      }
+
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-sm font-medium transition-all ${
+                            currentPage === page
+                              ? 'bg-accent text-accent-foreground'
+                              : 'border border-border hover:border-accent/50 hover:bg-accent/10'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                    className="p-2 sm:p-3 rounded-lg border border-border hover:border-accent/50 hover:bg-accent/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    aria-label="Next page"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
+
+              {/* Page info */}
+              <p className="text-center text-muted-foreground text-sm mt-4">
+                Showing {startIndex + 1}-{Math.min(startIndex + REPOS_PER_PAGE, repos.length)} of {repos.length} repositories
+              </p>
+            </>
           )}
         </div>
       </section>
