@@ -47,6 +47,27 @@ const experiences = [
     description: 'Co-built RGPV\'s go-to notes platform reaching 1L+ views, 2K+ users. Implemented subscriptions, AdSense monetization, and seamless payment integration.',
     skills: ['Next.js', 'Prisma', 'Shadcn', 'DaisyUI', 'Razorpay'],
   },
+  {
+    year: 'End 2024',
+    title: 'Freelance Developer',
+    company: 'Mobile App Project',
+    description: 'Delivered a complete mobile application for a client, building cross-platform functionality with real-time data sync and user authentication.',
+    skills: ['React Native', 'Firebase', 'Mobile Development', 'Cross-Platform'],
+  },
+  {
+    year: 'Early 2025',
+    title: 'Full Stack Developer',
+    company: 'Dakshedu.in',
+    description: 'Architected and developed an Instagram-style social platform with rich media sharing, user interactions, and a scalable API-first backend.',
+    skills: ['Next.js', 'API Routes', 'Social Platform', 'Media Handling'],
+  },
+  {
+    year: 'Mid 2025',
+    title: 'Freelance Developer',
+    company: 'Outlawed.in',
+    description: 'Built a comprehensive test preparation platform for CLAT aspirants with 1K+ active users, featuring subscription plans, timed mock tests, and detailed analytics.',
+    skills: ['Test Platform', 'Subscriptions', 'User Analytics', 'Payment Integration'],
+  },
 ];
 
 export const Journey = () => {
