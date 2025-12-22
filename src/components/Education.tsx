@@ -44,6 +44,15 @@ const educationData = [
   },
 ];
 
+// Smooth easing function
+const easeOutExpo = (x: number): number => {
+  return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+};
+
+const easeInOutCubic = (x: number): number => {
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+};
+
 export const Education = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const stickyWrapperRef = useRef<HTMLDivElement>(null);
@@ -51,6 +60,7 @@ export const Education = () => {
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const floatingRef = useRef<HTMLDivElement>(null);
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -64,58 +74,86 @@ export const Education = () => {
         yoyo: true,
       });
 
-      // Title reveal animation
+      // Title fade in smoothly
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 60 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: 'power3.out',
+          duration: 1.2,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse',
+            end: 'top 50%',
+            scrub: 0.8,
           },
         }
       );
 
       const cards = cardsRef.current.filter(Boolean);
-      const cardHeight = 220; // approximate card height
-      const peekAmount = 40; // how much of previous card to show
-      const totalScrollDistance = cards.length * cardHeight;
+      const peekAmount = 50; // how much of previous card to show
+      const totalScrollDistance = cards.length * 350; // more scroll distance = slower animation
 
-      // Pin the entire sticky wrapper
+      // Set initial state for all cards
+      cards.forEach((card, index) => {
+        gsap.set(card, {
+          y: 350,
+          opacity: 0,
+          zIndex: index + 1,
+          scale: 1,
+        });
+      });
+
+      // Pin the entire sticky wrapper with smooth behavior
       ScrollTrigger.create({
         trigger: stickyWrapperRef.current,
-        start: 'top 5%',
-        end: () => `+=${totalScrollDistance + 200}`,
+        start: 'top 8%',
+        end: () => `+=${totalScrollDistance + 150}`,
         pin: true,
         pinSpacing: true,
+        scrub: 1.5, // Smooth scrubbing
         onUpdate: (self) => {
           const progress = self.progress;
+          const direction = progress > lastProgressRef.current ? 1 : -1;
+          lastProgressRef.current = progress;
           
           cards.forEach((card, index) => {
             // Calculate when each card should start and end its animation
-            const cardStart = index / cards.length;
-            const cardEnd = (index + 1) / cards.length;
+            // Spread the animation more for smoother effect
+            const cardStart = (index * 0.28);
+            const cardEnd = cardStart + 0.35;
             
-            // Calculate card progress (0 = not started, 1 = fully in position)
+            // Calculate card progress with smooth easing
             let cardProgress = (progress - cardStart) / (cardEnd - cardStart);
             cardProgress = Math.max(0, Math.min(1, cardProgress));
+            
+            // Apply smooth easing
+            const easedProgress = easeInOutCubic(cardProgress);
 
-            // Card starts from bottom and moves up
-            const startY = 300; // start position (below)
-            const endY = index * peekAmount; // final stacked position
-            const currentY = startY - (startY - endY) * cardProgress;
+            // Card positions
+            const startY = 350;
+            const endY = index * peekAmount;
+            const currentY = startY - (startY - endY) * easedProgress;
 
-            // Apply transform
-            gsap.set(card, {
-              y: cardProgress === 0 ? startY : currentY,
-              opacity: cardProgress > 0 ? 1 : 0,
-              zIndex: index + 1,
-              scale: 1 - (cards.length - 1 - index) * 0.02, // slight scale for depth
+            // Smooth opacity transition
+            let opacity = 0;
+            if (cardProgress > 0) {
+              opacity = Math.min(1, cardProgress * 3); // Fade in over first third
+            }
+
+            // Subtle scale for depth effect
+            const scale = 0.97 + (0.03 * easedProgress);
+
+            // Use GSAP for smooth interpolation
+            gsap.to(card, {
+              y: currentY,
+              opacity: opacity,
+              scale: scale,
+              duration: 0.3, // Smooth transition duration
+              ease: 'power2.out',
+              overwrite: 'auto',
             });
           });
         },
@@ -125,11 +163,11 @@ export const Education = () => {
       cards.forEach((card, index) => {
         gsap.to(card.querySelector('.edu-image'), {
           y: -6,
-          duration: 2,
+          duration: 2.5,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
-          delay: index * 0.2,
+          delay: index * 0.3,
         });
       });
 
@@ -172,18 +210,18 @@ export const Education = () => {
           {/* Cards Container - Cards stack here */}
           <div 
             ref={cardsContainerRef}
-            className="relative h-[320px] md:h-[280px]"
+            className="relative h-[300px] md:h-[260px]"
           >
             {educationData.map((edu, index) => (
               <div
                 key={edu.id}
                 ref={(el) => addToRefs(el, index)}
-                className="absolute inset-x-0 top-0 opacity-0"
+                className="absolute inset-x-0 top-0 will-change-transform"
                 style={{ zIndex: index + 1 }}
               >
                 {/* Card */}
                 <div
-                  className={`relative p-5 md:p-6 rounded-2xl bg-gradient-to-br ${edu.color} backdrop-blur-sm border ${edu.borderColor} shadow-xl ${edu.shadowColor} bg-background/95`}
+                  className={`relative p-5 md:p-6 rounded-2xl bg-gradient-to-br ${edu.color} backdrop-blur-sm border ${edu.borderColor} shadow-xl ${edu.shadowColor} bg-background/95 transition-shadow duration-300`}
                 >
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-start">
                     {/* Image */}
