@@ -84,16 +84,14 @@ const ChessBoard = () => {
         }
       );
 
-      // Pieces float up animation
+      // Pieces fade in animation (no position change)
       gsap.fromTo(
         '.chess-piece',
         {
-          y: 0,
           scale: 0.8,
-          opacity: 0.7,
+          opacity: 0.5,
         },
         {
-          y: -8,
           scale: 1,
           opacity: 1,
           stagger: 0.02,
@@ -106,15 +104,15 @@ const ChessBoard = () => {
         }
       );
 
-      // Animated pawn move (e2 to e4 - classic opening)
+      // Animated pawn move (e2 to e4 - classic opening) - moves up 2 squares
+      const squareSize = boardRef.current?.querySelector('.chess-square')?.getBoundingClientRect().height || 40;
       gsap.fromTo(
         pawnRef.current,
         {
           y: 0,
-          x: 0,
         },
         {
-          y: -80, // Move up two squares
+          y: -squareSize * 2, // Move up exactly two squares
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 50%',
@@ -123,19 +121,6 @@ const ChessBoard = () => {
           },
         }
       );
-
-      // Add floating animation to all pieces
-      gsap.to('.chess-piece', {
-        y: '+=3',
-        duration: 2,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        stagger: {
-          each: 0.1,
-          from: 'random',
-        },
-      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -153,30 +138,29 @@ const ChessBoard = () => {
       <div
         key={key}
         className={`
-          aspect-square flex items-center justify-center relative
+          chess-square aspect-square flex items-center justify-center relative
           ${isLight ? 'bg-amber-100/90' : 'bg-amber-800/90'}
-          transition-all duration-300
         `}
         style={{
           boxShadow: isLight 
-            ? 'inset 0 0 10px rgba(0,0,0,0.1)' 
-            : 'inset 0 0 10px rgba(0,0,0,0.3)',
+            ? 'inset 0 0 8px rgba(0,0,0,0.1)' 
+            : 'inset 0 0 8px rgba(0,0,0,0.25)',
         }}
       >
         {pieceData && !isAnimatedPawn && (
           <span
             className={`
-              chess-piece text-2xl sm:text-3xl md:text-4xl
+              chess-piece leading-none select-none
+              text-[1.5rem] sm:text-[2rem] md:text-[2.5rem]
               ${pieceData.color === 'white' 
-                ? 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]' 
-                : 'text-gray-900 drop-shadow-[0_2px_4px_rgba(255,255,255,0.3)]'}
-              transform-gpu
+                ? 'text-white' 
+                : 'text-gray-900'}
             `}
             style={{
               textShadow: pieceData.color === 'white' 
-                ? '0 0 10px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.5)' 
-                : '0 0 10px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.5)',
-              filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4))',
+                ? '0 2px 4px rgba(0,0,0,0.6), 0 0 8px rgba(255,255,255,0.3)' 
+                : '0 2px 4px rgba(0,0,0,0.4)',
+              filter: 'drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3))',
             }}
           >
             {pieceData.piece}
@@ -187,14 +171,10 @@ const ChessBoard = () => {
         {isAnimatedPawn && pieceData && (
           <span
             ref={pawnRef}
-            className={`
-              chess-piece text-2xl sm:text-3xl md:text-4xl absolute
-              text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]
-              transform-gpu z-10
-            `}
+            className="chess-piece leading-none select-none text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] text-white absolute inset-0 flex items-center justify-center z-10"
             style={{
-              textShadow: '0 0 15px rgba(34,197,94,0.8), 0 4px 8px rgba(0,0,0,0.5)',
-              filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4))',
+              textShadow: '0 0 12px rgba(34,197,94,0.7), 0 2px 4px rgba(0,0,0,0.5)',
+              filter: 'drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3))',
             }}
           >
             {pieceData.piece}
