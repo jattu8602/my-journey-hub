@@ -1,7 +1,7 @@
 import { Navigation } from '@/components/Navigation';
 import { useLenis } from '@/hooks/useLenis';
 import { useState } from 'react';
-import { Award, Trophy, Calendar, Sparkles } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 type Category = 'skills' | 'hackathons' | 'events' | 'others';
 
@@ -53,7 +53,7 @@ const certificates: Certificate[] = [
     id: 'hack-2',
     title: 'DevPost Global Hackathon',
     description: 'Participated in 48-hour global hackathon building a sustainability app.',
-    image: 'https://images.unsplash.com/photo-531482615713-2afd69097998?w=400&h=300&fit=crop',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop',
     tags: ['Sustainability', 'Global', 'Team'],
     category: 'hackathons',
   },
@@ -85,11 +85,11 @@ const certificates: Certificate[] = [
   },
 ];
 
-const categories: { key: Category; label: string; icon: React.ReactNode }[] = [
-  { key: 'skills', label: 'Skills', icon: <Award className="w-4 h-4" /> },
-  { key: 'hackathons', label: 'Hackathons', icon: <Trophy className="w-4 h-4" /> },
-  { key: 'events', label: 'Events', icon: <Calendar className="w-4 h-4" /> },
-  { key: 'others', label: 'Others', icon: <Sparkles className="w-4 h-4" /> },
+const categories: { key: Category; label: string }[] = [
+  { key: 'skills', label: 'Skill Certificates' },
+  { key: 'hackathons', label: 'Hackathon Certificates' },
+  { key: 'events', label: 'Event Certificates' },
+  { key: 'others', label: 'Others' },
 ];
 
 const Certification = () => {
@@ -101,34 +101,31 @@ const Certification = () => {
   );
 
   return (
-    <div className="relative min-h-screen bg-primary">
+    <div className="relative min-h-screen bg-background">
       <Navigation />
       
       <section className="min-h-screen px-6 pt-32 pb-20">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6">
-              Certifications<span className="inline-block w-3 h-3 rounded-full ml-2 bg-accent" />
-            </h1>
-            <p className="text-primary-foreground/60 text-lg max-w-xl mx-auto">
+            <h1 className="section-heading mb-6">Certifications<span className="accent-dot" /></h1>
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               My professional certifications, hackathon achievements, and event participations.
             </p>
           </div>
 
           {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {categories.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => setActiveCategory(cat.key)}
-                className={`group flex items-center gap-2 px-5 py-2.5 rounded-full font-body text-sm transition-all duration-300 border ${
+                className={`px-6 py-3 rounded-full font-body text-sm transition-all duration-300 ${
                   activeCategory === cat.key
-                    ? 'bg-accent text-accent-foreground border-accent shadow-[0_0_20px_hsl(32_95%_55%/0.4)]'
-                    : 'bg-transparent text-primary-foreground/70 border-primary-foreground/20 hover:border-accent/50 hover:text-primary-foreground'
+                    ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/25'
+                    : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
                 }`}
               >
-                {cat.icon}
                 {cat.label}
               </button>
             ))}
@@ -139,53 +136,41 @@ const Certification = () => {
             {filteredCertificates.map((cert, index) => (
               <div
                 key={cert.id}
-                className="group relative bg-primary-foreground/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-primary-foreground/10 hover:border-accent/50 transition-all duration-500 hover:shadow-[0_0_40px_hsl(32_95%_55%/0.15)]"
+                className="group journey-card overflow-hidden"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/0 group-hover:from-accent/5 group-hover:via-transparent group-hover:to-accent/10 transition-all duration-500" />
-                
-                {/* Image with overlay */}
-                <div className="relative h-44 overflow-hidden">
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
                   <img
                     src={cert.image}
                     alt={cert.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent" />
-                  
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 text-xs font-medium bg-accent/90 text-accent-foreground rounded-full">
-                      {categories.find(c => c.key === cert.category)?.label}
-                    </span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/90 to-transparent" />
                 </div>
 
                 {/* Content */}
-                <div className="relative p-6">
-                  <h3 className="text-xl font-display font-bold mb-2 text-primary-foreground group-hover:text-accent transition-colors duration-300">
+                <div className="p-6">
+                  <h3 className="text-xl font-display font-bold mb-2 text-foreground group-hover:text-accent transition-colors">
                     {cert.title}
                   </h3>
-                  <p className="text-primary-foreground/50 text-sm mb-4 line-clamp-2">
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                     {cert.description}
                   </p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2">
                     {cert.tags.map((tag) => (
-                      <span
+                      <Badge
                         key={tag}
-                        className="px-3 py-1 text-xs font-medium bg-primary-foreground/10 text-primary-foreground/70 rounded-full border border-primary-foreground/10 hover:border-accent/30 hover:text-accent transition-colors"
+                        variant="secondary"
+                        className="text-xs bg-secondary/50 hover:bg-accent hover:text-accent-foreground transition-colors"
                       >
                         {tag}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                 </div>
-
-                {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent/0 to-transparent group-hover:via-accent transition-all duration-500" />
               </div>
             ))}
           </div>
@@ -193,7 +178,7 @@ const Certification = () => {
           {/* Empty State */}
           {filteredCertificates.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-primary-foreground/50">No certificates in this category yet.</p>
+              <p className="text-muted-foreground">No certificates in this category yet.</p>
             </div>
           )}
         </div>
