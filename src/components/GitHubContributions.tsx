@@ -71,9 +71,9 @@ export const GitHubContributions = () => {
             )}
             <div className="bg-white p-4 rounded-lg">
               <img
-                src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
-                alt="GitHub Contributions - Full Timeline"
-                className="min-w-[900px] h-auto"
+                src="https://github-contributions-api.jogruber.de/v4/jattu8602"
+                alt="GitHub Contributions - Last Year"
+                className="w-full h-auto"
                 onLoad={handleImageLoad}
                 onError={() => setLoading(false)}
               />
@@ -92,9 +92,9 @@ export const GitHubContributions = () => {
             )}
             <div className="bg-white p-3 rounded-lg">
               <img
-                src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
-                alt="GitHub Contributions - Full Timeline"
-                className="min-w-[800px] h-auto"
+                src="https://github-contributions-api.jogruber.de/v4/jattu8602"
+                alt="GitHub Contributions - Last Year"
+                className="w-full h-auto"
                 onLoad={handleImageLoad}
                 onError={() => setLoading(false)}
               />
@@ -113,25 +113,22 @@ export const GitHubContributions = () => {
             )}
             <div className="bg-white p-2 rounded-lg">
               <img
-                src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
-                alt="GitHub Contributions - Full Timeline"
-                className="min-w-[600px] h-auto"
+                src="https://github-contributions-api.jogruber.de/v4/jattu8602"
+                alt="GitHub Contributions - Last Year"
+                className="w-full h-auto"
                 onLoad={handleImageLoad}
                 onError={() => setLoading(false)}
               />
             </div>
-            <p className="text-muted-foreground text-xs mt-2 text-center">
-              ← Swipe to see full history →
-            </p>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-6 pt-6 border-t border-border">
             <div className="text-center">
               <div className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-accent">
-                Full
+                365
               </div>
-              <div className="text-muted-foreground text-xs sm:text-sm">Timeline</div>
+              <div className="text-muted-foreground text-xs sm:text-sm">Days</div>
             </div>
             <div className="text-center">
               <div className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-foreground">
