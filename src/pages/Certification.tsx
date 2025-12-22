@@ -143,15 +143,8 @@ const Certification = () => {
                 <div className="relative bg-[#faf8f5] dark:bg-[#1a1916] border-4 border-double border-amber-700/60 dark:border-amber-600/40 rounded-sm p-1">
                   {/* Inner border */}
                   <div className="border border-amber-600/30 dark:border-amber-500/20 p-4">
-                    {/* Certificate Header */}
-                    <div className="text-center border-b border-amber-600/20 dark:border-amber-500/15 pb-3 mb-4">
-                      <span className="text-[10px] uppercase tracking-[0.3em] text-amber-700/70 dark:text-amber-500/60 font-medium">
-                        Certificate of Achievement
-                      </span>
-                    </div>
-                    
                     {/* Certificate Image */}
-                    <div className="relative h-36 mb-4 border border-amber-600/20 dark:border-amber-500/15 overflow-hidden">
+                    <div className="relative aspect-square mb-4 border border-amber-600/20 dark:border-amber-500/15 overflow-hidden">
                       <img
                         src={cert.image}
                         alt={cert.title}
