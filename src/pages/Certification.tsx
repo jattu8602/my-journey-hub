@@ -136,62 +136,58 @@ const Certification = () => {
             {filteredCertificates.map((cert, index) => (
               <div
                 key={cert.id}
-                className="group relative"
+                className="group"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Glow effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/50 via-primary/50 to-accent/50 rounded-2xl blur opacity-0 group-hover:opacity-75 transition-all duration-500" />
-                
-                {/* Card */}
-                <div className="relative bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden transition-all duration-500 group-hover:border-accent/50 group-hover:translate-y-[-4px]">
-                  {/* Image with overlay */}
-                  <div className="relative h-52 overflow-hidden">
-                    <img
-                      src={cert.image}
-                      alt={cert.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent opacity-90" />
-                    
-                    {/* Category badge floating */}
-                    <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 text-xs font-medium bg-accent/90 text-accent-foreground rounded-full backdrop-blur-sm">
-                        {cert.category === 'skills' && '🎯 Skill'}
-                        {cert.category === 'hackathons' && '🏆 Hackathon'}
-                        {cert.category === 'events' && '🎪 Event'}
-                        {cert.category === 'others' && '✨ Other'}
+                {/* Certificate Frame */}
+                <div className="relative bg-[#faf8f5] dark:bg-[#1a1916] border-4 border-double border-amber-700/60 dark:border-amber-600/40 rounded-sm p-1">
+                  {/* Inner border */}
+                  <div className="border border-amber-600/30 dark:border-amber-500/20 p-4">
+                    {/* Certificate Header */}
+                    <div className="text-center border-b border-amber-600/20 dark:border-amber-500/15 pb-3 mb-4">
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-amber-700/70 dark:text-amber-500/60 font-medium">
+                        Certificate of Achievement
                       </span>
                     </div>
                     
-                    {/* Title overlay on image */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <h3 className="text-xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-300 line-clamp-2">
-                        {cert.title}
-                      </h3>
+                    {/* Certificate Image */}
+                    <div className="relative h-36 mb-4 border border-amber-600/20 dark:border-amber-500/15 overflow-hidden">
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-5 pt-3">
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2 leading-relaxed">
+                    
+                    {/* Certificate Title */}
+                    <h3 className="text-lg font-display font-bold text-center text-amber-900 dark:text-amber-100 mb-2 leading-tight">
+                      {cert.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-xs text-center text-amber-800/70 dark:text-amber-200/60 mb-4 line-clamp-2 leading-relaxed italic">
                       {cert.description}
                     </p>
+                    
+                    {/* Decorative line */}
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <div className="h-px w-8 bg-amber-600/30 dark:bg-amber-500/20" />
+                      <div className="w-2 h-2 rotate-45 border border-amber-600/40 dark:border-amber-500/30" />
+                      <div className="h-px w-8 bg-amber-600/30 dark:bg-amber-500/20" />
+                    </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
+                    {/* Tags as seal/stamps */}
+                    <div className="flex flex-wrap justify-center gap-2">
                       {cert.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1.5 text-xs font-medium bg-secondary/30 text-secondary-foreground/80 rounded-lg border border-border/30 hover:bg-accent/20 hover:text-accent hover:border-accent/30 transition-all duration-300 cursor-default"
+                          className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-amber-700 dark:text-amber-400 border border-amber-600/40 dark:border-amber-500/30 rounded-sm bg-amber-50/50 dark:bg-amber-900/20"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                   </div>
-                  
-                  {/* Bottom accent line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </div>
             ))}
