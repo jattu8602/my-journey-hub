@@ -48,6 +48,13 @@ const experiences = [
     skills: ['Next.js', 'Prisma', 'Shadcn', 'DaisyUI', 'Razorpay'],
   },
   {
+    year: 'Oct - Dec 2024',
+    title: 'Frontend Developer Intern',
+    company: 'CalmChase @ Passiflora Resorts (Pune)',
+    description: 'First internship! Built 3+ production websites including real estate platform, WordPress news site, and EV mobility website. Learned client-based designing and real-world deployment workflows.',
+    skills: ['WordPress', 'Next.js', 'Client Work', 'Deployment', 'Vercel'],
+  },
+  {
     year: 'End 2024',
     title: 'Freelance Developer',
     company: 'Mobile App Project',
