@@ -35,6 +35,16 @@ const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
     tags: ['AI', 'Machine Learning', 'Transformers'],
   },
+  {
+    id: '3',
+    slug: 'react-native-guide',
+    title: 'React Native for Beginners',
+    excerpt: 'Build native mobile apps for iOS and Android using JavaScript and React. A complete beginner\'s guide to React Native development.',
+    date: 'December 22, 2024',
+    readTime: '30 min read',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop',
+    tags: ['React Native', 'Mobile', 'Tutorial'],
+  },
 ];
 
 const Blogs = () => {

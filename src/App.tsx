@@ -11,6 +11,7 @@ import Code from "./pages/Code";
 import NotFound from "./pages/NotFound";
 import NextJsForBeginners from "./pages/blog/NextJsForBeginners";
 import TransformersInAI from "./pages/blog/TransformersInAI";
+import ReactNativeGuide from "./pages/blog/ReactNativeGuide";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blog/nextjs-for-beginners" element={<NextJsForBeginners />} />
           <Route path="/blog/transformers-in-ai" element={<TransformersInAI />} />
+          <Route path="/blog/react-native-guide" element={<ReactNativeGuide />} />
           <Route path="/code" element={<Code />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
