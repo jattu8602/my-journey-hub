@@ -16,6 +16,7 @@ import ReactNativeGuide from "./pages/blog/ReactNativeGuide";
 import BeginnerWebDev from "./pages/blog/BeginnerWebDev";
 import SystemsLowLevel from "./pages/blog/SystemsLowLevel";
 import AlgorithmsBeyondDSA from "./pages/blog/AlgorithmsBeyondDSA";
+import BackendDistributed from "./pages/blog/BackendDistributed";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/blog/beginner-web-dev" element={<BeginnerWebDev />} />
           <Route path="/blog/systems-low-level" element={<SystemsLowLevel />} />
           <Route path="/blog/algorithms-beyond-dsa" element={<AlgorithmsBeyondDSA />} />
+          <Route path="/blog/backend-distributed" element={<BackendDistributed />} />
           <Route path="/code" element={<Code />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

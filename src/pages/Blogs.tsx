@@ -65,6 +65,26 @@ const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
     tags: ['Systems', 'Performance', 'Advanced'],
   },
+  {
+    id: '6',
+    slug: 'algorithms-beyond-dsa',
+    title: 'Algorithms Beyond DSA Sheets',
+    excerpt: 'Explore Bloom Filters, HyperLogLog, Consistent Hashing, and Skip Lists — the algorithms that power real-world distributed systems.',
+    date: 'December 22, 2024',
+    readTime: '35 min read',
+    image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&h=400&fit=crop',
+    tags: ['Algorithms', 'Distributed Systems'],
+  },
+  {
+    id: '7',
+    slug: 'backend-distributed',
+    title: 'Backend & Distributed Systems',
+    excerpt: 'Master event-driven architecture, consistency models, rate limiting, and idempotency patterns used in production systems at scale.',
+    date: 'December 22, 2024',
+    readTime: '40 min read',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop',
+    tags: ['Backend', 'Distributed Systems', 'Advanced'],
+  },
 ];
 
 const Blogs = () => {
