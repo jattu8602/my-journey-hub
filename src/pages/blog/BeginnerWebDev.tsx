@@ -78,7 +78,7 @@ const ColorPickerDemo = () => {
 };
 
 const FlexboxDemo = () => {
-  const [direction, setDirection] = useState('row');
+  const [direction, setDirection] = useState<'row' | 'column' | 'row-reverse' | 'column-reverse'>('row');
   const [justify, setJustify] = useState('flex-start');
   const [align, setAlign] = useState('stretch');
 
@@ -90,7 +90,7 @@ const FlexboxDemo = () => {
           <label className="text-xs text-muted-foreground block mb-1">flex-direction:</label>
           <select
             value={direction}
-            onChange={(e) => setDirection(e.target.value)}
+            onChange={(e) => setDirection(e.target.value as 'row' | 'column' | 'row-reverse' | 'column-reverse')}
             className="w-full p-1.5 rounded bg-secondary text-foreground text-sm"
           >
             <option value="row">row</option>
