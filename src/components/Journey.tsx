@@ -62,11 +62,46 @@ const experiences = [
     skills: ['Next.js', 'API Routes', 'Social Platform', 'Media Handling'],
   },
   {
+    year: 'Early 2025',
+    title: 'Hackathon - Top 8',
+    company: 'Prayatna 2.0 @ Acropolis Institute',
+    description: 'Competed in a major hackathon with 3000+ teams. Built a Flutter app integrated with Firebase for PresentSir.in, working solo on the complete tech stack.',
+    skills: ['Flutter', 'Firebase', 'Mobile Dev', 'Solo Development'],
+  },
+  {
     year: 'Mid 2025',
     title: 'Freelance Developer',
     company: 'Outlawed.in',
     description: 'Built a comprehensive test preparation platform for CLAT aspirants with 1K+ active users, featuring subscription plans, timed mock tests, and detailed analytics.',
     skills: ['Test Platform', 'Subscriptions', 'User Analytics', 'Payment Integration'],
+  },
+  {
+    year: 'Mid 2025',
+    title: 'Hackathon - Top 5',
+    company: 'Kriyeta @ Acropolis Institute',
+    description: 'Created GoGreen - an AI-powered travel & city management app. Secured top 5 among 2000+ teams with advanced map integrations and seamless authentication.',
+    skills: ['React Native', 'Google Maps', 'TomTom', 'Clerk', 'Firebase'],
+  },
+  {
+    year: 'Mid 2025',
+    title: 'Hackathon Participant',
+    company: 'HackWave 2.0 @ CDGI Indore',
+    description: 'Developed an AI-powered browser extension leveraging local AI capabilities for enhanced user productivity and intelligent automation.',
+    skills: ['Browser Extension', 'Local AI', 'Chrome API', 'AI Integration'],
+  },
+  {
+    year: 'Mid 2025',
+    title: 'Competition Winner - Top 2',
+    company: 'LNCT Website Competition',
+    description: 'Won ₹7,500 prize money by building an optimized website with AI integration using Gemini API. Secured 2nd position among 100+ teams.',
+    skills: ['Next.js', 'Gemini AI', 'Video Optimization', 'System Prompts'],
+  },
+  {
+    year: 'End 2025',
+    title: 'Hackathon - Top 11',
+    company: 'SAMADHAN 2.0',
+    description: 'Enhanced Outlawed.in with 8-10 comprehensive AI features, expanding the test-taking experience to an advanced level. Competed among 100+ teams.',
+    skills: ['AI Features', 'Outlawed.in', 'Advanced Testing', 'Full Stack'],
   },
 ];
 
