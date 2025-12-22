@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GraduationCap, School, BookOpen, Sparkles } from 'lucide-react';
@@ -16,6 +16,7 @@ const educationData = [
     color: 'from-emerald-500/20 to-teal-500/20',
     iconBg: 'bg-emerald-500/10',
     iconColor: 'text-emerald-400',
+    borderColor: 'border-emerald-500/30',
   },
   {
     id: 2,
@@ -27,6 +28,7 @@ const educationData = [
     color: 'from-blue-500/20 to-indigo-500/20',
     iconBg: 'bg-blue-500/10',
     iconColor: 'text-blue-400',
+    borderColor: 'border-blue-500/30',
   },
   {
     id: 3,
@@ -38,14 +40,24 @@ const educationData = [
     color: 'from-purple-500/20 to-pink-500/20',
     iconBg: 'bg-purple-500/10',
     iconColor: 'text-purple-400',
+    borderColor: 'border-purple-500/30',
   },
 ];
 
 export const Education = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const floatingRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,13 +78,11 @@ export const Education = () => {
           opacity: 0, 
           y: 100,
           scale: 0.8,
-          rotateX: 45,
         },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          rotateX: 0,
           duration: 1.2,
           ease: 'power4.out',
           scrollTrigger: {
@@ -84,81 +94,8 @@ export const Education = () => {
         }
       );
 
-      // Cards staggered reveal with 3D effect
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            end: 'top 40%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-
-        // Initial 3D flip animation
-        tl.fromTo(
-          card,
-          {
-            opacity: 0,
-            y: 150,
-            rotateY: index % 2 === 0 ? -30 : 30,
-            rotateX: 20,
-            scale: 0.7,
-            transformPerspective: 1000,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            rotateY: 0,
-            rotateX: 0,
-            scale: 1,
-            duration: 1,
-            ease: 'back.out(1.7)',
-            delay: index * 0.15,
-          }
-        );
-
-        // Icon bounce
-        tl.fromTo(
-          card.querySelector('.edu-icon'),
-          { scale: 0, rotate: -180 },
-          { scale: 1, rotate: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' },
-          '-=0.4'
-        );
-
-        // Text reveal
-        tl.fromTo(
-          card.querySelectorAll('.edu-text'),
-          { opacity: 0, x: -30 },
-          { opacity: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' },
-          '-=0.3'
-        );
-
-        // Status badge pop
-        tl.fromTo(
-          card.querySelector('.status-badge'),
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(2)' },
-          '-=0.2'
-        );
-
-        // Parallax effect on scroll
-        gsap.to(card, {
-          y: index % 2 === 0 ? -30 : 30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      });
-
       // Sparkle animations
-      gsap.to('.sparkle', {
+      gsap.to('.edu-sparkle', {
         opacity: 0.3,
         scale: 1.5,
         duration: 1.5,
@@ -170,10 +107,112 @@ export const Education = () => {
         ease: 'sine.inOut',
       });
 
+      if (isMobile) {
+        // Mobile: Stacked sticky cards effect
+        const cards = cardsRef.current.filter(Boolean);
+        
+        cards.forEach((card, index) => {
+          // Set initial state - cards stack with slight offset
+          gsap.set(card, {
+            zIndex: index + 1,
+          });
+
+          // Pin each card as it reaches the center
+          ScrollTrigger.create({
+            trigger: card,
+            start: 'top 30%',
+            end: () => `+=${window.innerHeight * 0.6}`,
+            pin: true,
+            pinSpacing: index === cards.length - 1, // Only last card adds spacing
+            scrub: true,
+            onUpdate: (self) => {
+              // Scale and opacity effect as card scrolls away
+              const progress = self.progress;
+              if (index < cards.length - 1) {
+                gsap.to(card, {
+                  scale: 1 - progress * 0.1,
+                  opacity: 1 - progress * 0.3,
+                  duration: 0.1,
+                });
+              }
+            },
+          });
+
+          // Entry animation
+          gsap.fromTo(
+            card,
+            {
+              opacity: 0,
+              y: 100,
+              scale: 0.9,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 90%',
+                end: 'top 50%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        });
+      } else {
+        // Desktop: Horizontal scroll with sticky effect
+        const cards = cardsRef.current.filter(Boolean);
+        const container = cardsContainerRef.current;
+        
+        if (container && cards.length > 0) {
+          // Pin the container and scroll horizontally
+          const totalWidth = cards.length * (window.innerWidth * 0.5);
+          
+          gsap.to(container, {
+            x: () => -(totalWidth - window.innerWidth + 200),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 10%',
+              end: () => `+=${totalWidth}`,
+              pin: true,
+              scrub: 1,
+              anticipatePin: 1,
+            },
+          });
+
+          // Individual card animations during horizontal scroll
+          cards.forEach((card, index) => {
+            gsap.fromTo(
+              card,
+              {
+                opacity: 0,
+                scale: 0.8,
+                rotateY: -15,
+              },
+              {
+                opacity: 1,
+                scale: 1,
+                rotateY: 0,
+                duration: 0.5,
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: gsap.getById('horizontal-scroll'),
+                  start: 'left 80%',
+                  end: 'left 50%',
+                  toggleActions: 'play none none reverse',
+                },
+              }
+            );
+          });
+        }
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   const addToRefs = (el: HTMLDivElement | null, index: number) => {
     if (el) cardsRef.current[index] = el;
@@ -182,7 +221,7 @@ export const Education = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 md:py-32 px-4 sm:px-6 relative overflow-hidden"
+      className="relative overflow-hidden"
     >
       {/* Floating background orbs */}
       <div ref={floatingRef} className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -196,7 +235,7 @@ export const Education = () => {
         {[...Array(6)].map((_, i) => (
           <Sparkles
             key={i}
-            className={`sparkle absolute text-accent/30 w-4 h-4 md:w-6 md:h-6`}
+            className="edu-sparkle absolute text-accent/30 w-4 h-4 md:w-6 md:h-6"
             style={{
               top: `${15 + i * 15}%`,
               left: `${10 + (i % 3) * 35}%`,
@@ -205,9 +244,9 @@ export const Education = () => {
         ))}
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="py-20 md:py-32 px-4 sm:px-6">
         {/* Section Title */}
-        <div ref={titleRef} className="text-center mb-16 md:mb-24" style={{ perspective: '1000px' }}>
+        <div ref={titleRef} className="text-center mb-16 md:mb-24 max-w-6xl mx-auto relative z-10">
           <span className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4 border border-accent/20">
             Academic Journey
           </span>
@@ -219,77 +258,97 @@ export const Education = () => {
           </p>
         </div>
 
-        {/* Education Cards - Timeline Layout */}
-        <div className="relative">
-          {/* Vertical line for desktop */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-accent/30 to-transparent" />
-
-          <div className="space-y-8 md:space-y-0">
-            {educationData.map((edu, index) => (
+        {/* Education Cards */}
+        <div 
+          ref={cardsContainerRef}
+          className={`relative z-10 ${
+            isMobile 
+              ? 'flex flex-col gap-6 max-w-lg mx-auto' 
+              : 'flex gap-8 pl-[10%]'
+          }`}
+          style={!isMobile ? { width: 'fit-content' } : {}}
+        >
+          {educationData.map((edu, index) => (
+            <div
+              key={edu.id}
+              ref={(el) => addToRefs(el, index)}
+              className={`relative ${
+                isMobile 
+                  ? 'w-full' 
+                  : 'w-[45vw] max-w-xl flex-shrink-0'
+              }`}
+              style={{ perspective: '1000px' }}
+            >
+              {/* Card */}
               <div
-                key={edu.id}
-                ref={(el) => addToRefs(el, index)}
-                className={`relative md:w-[calc(50%-2rem)] ${
-                  index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
-                }`}
-                style={{ perspective: '1000px' }}
+                className={`group relative p-6 md:p-8 rounded-2xl bg-gradient-to-br ${edu.color} backdrop-blur-sm border ${edu.borderColor} hover:border-accent/50 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 bg-background/80`}
               >
-                {/* Connector dot for desktop */}
-                <div
-                  className={`hidden md:flex absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-accent border-4 border-background z-10 ${
-                    index % 2 === 0 ? '-right-2' : '-left-2'
-                  }`}
-                />
+                {/* Card number indicator */}
+                <div className="absolute -top-3 -left-3 w-8 h-8 md:w-10 md:h-10 rounded-full bg-background border-2 border-accent flex items-center justify-center text-accent font-bold text-sm md:text-base shadow-lg">
+                  {index + 1}
+                </div>
 
-                {/* Card */}
-                <div
-                  className={`group relative p-6 md:p-8 rounded-2xl bg-gradient-to-br ${edu.color} backdrop-blur-sm border border-border/50 hover:border-accent/50 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10`}
-                >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/0 via-accent/0 to-accent/0 group-hover:from-accent/5 group-hover:via-transparent group-hover:to-accent/5 transition-all duration-500" />
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/0 via-accent/0 to-accent/0 group-hover:from-accent/5 group-hover:via-transparent group-hover:to-accent/5 transition-all duration-500" />
 
-                  <div className="relative z-10">
-                    {/* Icon */}
-                    <div
-                      className={`edu-icon inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-xl ${edu.iconBg} mb-4`}
-                    >
-                      <edu.icon className={`w-7 h-7 md:w-8 md:h-8 ${edu.iconColor}`} />
-                    </div>
+                <div className="relative z-10 pt-2">
+                  {/* Icon */}
+                  <div
+                    className={`edu-icon inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-xl ${edu.iconBg} mb-4`}
+                  >
+                    <edu.icon className={`w-7 h-7 md:w-8 md:h-8 ${edu.iconColor}`} />
+                  </div>
 
-                    {/* Content */}
-                    <div className="space-y-2">
-                      <h3 className="edu-text text-xl md:text-2xl font-display font-bold text-foreground">
-                        {edu.level}
-                      </h3>
-                      <p className="edu-text text-base md:text-lg font-medium text-foreground/90">
-                        {edu.school}
-                      </p>
-                      <p className="edu-text text-sm md:text-base text-muted-foreground font-body">
-                        {edu.location}
-                      </p>
-                    </div>
+                  {/* Content */}
+                  <div className="space-y-2">
+                    <h3 className="edu-text text-xl md:text-2xl font-display font-bold text-foreground">
+                      {edu.level}
+                    </h3>
+                    <p className="edu-text text-base md:text-lg font-medium text-foreground/90">
+                      {edu.school}
+                    </p>
+                    <p className="edu-text text-sm md:text-base text-muted-foreground font-body">
+                      {edu.location}
+                    </p>
+                  </div>
 
-                    {/* Status Badge */}
-                    <div
-                      className={`status-badge inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full text-xs font-medium ${
-                        edu.status === 'Pursuing'
-                          ? 'bg-accent/20 text-accent border border-accent/30'
-                          : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                  {/* Status Badge */}
+                  <div
+                    className={`status-badge inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full text-xs font-medium ${
+                      edu.status === 'Pursuing'
+                        ? 'bg-accent/20 text-accent border border-accent/30'
+                        : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        edu.status === 'Pursuing' ? 'bg-accent animate-pulse' : 'bg-emerald-400'
                       }`}
-                    >
-                      <span
-                        className={`w-1.5 h-1.5 rounded-full ${
-                          edu.status === 'Pursuing' ? 'bg-accent animate-pulse' : 'bg-emerald-400'
-                        }`}
-                      />
-                      {edu.status}
-                    </div>
+                    />
+                    {edu.status}
                   </div>
                 </div>
+
+                {/* Progress line for mobile */}
+                {isMobile && index < educationData.length - 1 && (
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-accent/50 to-transparent" />
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+
+        {/* Scroll indicator for mobile */}
+        {isMobile && (
+          <div className="flex justify-center mt-12">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
+              <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center pt-2">
+                <div className="w-1 h-2 bg-accent rounded-full animate-bounce" />
+              </div>
+              <span>Scroll to explore</span>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
