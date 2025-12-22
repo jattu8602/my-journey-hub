@@ -1,7 +1,6 @@
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/Hero';
 import { Journey } from '@/components/Journey';
-import { GitHubRepos } from '@/components/GitHubRepos';
 import { useLenis } from '@/hooks/useLenis';
 
 const Index = () => {
@@ -12,7 +11,6 @@ const Index = () => {
       <Navigation />
       <Hero />
       <Journey />
-      <GitHubRepos />
       
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-border">
