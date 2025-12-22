@@ -2,11 +2,13 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 const roles = ['Design', 'Development', 'Deployment', 'Innovation', 'Solutions'];
+const nicknames = ['Jatin', 'Justin', 'Jattu'];
 
 export const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const roleRef = useRef<HTMLSpanElement>(null);
+  const nicknameRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
@@ -39,7 +41,6 @@ export const Hero = () => {
               setTimeout(type, 80);
             } else {
               setTimeout(() => {
-                // Delete characters
                 const deleteChar = () => {
                   if (roleRef.current!.textContent!.length > 0) {
                     roleRef.current!.textContent = roleRef.current!.textContent!.slice(0, -1);
@@ -57,7 +58,40 @@ export const Hero = () => {
         }
       };
 
+      // Typewriter effect for nicknames
+      let nicknameIndex = 0;
+      const typeNickname = () => {
+        if (nicknameRef.current) {
+          const nickname = nicknames[nicknameIndex];
+          let charIndex = 0;
+          nicknameRef.current.textContent = '';
+          
+          const type = () => {
+            if (charIndex < nickname.length) {
+              nicknameRef.current!.textContent += nickname[charIndex];
+              charIndex++;
+              setTimeout(type, 100);
+            } else {
+              setTimeout(() => {
+                const deleteChar = () => {
+                  if (nicknameRef.current!.textContent!.length > 0) {
+                    nicknameRef.current!.textContent = nicknameRef.current!.textContent!.slice(0, -1);
+                    setTimeout(deleteChar, 60);
+                  } else {
+                    nicknameIndex = (nicknameIndex + 1) % nicknames.length;
+                    setTimeout(typeNickname, 400);
+                  }
+                };
+                deleteChar();
+              }, 1800);
+            }
+          };
+          type();
+        }
+      };
+
       setTimeout(typeRole, 1200);
+      setTimeout(typeNickname, 800);
     }, heroRef);
 
     return () => ctx.revert();
@@ -76,10 +110,16 @@ export const Hero = () => {
       </div>
 
       <div className="text-center z-10 max-w-5xl">
-        {/* Greeting */}
-        <p className="text-muted-foreground text-lg md:text-xl mb-4 font-body">
-          Hello, I'm
-        </p>
+        {/* Greeting with nickname */}
+        <div className="text-muted-foreground text-lg md:text-xl mb-4 font-body flex items-center justify-center gap-2">
+          <span>Hello, I'm</span>
+          <span
+            ref={nicknameRef}
+            className="text-accent font-medium min-w-[80px] text-left inline-block"
+          >
+            Jatin
+          </span>
+        </div>
 
         {/* Name */}
         <h1
@@ -110,13 +150,6 @@ export const Hero = () => {
           Building modern web solutions with passion and precision.
         </p>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-sm text-muted-foreground font-body">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" />
-          </div>
-        </div>
       </div>
     </section>
   );
