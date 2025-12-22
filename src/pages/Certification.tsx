@@ -132,44 +132,66 @@ const Certification = () => {
           </div>
 
           {/* Certificates Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredCertificates.map((cert, index) => (
               <div
                 key={cert.id}
-                className="group journey-card overflow-hidden"
+                className="group relative"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/90 to-transparent" />
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-display font-bold mb-2 text-foreground group-hover:text-accent transition-colors">
-                    {cert.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {cert.description}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {cert.tags.map((tag) => (
-                      <Badge
-                        key={tag}
-                        variant="secondary"
-                        className="text-xs bg-secondary/50 hover:bg-accent hover:text-accent-foreground transition-colors"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
+                {/* Glow effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/50 via-primary/50 to-accent/50 rounded-2xl blur opacity-0 group-hover:opacity-75 transition-all duration-500" />
+                
+                {/* Card */}
+                <div className="relative bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden transition-all duration-500 group-hover:border-accent/50 group-hover:translate-y-[-4px]">
+                  {/* Image with overlay */}
+                  <div className="relative h-52 overflow-hidden">
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent opacity-90" />
+                    
+                    {/* Category badge floating */}
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 text-xs font-medium bg-accent/90 text-accent-foreground rounded-full backdrop-blur-sm">
+                        {cert.category === 'skills' && '🎯 Skill'}
+                        {cert.category === 'hackathons' && '🏆 Hackathon'}
+                        {cert.category === 'events' && '🎪 Event'}
+                        {cert.category === 'others' && '✨ Other'}
+                      </span>
+                    </div>
+                    
+                    {/* Title overlay on image */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <h3 className="text-xl font-display font-bold text-foreground group-hover:text-accent transition-colors duration-300 line-clamp-2">
+                        {cert.title}
+                      </h3>
+                    </div>
                   </div>
+
+                  {/* Content */}
+                  <div className="p-5 pt-3">
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2 leading-relaxed">
+                      {cert.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {cert.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1.5 text-xs font-medium bg-secondary/30 text-secondary-foreground/80 rounded-lg border border-border/30 hover:bg-accent/20 hover:text-accent hover:border-accent/30 transition-all duration-300 cursor-default"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom accent line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </div>
             ))}
