@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -18,7 +18,7 @@ type PieceData = { piece: string; color: 'white' | 'black' };
 type BoardState = { [key: string]: PieceData };
 
 // Initial chess setup
-const getInitialBoard = (): BoardState => ({
+const initialBoard: BoardState = {
   '0-0': { piece: pieces.rook, color: 'black' },
   '0-1': { piece: pieces.knight, color: 'black' },
   '0-2': { piece: pieces.bishop, color: 'black' },
@@ -51,100 +51,11 @@ const getInitialBoard = (): BoardState => ({
   '7-5': { piece: pieces.bishop, color: 'white' },
   '7-6': { piece: pieces.knight, color: 'white' },
   '7-7': { piece: pieces.rook, color: 'white' },
-});
-
-// A simplified draw game (repetition draw scenario)
-const gameMoves = [
-  { from: '6-4', to: '4-4' }, // e4
-  { from: '1-4', to: '3-4' }, // e5
-  { from: '7-6', to: '5-5' }, // Nf3
-  { from: '0-6', to: '2-5' }, // Nf6
-  { from: '5-5', to: '3-4' }, // Nxe5
-  { from: '1-3', to: '2-3' }, // d6
-  { from: '3-4', to: '5-5' }, // Nf3
-  { from: '2-5', to: '4-4' }, // Nxe4
-  { from: '7-3', to: '4-0' }, // Qe2 (using different path)
-  { from: '4-4', to: '5-6' }, // Ng5 (knight retreat)
-  { from: '4-0', to: '4-4' }, // Qe4+
-  { from: '0-5', to: '1-4' }, // Be7
-  { from: '4-4', to: '1-7' }, // Qh4 
-  { from: '5-6', to: '4-4' }, // Ne4
-  { from: '1-7', to: '4-4' }, // Qxe4
-  { from: '1-4', to: '4-7' }, // Bh4
-  { from: '4-4', to: '4-7' }, // Qxh4
-  { from: '0-4', to: '1-4' }, // Kd7
-  { from: '4-7', to: '1-4' }, // Qxd7 - simplified
-  // Draw by agreement after material exchange
-];
+};
 
 const ChessBoard = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
-  const [boardState, setBoardState] = useState<BoardState>(getInitialBoard());
-  const [currentMoveIndex, setCurrentMoveIndex] = useState(-1);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isStable, setIsStable] = useState(false);
-  const [gameComplete, setGameComplete] = useState(false);
-  const playIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const pieceRefs = useRef<{ [key: string]: HTMLSpanElement | null }>({});
-
-  // Apply a move with animation
-  const applyMove = useCallback((moveIndex: number, reverse: boolean = false) => {
-    if (moveIndex < 0 || moveIndex >= gameMoves.length) return;
-    
-    const move = gameMoves[moveIndex];
-    const from = reverse ? move.to : move.from;
-    const to = reverse ? move.from : move.to;
-    
-    setBoardState(prev => {
-      const newState = { ...prev };
-      const piece = newState[from];
-      if (piece) {
-        delete newState[from];
-        newState[to] = piece;
-      }
-      return newState;
-    });
-  }, []);
-
-  // Play game forward automatically
-  const playForward = useCallback(() => {
-    if (playIntervalRef.current) {
-      clearInterval(playIntervalRef.current);
-    }
-    
-    setIsPlaying(true);
-    let index = currentMoveIndex;
-    
-    playIntervalRef.current = setInterval(() => {
-      index++;
-      if (index >= gameMoves.length) {
-        if (playIntervalRef.current) {
-          clearInterval(playIntervalRef.current);
-        }
-        setIsPlaying(false);
-        setGameComplete(true);
-        return;
-      }
-      setCurrentMoveIndex(index);
-      applyMove(index, false);
-    }, 800); // Move every 800ms
-  }, [currentMoveIndex, applyMove]);
-
-  // Reverse game quickly
-  const reverseGame = useCallback(() => {
-    if (playIntervalRef.current) {
-      clearInterval(playIntervalRef.current);
-    }
-    
-    setIsPlaying(true);
-    setGameComplete(false);
-    
-    // Reset to initial state immediately
-    setBoardState(getInitialBoard());
-    setCurrentMoveIndex(-1);
-    setIsPlaying(false);
-  }, []);
 
   useEffect(() => {
     if (!containerRef.current || !boardRef.current) return;
@@ -168,13 +79,6 @@ const ChessBoard = () => {
             start: 'top 80%',
             end: 'center center',
             scrub: 0.5,
-            onEnter: () => setIsStable(false),
-            onLeave: () => setIsStable(true),
-            onEnterBack: () => {
-              setIsStable(false);
-              reverseGame();
-            },
-            onLeaveBack: () => setIsStable(false),
           },
         }
       );
@@ -198,28 +102,13 @@ const ChessBoard = () => {
       );
     }, containerRef);
 
-    return () => {
-      ctx.revert();
-      if (playIntervalRef.current) {
-        clearInterval(playIntervalRef.current);
-      }
-    };
-  }, [reverseGame]);
-
-  // Start playing when board becomes stable
-  useEffect(() => {
-    if (isStable && !isPlaying && currentMoveIndex < gameMoves.length - 1 && !gameComplete) {
-      const timer = setTimeout(() => {
-        playForward();
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [isStable, isPlaying, currentMoveIndex, gameComplete, playForward]);
+    return () => ctx.revert();
+  }, []);
 
   const renderSquare = (row: number, col: number) => {
     const isLight = (row + col) % 2 === 0;
     const key = `${row}-${col}`;
-    const pieceData = boardState[key];
+    const pieceData = initialBoard[key];
 
     return (
       <div
@@ -236,9 +125,8 @@ const ChessBoard = () => {
       >
         {pieceData && (
           <span
-            ref={(el) => { pieceRefs.current[key] = el; }}
             className={`
-              chess-piece leading-none select-none transition-all duration-300
+              chess-piece leading-none select-none
               text-[1.5rem] sm:text-[2rem] md:text-[2.5rem]
               ${pieceData.color === 'white' ? 'text-white' : 'text-gray-900'}
             `}
@@ -265,16 +153,6 @@ const ChessBoard = () => {
         <p className="text-muted-foreground font-body text-lg">
           1600+ rated on Chess.com • Strategic thinking applied to code
         </p>
-        {isPlaying && (
-          <p className="text-primary font-body text-sm mt-2 animate-pulse">
-            Game in progress...
-          </p>
-        )}
-        {gameComplete && (
-          <p className="text-green-500 font-body text-sm mt-2 font-semibold">
-            Game Over — Draw! ½-½
-          </p>
-        )}
       </div>
 
       {/* Chess board with 3D perspective */}
