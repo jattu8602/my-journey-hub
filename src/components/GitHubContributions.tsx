@@ -3,17 +3,30 @@ import { Github, ExternalLink } from 'lucide-react';
 
 export const GitHubContributions = () => {
   const [loading, setLoading] = useState(true);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const tabletScrollRef = useRef<HTMLDivElement>(null);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (imgRef.current) {
-      imgRef.current.onload = () => setLoading(false);
-      imgRef.current.onerror = () => setLoading(false);
-    }
-  }, []);
+  // Auto-scroll to the right (current day) when image loads
+  const handleImageLoad = () => {
+    setLoading(false);
+    
+    // Scroll all containers to the right (current contributions)
+    setTimeout(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+      }
+      if (tabletScrollRef.current) {
+        tabletScrollRef.current.scrollLeft = tabletScrollRef.current.scrollWidth;
+      }
+      if (mobileScrollRef.current) {
+        mobileScrollRef.current.scrollLeft = mobileScrollRef.current.scrollWidth;
+      }
+    }, 100);
+  };
 
   return (
-    <section className="py-12 sm:py-20 px-4 sm:px-6">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 overflow-x-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6 sm:mb-10">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-3 sm:mb-4">
@@ -46,52 +59,66 @@ export const GitHubContributions = () => {
             </a>
           </div>
 
-          {/* Contribution Graph - Desktop */}
-          <div className="hidden md:block relative">
+          {/* Contribution Graph - Desktop (scrollable for full timeline) */}
+          <div 
+            ref={scrollContainerRef}
+            className="hidden md:block relative overflow-x-auto scrollbar-thin pb-2"
+          >
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+              <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
                 <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
               </div>
             )}
             <img
-              ref={imgRef}
-              src="https://ghchart.rshah.org/22c55e/jattu8602"
-              alt="GitHub Contributions"
-              className="w-full rounded-lg"
-              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
+              src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
+              alt="GitHub Contributions - Full Timeline"
+              className="min-w-[900px] h-auto rounded-lg"
+              style={{ filter: 'brightness(0.95) contrast(1.05)' }}
+              onLoad={handleImageLoad}
+              onError={() => setLoading(false)}
             />
           </div>
 
           {/* Contribution Graph - Tablet */}
-          <div className="hidden sm:block md:hidden relative overflow-x-auto">
+          <div 
+            ref={tabletScrollRef}
+            className="hidden sm:block md:hidden relative overflow-x-auto scrollbar-thin pb-2"
+          >
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+              <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
                 <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
               </div>
             )}
             <img
-              src="https://ghchart.rshah.org/22c55e/jattu8602"
-              alt="GitHub Contributions"
-              className="min-w-[600px] rounded-lg"
-              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
+              src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
+              alt="GitHub Contributions - Full Timeline"
+              className="min-w-[800px] h-auto rounded-lg"
+              style={{ filter: 'brightness(0.95) contrast(1.05)' }}
+              onLoad={handleImageLoad}
+              onError={() => setLoading(false)}
             />
           </div>
 
           {/* Contribution Graph - Mobile */}
-          <div className="block sm:hidden relative overflow-x-auto pb-2">
+          <div 
+            ref={mobileScrollRef}
+            className="block sm:hidden relative overflow-x-auto scrollbar-thin pb-2"
+          >
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+              <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
                 <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />
               </div>
             )}
             <img
-              src="https://ghchart.rshah.org/22c55e/jattu8602"
-              alt="GitHub Contributions"
-              className="min-w-[500px] rounded-lg"
-              style={{ filter: 'brightness(0.9) contrast(1.1)' }}
+              src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
+              alt="GitHub Contributions - Full Timeline"
+              className="min-w-[600px] h-auto rounded-lg"
+              style={{ filter: 'brightness(0.95) contrast(1.05)' }}
+              onLoad={handleImageLoad}
+              onError={() => setLoading(false)}
             />
             <p className="text-muted-foreground text-xs mt-2 text-center">
-              ← Scroll to view full graph →
+              ← Swipe to see full history →
             </p>
           </div>
 
@@ -99,9 +126,9 @@ export const GitHubContributions = () => {
           <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-6 pt-6 border-t border-border">
             <div className="text-center">
               <div className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-accent">
-                1yr
+                Full
               </div>
-              <div className="text-muted-foreground text-xs sm:text-sm">Activity</div>
+              <div className="text-muted-foreground text-xs sm:text-sm">Timeline</div>
             </div>
             <div className="text-center">
               <div className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-foreground">
