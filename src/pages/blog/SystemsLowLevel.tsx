@@ -493,24 +493,7 @@ void good_traversal(int matrix[1000][1000]) {
                     />
 
                     <RunnableCode
-                      code={`// Simulating cache access patterns
-const cacheLineSize = 64; // bytes
-const intSize = 4; // bytes
-
-const intsPerCacheLine = cacheLineSize / intSize;
-
-const matrixSize = 1000;
-const totalAccesses = matrixSize * matrixSize;
-
-// Row-major: sequential access
-const rowMajorCacheLoads = totalAccesses / intsPerCacheLine;
-
-// Column-major: every access is new cache line
-const colMajorCacheLoads = totalAccesses;
-
-\`Row-major cache loads: \${rowMajorCacheLoads.toLocaleString()}
-Column-major cache loads: \${colMajorCacheLoads.toLocaleString()}
-Difference: \${(colMajorCacheLoads / rowMajorCacheLoads).toFixed(0)}x more loads!\`;}
+                      code={"// Simulating cache access patterns\nconst cacheLineSize = 64; // bytes\nconst intSize = 4; // bytes\n\nconst intsPerCacheLine = cacheLineSize / intSize;\n\nconst matrixSize = 1000;\nconst totalAccesses = matrixSize * matrixSize;\n\n// Row-major: sequential access\nconst rowMajorCacheLoads = totalAccesses / intsPerCacheLine;\n\n// Column-major: every access is new cache line\nconst colMajorCacheLoads = totalAccesses;\n\n\"Row-major cache loads: \" + rowMajorCacheLoads.toLocaleString() + \"\\nColumn-major cache loads: \" + colMajorCacheLoads.toLocaleString() + \"\\nDifference: \" + (colMajorCacheLoads / rowMajorCacheLoads).toFixed(0) + \"x more loads!\";"}
                       language="javascript"
                       filename="Cache Analysis"
                       onRun={() => {
@@ -521,7 +504,7 @@ Difference: \${(colMajorCacheLoads / rowMajorCacheLoads).toFixed(0)}x more loads
                         const totalAccesses = matrixSize * matrixSize;
                         const rowMajorCacheLoads = totalAccesses / intsPerCacheLine;
                         const colMajorCacheLoads = totalAccesses;
-                        return `Row-major cache loads: ${rowMajorCacheLoads.toLocaleString()}\nColumn-major cache loads: ${colMajorCacheLoads.toLocaleString()}\nDifference: ${(colMajorCacheLoads / rowMajorCacheLoads).toFixed(0)}x more loads!`;
+                        return "Row-major cache loads: " + rowMajorCacheLoads.toLocaleString() + "\nColumn-major cache loads: " + colMajorCacheLoads.toLocaleString() + "\nDifference: " + (colMajorCacheLoads / rowMajorCacheLoads).toFixed(0) + "x more loads!";
                       }}
                     />
                   </section>
@@ -588,14 +571,12 @@ Difference: \${(colMajorCacheLoads / rowMajorCacheLoads).toFixed(0)}x more loads
 
                     <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
                       <h4 className="font-bold text-foreground mb-3">The Memory Wall</h4>
-                      <pre className="text-sm font-mono text-muted-foreground">
-{`CPU Speed:     ~3 GHz = 0.3 ns per cycle
-RAM Latency:   ~100 ns = 300+ cycles
-
-While waiting for RAM, CPU could have executed 300 instructions!
-
-This gap is called the "Memory Wall" and it's growing.
-Caches are the solution - keep frequently used data close.`}
+                      <pre className="text-sm font-mono text-muted-foreground whitespace-pre-wrap">
+                        CPU Speed:     ~3 GHz = 0.3 ns per cycle{'\n'}
+                        RAM Latency:   ~100 ns = 300+ cycles{'\n\n'}
+                        While waiting for RAM, CPU could have executed 300 instructions!{'\n\n'}
+                        This gap is called the "Memory Wall" and it's growing.{'\n'}
+                        Caches are the solution - keep frequently used data close.
                       </pre>
                     </div>
                   </section>
@@ -957,19 +938,7 @@ function amdahlSpeedup(parallelFraction: number, cores: number): number {
                     />
 
                     <RunnableCode
-                      code={`// Calculate Amdahl's Law speedup
-function amdahlSpeedup(parallelFraction, cores) {
-    const sequential = 1 - parallelFraction;
-    return 1 / (sequential + parallelFraction / cores);
-}
-
-const parallel = 0.95; // 95% parallelizable
-
-const results = [1, 2, 4, 8, 16, 64, 1000].map(cores => 
-    \`\${cores} cores: \${amdahlSpeedup(parallel, cores).toFixed(2)}x speedup\`
-);
-
-results.join('\\n') + '\\n\\nMax theoretical: ' + (1/(1-parallel)).toFixed(0) + 'x';`}
+                      code={"// Calculate Amdahl's Law speedup\nfunction amdahlSpeedup(parallelFraction, cores) {\n    const sequential = 1 - parallelFraction;\n    return 1 / (sequential + parallelFraction / cores);\n}\n\nconst parallel = 0.95; // 95% parallelizable\n\nconst results = [1, 2, 4, 8, 16, 64, 1000].map(cores => \n    cores + \" cores: \" + amdahlSpeedup(parallel, cores).toFixed(2) + \"x speedup\"\n);\n\nresults.join('\\n') + '\\n\\nMax theoretical: ' + (1/(1-parallel)).toFixed(0) + 'x';"}
                       language="javascript"
                       filename="Amdahl's Law Calculator"
                       onRun={() => {
@@ -979,7 +948,7 @@ results.join('\\n') + '\\n\\nMax theoretical: ' + (1/(1-parallel)).toFixed(0) + 
                         }
                         const parallel = 0.95;
                         const results = [1, 2, 4, 8, 16, 64, 1000].map(cores => 
-                            `${cores} cores: ${amdahlSpeedup(parallel, cores).toFixed(2)}x speedup`
+                            cores + " cores: " + amdahlSpeedup(parallel, cores).toFixed(2) + "x speedup"
                         );
                         return results.join('\n') + '\n\nMax theoretical: ' + (1/(1-parallel)).toFixed(0) + 'x';
                       }}
