@@ -17,6 +17,7 @@ import BeginnerWebDev from "./pages/blog/BeginnerWebDev";
 import SystemsLowLevel from "./pages/blog/SystemsLowLevel";
 import AlgorithmsBeyondDSA from "./pages/blog/AlgorithmsBeyondDSA";
 import BackendDistributed from "./pages/blog/BackendDistributed";
+import SecurityCoding from "./pages/blog/SecurityCoding";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/blog/systems-low-level" element={<SystemsLowLevel />} />
           <Route path="/blog/algorithms-beyond-dsa" element={<AlgorithmsBeyondDSA />} />
           <Route path="/blog/backend-distributed" element={<BackendDistributed />} />
+          <Route path="/blog/security-coding" element={<SecurityCoding />} />
           <Route path="/code" element={<Code />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
