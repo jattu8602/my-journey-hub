@@ -101,7 +101,7 @@ export const Journey = () => {
         // Sticky heading at 30% from top with smooth transitions
         ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: 'top 30%',
+          start: 'top 35%',
           end: 'bottom 60%',
           pin: headingWrapperRef.current,
           pinSpacing: false,
@@ -212,7 +212,7 @@ export const Journey = () => {
         {/* Section heading wrapper for sticky behavior */}
         <div
           ref={headingWrapperRef}
-          className="md:absolute md:left-0 md:right-0 md:top-[30vh] md:z-20 pointer-events-none"
+          className="md:absolute md:left-0 md:right-0 md:top-[35vh] md:z-20 pointer-events-none"
         >
           <h2
             ref={headingRef}
