@@ -9,9 +9,10 @@ interface TOCItem {
 
 interface TableOfContentsProps {
   items: TOCItem[];
+  onItemClick?: () => void;
 }
 
-const TableOfContents = ({ items }: TableOfContentsProps) => {
+const TableOfContents = ({ items, onItemClick }: TableOfContentsProps) => {
   const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
@@ -40,11 +41,12 @@ const TableOfContents = ({ items }: TableOfContentsProps) => {
       const offset = 100;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+      onItemClick?.();
     }
   };
 
   return (
-    <nav className="sticky top-28">
+    <nav>
       <h4 className="text-sm font-display font-bold text-foreground mb-4 uppercase tracking-wider">
         On This Page
       </h4>
