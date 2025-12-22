@@ -142,9 +142,9 @@ const Certification = () => {
                 {/* Certificate Frame */}
                 <div className="relative bg-[#faf8f5] dark:bg-[#1a1916] border-4 border-double border-amber-700/60 dark:border-amber-600/40 rounded-sm p-1">
                   {/* Inner border */}
-                  <div className="border border-amber-600/30 dark:border-amber-500/20 p-3">
+                  <div className="border border-amber-600/30 dark:border-amber-500/20 p-4">
                     {/* Certificate Image - A4 Landscape ratio (1.414:1) */}
-                    <div className="relative aspect-[1.414/1] border border-amber-600/20 dark:border-amber-500/15 overflow-hidden">
+                    <div className="relative aspect-[1.414/1] mb-4 border border-amber-600/20 dark:border-amber-500/15 overflow-hidden">
                       <img
                         src={cert.image}
                         alt={cert.title}
@@ -152,21 +152,33 @@ const Certification = () => {
                       />
                     </div>
                     
-                    {/* Title & Tags overlay at bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4">
-                      <h3 className="text-base font-display font-bold text-white mb-2 line-clamp-1">
-                        {cert.title}
-                      </h3>
-                      <div className="flex flex-wrap gap-1.5">
-                        {cert.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-amber-200 border border-amber-400/40 rounded-sm bg-amber-900/30"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                    {/* Certificate Title */}
+                    <h3 className="text-lg font-display font-bold text-center text-amber-900 dark:text-amber-100 mb-2 leading-tight">
+                      {cert.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-xs text-center text-amber-800/70 dark:text-amber-200/60 mb-4 line-clamp-2 leading-relaxed italic">
+                      {cert.description}
+                    </p>
+                    
+                    {/* Decorative line */}
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <div className="h-px w-8 bg-amber-600/30 dark:bg-amber-500/20" />
+                      <div className="w-2 h-2 rotate-45 border border-amber-600/40 dark:border-amber-500/30" />
+                      <div className="h-px w-8 bg-amber-600/30 dark:bg-amber-500/20" />
+                    </div>
+
+                    {/* Tags as seal/stamps */}
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {cert.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-amber-700 dark:text-amber-400 border border-amber-600/40 dark:border-amber-500/30 rounded-sm bg-amber-50/50 dark:bg-amber-900/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
