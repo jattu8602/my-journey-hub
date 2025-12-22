@@ -71,18 +71,18 @@ const Code = () => {
     <div className="relative min-h-screen">
       <Navigation />
       
-      <section className="min-h-screen px-6 pt-24 pb-16">
+      <section className="min-h-screen px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="section-heading mb-6">Code<span className="accent-dot" /></h1>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="section-heading mb-4 sm:mb-6">Code<span className="accent-dot" /></h1>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto mb-4 px-2">
               My public repositories and open source contributions.
             </p>
             <a
               href="https://github.com/jattu8602"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-body"
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-body text-sm sm:text-base"
             >
               <Code2 className="w-5 h-5" />
               @jattu8602 on GitHub
@@ -91,9 +91,9 @@ const Code = () => {
           </div>
 
           {loading && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="journey-card p-6 animate-pulse">
+                <div key={i} className="journey-card p-4 sm:p-6 animate-pulse">
                   <div className="h-4 bg-muted rounded w-3/4 mb-3" />
                   <div className="h-3 bg-muted rounded w-full mb-2" />
                   <div className="h-3 bg-muted rounded w-2/3 mb-4" />
@@ -125,14 +125,14 @@ const Code = () => {
           )}
 
           {!loading && !error && repos.length > 0 && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {repos.map((repo) => (
                 <a
                   key={repo.id}
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="journey-card p-6 hover:border-accent/50 transition-all hover:-translate-y-1 group"
+                  className="journey-card p-4 sm:p-6 hover:border-accent/50 transition-all hover:-translate-y-1 group"
                 >
                   <div className="flex items-center gap-2 mb-3">
                     {repo.language && (
@@ -144,7 +144,7 @@ const Code = () => {
                     <ExternalLink className="w-4 h-4 ml-auto text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   
-                  <h3 className="text-xl font-display font-bold mb-2 group-hover:text-accent transition-colors">
+                  <h3 className="text-lg sm:text-xl font-display font-bold mb-2 group-hover:text-accent transition-colors break-words">
                     {repo.name}
                   </h3>
                   
@@ -152,7 +152,7 @@ const Code = () => {
                     {repo.description || 'No description available'}
                   </p>
 
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                  <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-3 flex-wrap">
                     <span className="flex items-center gap-1">
                       <Star className="w-4 h-4" />
                       {repo.stargazers_count}
