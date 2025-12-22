@@ -53,27 +53,128 @@ const getInitialBoard = (): BoardState => ({
   '7-7': { piece: pieces.rook, color: 'white' },
 });
 
-// A simplified draw game
-const gameMoves = [
-  { from: '6-4', to: '4-4' },
-  { from: '1-4', to: '3-4' },
-  { from: '7-6', to: '5-5' },
-  { from: '0-6', to: '2-5' },
-  { from: '5-5', to: '3-4' },
-  { from: '1-3', to: '2-3' },
-  { from: '3-4', to: '5-5' },
-  { from: '2-5', to: '4-4' },
-  { from: '7-3', to: '4-0' },
-  { from: '4-4', to: '5-6' },
-  { from: '4-0', to: '4-4' },
-  { from: '0-5', to: '1-4' },
-  { from: '4-4', to: '1-7' },
-  { from: '5-6', to: '4-4' },
-  { from: '1-7', to: '4-4' },
-  { from: '1-4', to: '4-7' },
-  { from: '4-4', to: '4-7' },
-  { from: '0-4', to: '1-4' },
-  { from: '4-7', to: '1-4' },
+// Collection of different chess games/openings
+const chessGames = [
+  // Italian Game
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
+    { from: '7-5', to: '4-2' }, { from: '7-5', to: '4-2' },
+    { from: '6-3', to: '5-3' }, { from: '0-5', to: '3-2' },
+    { from: '6-2', to: '4-2' }, { from: '2-2', to: '4-3' },
+  ],
+  // Sicilian Defense
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-2', to: '3-2' },
+    { from: '7-6', to: '5-5' }, { from: '1-3', to: '2-3' },
+    { from: '6-3', to: '4-3' }, { from: '3-2', to: '4-3' },
+    { from: '5-5', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '7-1', to: '5-2' }, { from: '6-0', to: '5-0' },
+  ],
+  // Queen's Gambit
+  [
+    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
+    { from: '6-2', to: '4-2' }, { from: '1-4', to: '3-4' },
+    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
+    { from: '7-2', to: '4-5' }, { from: '0-5', to: '3-2' },
+    { from: '4-2', to: '3-3' }, { from: '3-4', to: '4-3' },
+  ],
+  // Ruy Lopez
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
+    { from: '7-5', to: '2-0' }, { from: '1-0', to: '2-0' },
+    { from: '6-3', to: '5-3' }, { from: '0-6', to: '2-5' },
+    { from: '5-5', to: '3-4' }, { from: '2-2', to: '3-4' },
+  ],
+  // French Defense
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '2-4' },
+    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
+    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
+    { from: '4-4', to: '3-4' }, { from: '2-5', to: '3-3' },
+    { from: '7-6', to: '5-5' }, { from: '1-2', to: '2-2' },
+  ],
+  // Caro-Kann Defense
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-2', to: '2-2' },
+    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
+    { from: '4-4', to: '3-4' }, { from: '0-2', to: '2-4' },
+    { from: '7-6', to: '5-5' }, { from: '2-4', to: '3-5' },
+    { from: '7-5', to: '4-2' }, { from: '1-4', to: '2-4' },
+  ],
+  // King's Indian Defense
+  [
+    { from: '6-3', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '6-2', to: '4-2' }, { from: '1-6', to: '2-6' },
+    { from: '7-1', to: '5-2' }, { from: '0-5', to: '1-6' },
+    { from: '6-4', to: '4-4' }, { from: '1-3', to: '2-3' },
+    { from: '7-6', to: '5-5' }, { from: '0-4', to: '0-6' },
+  ],
+  // Scandinavian Defense
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-3', to: '3-3' },
+    { from: '4-4', to: '3-3' }, { from: '0-3', to: '3-3' },
+    { from: '7-1', to: '5-2' }, { from: '3-3', to: '4-0' },
+    { from: '6-3', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '7-6', to: '5-5' }, { from: '1-2', to: '2-2' },
+  ],
+  // Pirc Defense
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-3', to: '2-3' },
+    { from: '6-3', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '7-1', to: '5-2' }, { from: '1-6', to: '2-6' },
+    { from: '7-6', to: '5-5' }, { from: '0-5', to: '1-6' },
+    { from: '7-5', to: '4-2' }, { from: '0-4', to: '0-6' },
+  ],
+  // London System
+  [
+    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
+    { from: '7-2', to: '4-5' }, { from: '0-6', to: '2-5' },
+    { from: '6-4', to: '5-4' }, { from: '1-2', to: '2-2' },
+    { from: '7-1', to: '5-3' }, { from: '0-3', to: '1-2' },
+    { from: '7-6', to: '5-5' }, { from: '1-4', to: '2-4' },
+  ],
+  // Scotch Game
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
+    { from: '6-3', to: '4-3' }, { from: '3-4', to: '4-3' },
+    { from: '5-5', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '4-3', to: '2-2' }, { from: '1-1', to: '2-2' },
+  ],
+  // Vienna Game
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
+    { from: '7-5', to: '4-2' }, { from: '2-5', to: '4-4' },
+    { from: '7-3', to: '6-4' }, { from: '4-4', to: '5-2' },
+    { from: '6-3', to: '5-2' }, { from: '1-3', to: '2-3' },
+  ],
+  // Dutch Defense
+  [
+    { from: '6-3', to: '4-3' }, { from: '1-5', to: '3-5' },
+    { from: '6-6', to: '4-6' }, { from: '0-6', to: '2-5' },
+    { from: '7-5', to: '4-2' }, { from: '1-4', to: '2-4' },
+    { from: '7-6', to: '5-7' }, { from: '0-5', to: '3-2' },
+    { from: '6-2', to: '5-2' }, { from: '0-4', to: '0-6' },
+  ],
+  // English Opening
+  [
+    { from: '6-2', to: '4-2' }, { from: '1-4', to: '3-4' },
+    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
+    { from: '6-6', to: '5-6' }, { from: '1-3', to: '3-3' },
+    { from: '7-5', to: '4-2' }, { from: '0-5', to: '3-2' },
+    { from: '7-6', to: '5-5' }, { from: '0-4', to: '0-6' },
+  ],
+  // Bird's Opening
+  [
+    { from: '6-5', to: '4-5' }, { from: '1-3', to: '3-3' },
+    { from: '7-6', to: '5-5' }, { from: '0-6', to: '2-5' },
+    { from: '6-4', to: '5-4' }, { from: '1-6', to: '2-6' },
+    { from: '7-5', to: '4-2' }, { from: '0-5', to: '1-6' },
+    { from: '6-3', to: '5-3' }, { from: '0-4', to: '0-6' },
+  ],
 ];
 
 const ChessBoard = () => {
@@ -84,12 +185,18 @@ const ChessBoard = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStable, setIsStable] = useState(false);
   const [gameComplete, setGameComplete] = useState(false);
+  const [currentGame, setCurrentGame] = useState<typeof chessGames[0]>([]);
   const playIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const selectRandomGame = useCallback(() => {
+    const randomIndex = Math.floor(Math.random() * chessGames.length);
+    setCurrentGame(chessGames[randomIndex]);
+  }, []);
+
   const applyMove = useCallback((moveIndex: number) => {
-    if (moveIndex < 0 || moveIndex >= gameMoves.length) return;
+    if (moveIndex < 0 || moveIndex >= currentGame.length) return;
     
-    const move = gameMoves[moveIndex];
+    const move = currentGame[moveIndex];
     
     setBoardState(prev => {
       const newState = { ...prev };
@@ -100,7 +207,7 @@ const ChessBoard = () => {
       }
       return newState;
     });
-  }, []);
+  }, [currentGame]);
 
   const playForward = useCallback(() => {
     if (playIntervalRef.current) {
@@ -112,7 +219,7 @@ const ChessBoard = () => {
     
     playIntervalRef.current = setInterval(() => {
       index++;
-      if (index >= gameMoves.length) {
+      if (index >= currentGame.length) {
         if (playIntervalRef.current) {
           clearInterval(playIntervalRef.current);
         }
@@ -123,7 +230,7 @@ const ChessBoard = () => {
       setCurrentMoveIndex(index);
       applyMove(index);
     }, 800);
-  }, [currentMoveIndex, applyMove]);
+  }, [currentMoveIndex, currentGame.length, applyMove]);
 
   const reverseGame = useCallback(() => {
     if (playIntervalRef.current) {
@@ -134,7 +241,12 @@ const ChessBoard = () => {
     setBoardState(getInitialBoard());
     setCurrentMoveIndex(-1);
     setIsPlaying(false);
-  }, []);
+    selectRandomGame();
+  }, [selectRandomGame]);
+
+  useEffect(() => {
+    selectRandomGame();
+  }, [selectRandomGame]);
 
   useEffect(() => {
     if (!containerRef.current || !boardRef.current) return;
@@ -195,13 +307,13 @@ const ChessBoard = () => {
   }, [reverseGame]);
 
   useEffect(() => {
-    if (isStable && !isPlaying && currentMoveIndex < gameMoves.length - 1 && !gameComplete) {
+    if (isStable && !isPlaying && currentGame.length > 0 && currentMoveIndex < currentGame.length - 1 && !gameComplete) {
       const timer = setTimeout(() => {
         playForward();
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [isStable, isPlaying, currentMoveIndex, gameComplete, playForward]);
+  }, [isStable, isPlaying, currentMoveIndex, gameComplete, currentGame.length, playForward]);
 
   const renderSquare = (row: number, col: number) => {
     const isLight = (row + col) % 2 === 0;
