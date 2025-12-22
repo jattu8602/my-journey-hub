@@ -109,7 +109,7 @@ export const Education = () => {
       // Pin the entire sticky wrapper with smooth behavior
       ScrollTrigger.create({
         trigger: stickyWrapperRef.current,
-        start: 'top 8%',
+        start: 'top 40%',
         end: () => `+=${totalScrollDistance + 150}`,
         pin: true,
         pinSpacing: true,
