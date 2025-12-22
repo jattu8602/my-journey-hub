@@ -69,14 +69,15 @@ export const GitHubContributions = () => {
                 <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
               </div>
             )}
-            <img
-              src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
-              alt="GitHub Contributions - Full Timeline"
-              className="min-w-[900px] h-auto rounded-lg"
-              style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-              onLoad={handleImageLoad}
-              onError={() => setLoading(false)}
-            />
+            <div className="bg-white p-4 rounded-lg">
+              <img
+                src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
+                alt="GitHub Contributions - Full Timeline"
+                className="min-w-[900px] h-auto"
+                onLoad={handleImageLoad}
+                onError={() => setLoading(false)}
+              />
+            </div>
           </div>
 
           {/* Contribution Graph - Tablet */}
@@ -89,14 +90,15 @@ export const GitHubContributions = () => {
                 <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
               </div>
             )}
-            <img
-              src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
-              alt="GitHub Contributions - Full Timeline"
-              className="min-w-[800px] h-auto rounded-lg"
-              style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-              onLoad={handleImageLoad}
-              onError={() => setLoading(false)}
-            />
+            <div className="bg-white p-3 rounded-lg">
+              <img
+                src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
+                alt="GitHub Contributions - Full Timeline"
+                className="min-w-[800px] h-auto"
+                onLoad={handleImageLoad}
+                onError={() => setLoading(false)}
+              />
+            </div>
           </div>
 
           {/* Contribution Graph - Mobile */}
@@ -109,14 +111,15 @@ export const GitHubContributions = () => {
                 <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />
               </div>
             )}
-            <img
-              src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
-              alt="GitHub Contributions - Full Timeline"
-              className="min-w-[600px] h-auto rounded-lg"
-              style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-              onLoad={handleImageLoad}
-              onError={() => setLoading(false)}
-            />
+            <div className="bg-white p-2 rounded-lg">
+              <img
+                src="https://github-contributions-api.jogruber.de/v4/jattu8602?y=all"
+                alt="GitHub Contributions - Full Timeline"
+                className="min-w-[600px] h-auto"
+                onLoad={handleImageLoad}
+                onError={() => setLoading(false)}
+              />
+            </div>
             <p className="text-muted-foreground text-xs mt-2 text-center">
               ← Swipe to see full history →
             </p>
