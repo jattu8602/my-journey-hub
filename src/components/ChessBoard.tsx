@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -18,7 +18,7 @@ type PieceData = { piece: string; color: 'white' | 'black' };
 type BoardState = { [key: string]: PieceData };
 
 // Initial chess setup
-const initialBoard: BoardState = {
+const getInitialBoard = (): BoardState => ({
   '0-0': { piece: pieces.rook, color: 'black' },
   '0-1': { piece: pieces.knight, color: 'black' },
   '0-2': { piece: pieces.bishop, color: 'black' },
@@ -51,17 +51,95 @@ const initialBoard: BoardState = {
   '7-5': { piece: pieces.bishop, color: 'white' },
   '7-6': { piece: pieces.knight, color: 'white' },
   '7-7': { piece: pieces.rook, color: 'white' },
-};
+});
+
+// A simplified draw game
+const gameMoves = [
+  { from: '6-4', to: '4-4' },
+  { from: '1-4', to: '3-4' },
+  { from: '7-6', to: '5-5' },
+  { from: '0-6', to: '2-5' },
+  { from: '5-5', to: '3-4' },
+  { from: '1-3', to: '2-3' },
+  { from: '3-4', to: '5-5' },
+  { from: '2-5', to: '4-4' },
+  { from: '7-3', to: '4-0' },
+  { from: '4-4', to: '5-6' },
+  { from: '4-0', to: '4-4' },
+  { from: '0-5', to: '1-4' },
+  { from: '4-4', to: '1-7' },
+  { from: '5-6', to: '4-4' },
+  { from: '1-7', to: '4-4' },
+  { from: '1-4', to: '4-7' },
+  { from: '4-4', to: '4-7' },
+  { from: '0-4', to: '1-4' },
+  { from: '4-7', to: '1-4' },
+];
 
 const ChessBoard = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+  const [boardState, setBoardState] = useState<BoardState>(getInitialBoard());
+  const [currentMoveIndex, setCurrentMoveIndex] = useState(-1);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isStable, setIsStable] = useState(false);
+  const [gameComplete, setGameComplete] = useState(false);
+  const playIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const applyMove = useCallback((moveIndex: number) => {
+    if (moveIndex < 0 || moveIndex >= gameMoves.length) return;
+    
+    const move = gameMoves[moveIndex];
+    
+    setBoardState(prev => {
+      const newState = { ...prev };
+      const piece = newState[move.from];
+      if (piece) {
+        delete newState[move.from];
+        newState[move.to] = piece;
+      }
+      return newState;
+    });
+  }, []);
+
+  const playForward = useCallback(() => {
+    if (playIntervalRef.current) {
+      clearInterval(playIntervalRef.current);
+    }
+    
+    setIsPlaying(true);
+    let index = currentMoveIndex;
+    
+    playIntervalRef.current = setInterval(() => {
+      index++;
+      if (index >= gameMoves.length) {
+        if (playIntervalRef.current) {
+          clearInterval(playIntervalRef.current);
+        }
+        setIsPlaying(false);
+        setGameComplete(true);
+        return;
+      }
+      setCurrentMoveIndex(index);
+      applyMove(index);
+    }, 800);
+  }, [currentMoveIndex, applyMove]);
+
+  const reverseGame = useCallback(() => {
+    if (playIntervalRef.current) {
+      clearInterval(playIntervalRef.current);
+    }
+    
+    setGameComplete(false);
+    setBoardState(getInitialBoard());
+    setCurrentMoveIndex(-1);
+    setIsPlaying(false);
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current || !boardRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Board perspective animation - smooth scrub
       gsap.fromTo(
         boardRef.current,
         {
@@ -79,11 +157,17 @@ const ChessBoard = () => {
             start: 'top 80%',
             end: 'center center',
             scrub: 0.5,
+            onEnter: () => setIsStable(false),
+            onLeave: () => setIsStable(true),
+            onEnterBack: () => {
+              setIsStable(false);
+              reverseGame();
+            },
+            onLeaveBack: () => setIsStable(false),
           },
         }
       );
 
-      // Pieces fade in
       gsap.fromTo(
         '.chess-piece',
         { scale: 0.8, opacity: 0.5 },
@@ -102,13 +186,27 @@ const ChessBoard = () => {
       );
     }, containerRef);
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      ctx.revert();
+      if (playIntervalRef.current) {
+        clearInterval(playIntervalRef.current);
+      }
+    };
+  }, [reverseGame]);
+
+  useEffect(() => {
+    if (isStable && !isPlaying && currentMoveIndex < gameMoves.length - 1 && !gameComplete) {
+      const timer = setTimeout(() => {
+        playForward();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isStable, isPlaying, currentMoveIndex, gameComplete, playForward]);
 
   const renderSquare = (row: number, col: number) => {
     const isLight = (row + col) % 2 === 0;
     const key = `${row}-${col}`;
-    const pieceData = initialBoard[key];
+    const pieceData = boardState[key];
 
     return (
       <div
@@ -126,7 +224,7 @@ const ChessBoard = () => {
         {pieceData && (
           <span
             className={`
-              chess-piece leading-none select-none
+              chess-piece leading-none select-none transition-all duration-300
               text-[1.5rem] sm:text-[2rem] md:text-[2.5rem]
               ${pieceData.color === 'white' ? 'text-white' : 'text-gray-900'}
             `}
@@ -155,7 +253,6 @@ const ChessBoard = () => {
         </p>
       </div>
 
-      {/* Chess board with 3D perspective */}
       <div 
         className="relative"
         style={{
@@ -176,7 +273,6 @@ const ChessBoard = () => {
           )}
         </div>
 
-        {/* Decorative glow effect */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -187,7 +283,6 @@ const ChessBoard = () => {
         />
       </div>
 
-      {/* Chess quote */}
       <p className="mt-12 text-center text-muted-foreground/70 font-body italic max-w-md">
         "Every chess master was once a beginner." — Irving Chernev
       </p>
