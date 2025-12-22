@@ -48,13 +48,6 @@ const experiences = [
     skills: ['Next.js', 'Prisma', 'Shadcn', 'DaisyUI', 'Razorpay'],
   },
   {
-    year: 'Oct - Dec 2024',
-    title: 'Frontend Developer Intern',
-    company: 'CalmChase @ Passiflora Resorts (Pune)',
-    description: 'First internship! Built 3+ production websites including real estate platform, WordPress news site, and EV mobility website. Learned client-based designing and real-world deployment workflows.',
-    skills: ['WordPress', 'Next.js', 'Client Work', 'Deployment', 'Vercel'],
-  },
-  {
     year: 'End 2024',
     title: 'Freelance Developer',
     company: 'Mobile App Project',
@@ -109,6 +102,13 @@ const experiences = [
     company: 'SAMADHAN 2.0',
     description: 'Enhanced Outlawed.in with 8-10 comprehensive AI features, expanding the test-taking experience to an advanced level. Competed among 100+ teams.',
     skills: ['AI Features', 'Outlawed.in', 'Advanced Testing', 'Full Stack'],
+  },
+  {
+    year: '2025 (Current)',
+    title: 'Frontend Developer Intern',
+    company: 'CalmChase @ Passiflora Resorts (Pune)',
+    description: 'First internship! Building 3+ production websites including real estate platform (passifloraproperties.com), WordPress news site (themediatimes.live), and EV mobility website. Learning WordPress, client-based designing and real-world deployment.',
+    skills: ['WordPress', 'Next.js', 'Client Work', 'Deployment', 'Vercel'],
   },
 ];
 
