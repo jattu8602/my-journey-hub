@@ -45,6 +45,16 @@ const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop',
     tags: ['React Native', 'Mobile', 'Tutorial'],
   },
+  {
+    id: '4',
+    slug: 'beginner-web-dev',
+    title: 'Beginner Web Development',
+    excerpt: 'Master the foundations of web development with HTML, CSS, and JavaScript. Build your first websites from scratch.',
+    date: 'December 22, 2024',
+    readTime: '35 min read',
+    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+  },
 ];
 
 const Blogs = () => {
