@@ -73,90 +73,27 @@ const experiences = [
 export const Journey = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const headingWrapperRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const isDesktop = window.innerWidth >= 768;
-
-      if (isDesktop && headingRef.current && headingWrapperRef.current && sectionRef.current) {
-        // Set initial state
-        gsap.set(headingRef.current, { opacity: 0, y: 50 });
-
-        // Fade in heading
-        gsap.to(headingRef.current, {
-          opacity: 1,
+      // Simple heading fade in
+      gsap.fromTo(
+        headingRef.current,
+        { y: 50, opacity: 0 },
+        {
           y: 0,
-          duration: 0.8,
+          opacity: 1,
+          duration: 1,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: headingRef.current,
             start: 'top 80%',
             toggleActions: 'play none none reverse',
           },
-        });
-
-        // Sticky heading at 30% from top with smooth transitions
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top 35%',
-          end: 'bottom 60%',
-          pin: headingWrapperRef.current,
-          pinSpacing: false,
-          onEnter: () => {
-            gsap.to(headingRef.current, {
-              scale: 0.9,
-              opacity: 0.95,
-              duration: 0.4,
-              ease: 'power2.out',
-            });
-          },
-          onLeave: () => {
-            gsap.to(headingRef.current, {
-              opacity: 0,
-              y: -30,
-              duration: 0.3,
-              ease: 'power2.in',
-            });
-          },
-          onEnterBack: () => {
-            gsap.to(headingRef.current, {
-              opacity: 0.95,
-              y: 0,
-              scale: 0.9,
-              duration: 0.4,
-              ease: 'power2.out',
-            });
-          },
-          onLeaveBack: () => {
-            gsap.to(headingRef.current, {
-              scale: 1,
-              opacity: 1,
-              duration: 0.4,
-              ease: 'power2.out',
-            });
-          },
-        });
-      } else {
-        // Mobile: Simple fade in
-        gsap.fromTo(
-          headingRef.current,
-          { y: 100, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: headingRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
+        }
+      );
 
       // Timeline line animation
       gsap.fromTo(
@@ -209,21 +146,16 @@ export const Journey = () => {
       className="min-h-screen py-16 sm:py-24 px-4 sm:px-6 relative overflow-x-hidden"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Section heading wrapper for sticky behavior */}
-        <div
-          ref={headingWrapperRef}
-          className="md:absolute md:left-0 md:right-0 md:top-[35vh] md:z-20 pointer-events-none"
+        {/* Section heading - simple centered */}
+        <h2
+          ref={headingRef}
+          className="section-heading text-center mb-12 sm:mb-20"
         >
-          <h2
-            ref={headingRef}
-            className="section-heading text-center mb-12 sm:mb-20 md:mb-0 will-change-transform"
-          >
-            My Journey<span className="accent-dot" />
-          </h2>
-        </div>
+          My Journey<span className="accent-dot" />
+        </h2>
 
         {/* Timeline */}
-        <div className="relative md:pt-32">
+        <div className="relative">
           {/* Vertical line */}
           <div
             ref={timelineRef}
