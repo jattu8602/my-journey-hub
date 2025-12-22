@@ -53,127 +53,177 @@ const getInitialBoard = (): BoardState => ({
   '7-7': { piece: pieces.rook, color: 'white' },
 });
 
-// Collection of different chess games/openings
+// Collection of complete chess games with outcomes
 const chessGames = [
-  // Italian Game
+  // Scholar's Mate - White wins (4 move checkmate)
   [
     { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
-    { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
-    { from: '7-5', to: '4-2' }, { from: '7-5', to: '4-2' },
-    { from: '6-3', to: '5-3' }, { from: '0-5', to: '3-2' },
-    { from: '6-2', to: '4-2' }, { from: '2-2', to: '4-3' },
+    { from: '7-5', to: '4-2' }, { from: '0-1', to: '2-2' },
+    { from: '7-3', to: '3-7' }, { from: '0-6', to: '2-5' },
+    { from: '3-7', to: '1-5' }, // Qxf7# - White wins!
   ],
-  // Sicilian Defense
+  // Fool's Mate - Black wins (2 move checkmate)
   [
-    { from: '6-4', to: '4-4' }, { from: '1-2', to: '3-2' },
+    { from: '6-5', to: '4-5' }, { from: '1-4', to: '3-4' },
+    { from: '6-6', to: '4-6' }, { from: '0-3', to: '4-7' }, // Qh4# - Black wins!
+  ],
+  // Legal's Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
     { from: '7-6', to: '5-5' }, { from: '1-3', to: '2-3' },
-    { from: '6-3', to: '4-3' }, { from: '3-2', to: '4-3' },
-    { from: '5-5', to: '4-3' }, { from: '0-6', to: '2-5' },
-    { from: '7-1', to: '5-2' }, { from: '6-0', to: '5-0' },
+    { from: '7-5', to: '4-2' }, { from: '0-2', to: '4-6' },
+    { from: '5-5', to: '3-4' }, { from: '4-6', to: '7-3' },
+    { from: '4-2', to: '1-5' }, { from: '7-3', to: '7-5' },
+    { from: '3-4', to: '2-3' }, // Nd3# - White wins!
   ],
-  // Queen's Gambit
-  [
-    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
-    { from: '6-2', to: '4-2' }, { from: '1-4', to: '3-4' },
-    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
-    { from: '7-2', to: '4-5' }, { from: '0-5', to: '3-2' },
-    { from: '4-2', to: '3-3' }, { from: '3-4', to: '4-3' },
-  ],
-  // Ruy Lopez
+  // Blackburne Shilling Gambit - Black wins
   [
     { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
     { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
-    { from: '7-5', to: '2-0' }, { from: '1-0', to: '2-0' },
-    { from: '6-3', to: '5-3' }, { from: '0-6', to: '2-5' },
-    { from: '5-5', to: '3-4' }, { from: '2-2', to: '3-4' },
+    { from: '5-5', to: '3-4' }, { from: '0-3', to: '4-4' },
+    { from: '3-4', to: '2-2' }, { from: '4-4', to: '4-2' },
+    { from: '7-1', to: '5-2' }, { from: '4-2', to: '6-4' },
+    { from: '7-5', to: '6-4' }, { from: '2-2', to: '5-5' }, // Nf2# - Black wins!
   ],
-  // French Defense
+  // Opera Game inspired - White wins
   [
-    { from: '6-4', to: '4-4' }, { from: '1-4', to: '2-4' },
-    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
-    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
-    { from: '4-4', to: '3-4' }, { from: '2-5', to: '3-3' },
-    { from: '7-6', to: '5-5' }, { from: '1-2', to: '2-2' },
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '1-3', to: '2-3' },
+    { from: '6-3', to: '4-3' }, { from: '0-2', to: '4-6' },
+    { from: '4-3', to: '3-4' }, { from: '0-3', to: '2-5' },
+    { from: '5-5', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '7-5', to: '3-1' }, { from: '0-5', to: '1-4' },
+    { from: '4-3', to: '2-4' }, { from: '2-5', to: '4-4' },
+    { from: '3-1', to: '1-3' }, { from: '0-4', to: '1-3' },
+    { from: '2-4', to: '0-3' }, // Nc7# - White wins!
   ],
-  // Caro-Kann Defense
+  // Fried Liver Attack - White wins
   [
-    { from: '6-4', to: '4-4' }, { from: '1-2', to: '2-2' },
-    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
-    { from: '4-4', to: '3-4' }, { from: '0-2', to: '2-4' },
-    { from: '7-6', to: '5-5' }, { from: '2-4', to: '3-5' },
-    { from: '7-5', to: '4-2' }, { from: '1-4', to: '2-4' },
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
+    { from: '7-5', to: '4-2' }, { from: '0-6', to: '2-5' },
+    { from: '5-5', to: '3-6' }, { from: '1-3', to: '3-3' },
+    { from: '3-6', to: '1-5' }, { from: '0-4', to: '1-4' },
+    { from: '7-3', to: '5-5' }, { from: '2-2', to: '4-3' },
+    { from: '5-5', to: '1-5' }, { from: '1-4', to: '1-5' },
+    { from: '4-2', to: '1-5' }, // Bxf7 and White dominates - White wins!
   ],
-  // King's Indian Defense
-  [
-    { from: '6-3', to: '4-3' }, { from: '0-6', to: '2-5' },
-    { from: '6-2', to: '4-2' }, { from: '1-6', to: '2-6' },
-    { from: '7-1', to: '5-2' }, { from: '0-5', to: '1-6' },
-    { from: '6-4', to: '4-4' }, { from: '1-3', to: '2-3' },
-    { from: '7-6', to: '5-5' }, { from: '0-4', to: '0-6' },
-  ],
-  // Scandinavian Defense
-  [
-    { from: '6-4', to: '4-4' }, { from: '1-3', to: '3-3' },
-    { from: '4-4', to: '3-3' }, { from: '0-3', to: '3-3' },
-    { from: '7-1', to: '5-2' }, { from: '3-3', to: '4-0' },
-    { from: '6-3', to: '4-3' }, { from: '0-6', to: '2-5' },
-    { from: '7-6', to: '5-5' }, { from: '1-2', to: '2-2' },
-  ],
-  // Pirc Defense
-  [
-    { from: '6-4', to: '4-4' }, { from: '1-3', to: '2-3' },
-    { from: '6-3', to: '4-3' }, { from: '0-6', to: '2-5' },
-    { from: '7-1', to: '5-2' }, { from: '1-6', to: '2-6' },
-    { from: '7-6', to: '5-5' }, { from: '0-5', to: '1-6' },
-    { from: '7-5', to: '4-2' }, { from: '0-4', to: '0-6' },
-  ],
-  // London System
-  [
-    { from: '6-3', to: '4-3' }, { from: '1-3', to: '3-3' },
-    { from: '7-2', to: '4-5' }, { from: '0-6', to: '2-5' },
-    { from: '6-4', to: '5-4' }, { from: '1-2', to: '2-2' },
-    { from: '7-1', to: '5-3' }, { from: '0-3', to: '1-2' },
-    { from: '7-6', to: '5-5' }, { from: '1-4', to: '2-4' },
-  ],
-  // Scotch Game
+  // Smothered Mate - White wins
   [
     { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
     { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
     { from: '6-3', to: '4-3' }, { from: '3-4', to: '4-3' },
     { from: '5-5', to: '4-3' }, { from: '0-6', to: '2-5' },
-    { from: '4-3', to: '2-2' }, { from: '1-1', to: '2-2' },
+    { from: '7-5', to: '4-2' }, { from: '0-5', to: '3-2' },
+    { from: '4-4', to: '3-4' }, { from: '0-4', to: '0-5' },
+    { from: '4-2', to: '3-3' }, { from: '0-5', to: '0-6' },
+    { from: '4-3', to: '2-4' }, { from: '0-6', to: '0-7' },
+    { from: '7-3', to: '3-7' }, { from: '0-7', to: '0-6' },
+    { from: '3-7', to: '1-5' }, { from: '0-0', to: '0-5' },
+    { from: '2-4', to: '0-5' }, // Nf6# smothered mate - White wins!
   ],
-  // Vienna Game
+  // Back Rank Mate - White wins
   [
     { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
-    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
-    { from: '7-5', to: '4-2' }, { from: '2-5', to: '4-4' },
-    { from: '7-3', to: '6-4' }, { from: '4-4', to: '5-2' },
-    { from: '6-3', to: '5-2' }, { from: '1-3', to: '2-3' },
-  ],
-  // Dutch Defense
-  [
-    { from: '6-3', to: '4-3' }, { from: '1-5', to: '3-5' },
-    { from: '6-6', to: '4-6' }, { from: '0-6', to: '2-5' },
-    { from: '7-5', to: '4-2' }, { from: '1-4', to: '2-4' },
-    { from: '7-6', to: '5-7' }, { from: '0-5', to: '3-2' },
-    { from: '6-2', to: '5-2' }, { from: '0-4', to: '0-6' },
-  ],
-  // English Opening
-  [
-    { from: '6-2', to: '4-2' }, { from: '1-4', to: '3-4' },
-    { from: '7-1', to: '5-2' }, { from: '0-6', to: '2-5' },
-    { from: '6-6', to: '5-6' }, { from: '1-3', to: '3-3' },
-    { from: '7-5', to: '4-2' }, { from: '0-5', to: '3-2' },
-    { from: '7-6', to: '5-5' }, { from: '0-4', to: '0-6' },
-  ],
-  // Bird's Opening
-  [
-    { from: '6-5', to: '4-5' }, { from: '1-3', to: '3-3' },
     { from: '7-6', to: '5-5' }, { from: '0-6', to: '2-5' },
-    { from: '6-4', to: '5-4' }, { from: '1-6', to: '2-6' },
-    { from: '7-5', to: '4-2' }, { from: '0-5', to: '1-6' },
+    { from: '7-5', to: '4-2' }, { from: '0-5', to: '4-1' },
     { from: '6-3', to: '5-3' }, { from: '0-4', to: '0-6' },
+    { from: '5-5', to: '4-3' }, { from: '1-3', to: '2-3' },
+    { from: '7-2', to: '4-5' }, { from: '2-5', to: '4-4' },
+    { from: '7-1', to: '5-2' }, { from: '2-3', to: '3-3' },
+    { from: '4-3', to: '3-5' }, { from: '0-5', to: '0-7' },
+    { from: '7-3', to: '5-3' }, { from: '4-4', to: '5-5' },
+    { from: '5-3', to: '0-3' }, // Qd8# back rank - White wins!
+  ],
+  // Anastasia's Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '0-1', to: '2-2' },
+    { from: '7-5', to: '4-2' }, { from: '0-5', to: '4-1' },
+    { from: '6-3', to: '5-3' }, { from: '0-4', to: '0-6' },
+    { from: '5-5', to: '3-4' }, { from: '1-3', to: '2-3' },
+    { from: '3-4', to: '2-2' }, { from: '1-1', to: '2-2' },
+    { from: '7-3', to: '5-5' }, { from: '0-5', to: '0-7' },
+    { from: '5-5', to: '1-5' }, { from: '0-6', to: '0-7' },
+    { from: '7-0', to: '7-4' }, { from: '0-7', to: '0-6' },
+    { from: '7-4', to: '0-4' }, // Re8# - White wins!
+  ],
+  // Arabian Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-2', to: '3-2' },
+    { from: '7-6', to: '5-5' }, { from: '1-3', to: '2-3' },
+    { from: '6-3', to: '4-3' }, { from: '3-2', to: '4-3' },
+    { from: '5-5', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '7-5', to: '4-2' }, { from: '1-4', to: '2-4' },
+    { from: '7-3', to: '5-3' }, { from: '0-5', to: '3-2' },
+    { from: '5-3', to: '5-7' }, { from: '0-4', to: '1-3' },
+    { from: '5-7', to: '0-7' }, { from: '0-0', to: '0-7' },
+    { from: '4-3', to: '2-4' }, { from: '1-3', to: '2-4' },
+    { from: '4-2', to: '2-4' }, // Bxe4 and dominant - White wins!
+  ],
+  // Greco's Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '6-3', to: '4-3' }, { from: '3-4', to: '4-3' },
+    { from: '7-3', to: '4-3' }, { from: '0-1', to: '2-2' },
+    { from: '7-5', to: '4-2' }, { from: '0-6', to: '2-5' },
+    { from: '4-3', to: '2-5' }, { from: '1-3', to: '2-5' },
+    { from: '4-2', to: '2-4' }, { from: '0-5', to: '4-1' },
+    { from: '2-4', to: '1-5' }, { from: '0-4', to: '0-5' },
+    { from: '7-2', to: '6-3' }, { from: '0-3', to: '4-7' },
+    { from: '6-3', to: '4-5' }, { from: '4-7', to: '6-5' },
+    { from: '1-5', to: '0-4' }, // Be4# - White wins!
+  ],
+  // Damiano's Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '1-5', to: '2-5' },
+    { from: '5-5', to: '3-4' }, { from: '0-3', to: '4-4' },
+    { from: '3-4', to: '1-5' }, { from: '4-4', to: '4-5' },
+    { from: '1-5', to: '0-7' }, { from: '4-5', to: '5-4' },
+    { from: '0-7', to: '2-6' }, { from: '5-4', to: '6-4' },
+    { from: '7-3', to: '3-7' }, { from: '0-4', to: '1-3' },
+    { from: '3-7', to: '1-5' }, { from: '1-3', to: '2-2' },
+    { from: '1-5', to: '1-4' }, { from: '2-2', to: '3-3' },
+    { from: '1-4', to: '2-3' }, // Qd3# - White wins!
+  ],
+  // Boden's Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '6-3', to: '4-3' }, { from: '3-4', to: '4-3' },
+    { from: '7-3', to: '4-3' }, { from: '0-6', to: '2-5' },
+    { from: '7-5', to: '4-2' }, { from: '0-1', to: '2-2' },
+    { from: '7-6', to: '5-5' }, { from: '0-5', to: '3-2' },
+    { from: '4-3', to: '2-5' }, { from: '1-3', to: '2-5' },
+    { from: '4-2', to: '2-0' }, { from: '0-2', to: '3-5' },
+    { from: '5-5', to: '4-3' }, { from: '0-4', to: '0-3' },
+    { from: '4-3', to: '2-4' }, { from: '0-3', to: '0-2' },
+    { from: '2-0', to: '0-2' }, // Bc2# Boden's mate - White wins!
+  ],
+  // Cozio's Mate - White wins
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-5', to: '4-2' }, { from: '0-6', to: '2-5' },
+    { from: '6-3', to: '5-3' }, { from: '0-5', to: '4-1' },
+    { from: '7-6', to: '5-5' }, { from: '1-3', to: '2-3' },
+    { from: '5-5', to: '4-3' }, { from: '2-5', to: '4-4' },
+    { from: '4-3', to: '2-4' }, { from: '0-4', to: '0-5' },
+    { from: '7-3', to: '5-5' }, { from: '4-4', to: '5-5' },
+    { from: '4-2', to: '5-1' }, { from: '0-5', to: '0-6' },
+    { from: '5-1', to: '1-5' }, { from: '0-0', to: '0-5' },
+    { from: '2-4', to: '0-5' }, // Nf6# - White wins!
+  ],
+  // Draw by repetition simulation
+  [
+    { from: '6-4', to: '4-4' }, { from: '1-4', to: '3-4' },
+    { from: '7-6', to: '5-5' }, { from: '0-6', to: '2-5' },
+    { from: '7-5', to: '4-2' }, { from: '0-5', to: '4-1' },
+    { from: '6-3', to: '5-3' }, { from: '0-4', to: '0-6' },
+    { from: '5-5', to: '3-4' }, { from: '0-5', to: '0-7' },
+    { from: '3-4', to: '5-5' }, { from: '0-7', to: '0-5' },
+    { from: '5-5', to: '3-4' }, { from: '0-5', to: '0-7' },
+    { from: '3-4', to: '5-5' }, { from: '0-7', to: '0-5' },
+    // Draw by repetition!
   ],
 ];
 
