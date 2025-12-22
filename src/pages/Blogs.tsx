@@ -55,6 +55,16 @@ const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
     tags: ['HTML', 'CSS', 'JavaScript'],
   },
+  {
+    id: '5',
+    slug: 'systems-low-level',
+    title: 'Systems & Low-Level Thinking',
+    excerpt: 'Deep dive into memory models, CPU caches, thread scheduling, and lock-free programming. Learn why some code is fast without changing Big-O.',
+    date: 'December 22, 2024',
+    readTime: '40 min read',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
+    tags: ['Systems', 'Performance', 'Advanced'],
+  },
 ];
 
 const Blogs = () => {
