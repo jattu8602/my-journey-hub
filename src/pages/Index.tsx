@@ -1,5 +1,6 @@
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/Hero';
+import { GitHubContributions } from '@/components/GitHubContributions';
 import { Journey } from '@/components/Journey';
 import { useLenis } from '@/hooks/useLenis';
 
@@ -10,6 +11,7 @@ const Index = () => {
     <div className="relative">
       <Navigation />
       <Hero />
+      <GitHubContributions />
       <Journey />
       
       {/* Footer */}
