@@ -150,30 +150,34 @@ const ChessBoard = () => {
     if (!containerRef.current || !boardRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Board perspective animation
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top 80%',
-        end: 'center center',
-        scrub: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          gsap.set(boardRef.current, {
-            rotateX: 55 - (40 * progress),
-            scaleY: 0.6 + (0.35 * progress),
-            scaleX: 1.1 - (0.1 * progress),
-          });
+      // Board perspective animation - smooth scrub
+      gsap.fromTo(
+        boardRef.current,
+        {
+          rotateX: 55,
+          scaleY: 0.6,
+          scaleX: 1.1,
         },
-        onEnter: () => setIsStable(false),
-        onLeave: () => {
-          setIsStable(true);
-        },
-        onEnterBack: () => {
-          setIsStable(false);
-          reverseGame();
-        },
-        onLeaveBack: () => setIsStable(false),
-      });
+        {
+          rotateX: 15,
+          scaleY: 0.95,
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+            end: 'center center',
+            scrub: 0.5,
+            onEnter: () => setIsStable(false),
+            onLeave: () => setIsStable(true),
+            onEnterBack: () => {
+              setIsStable(false);
+              reverseGame();
+            },
+            onLeaveBack: () => setIsStable(false),
+          },
+        }
+      );
 
       // Pieces fade in
       gsap.fromTo(
@@ -182,12 +186,13 @@ const ChessBoard = () => {
         {
           scale: 1,
           opacity: 1,
-          stagger: 0.02,
+          ease: 'none',
+          stagger: 0.01,
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 70%',
             end: 'center center',
-            scrub: 1,
+            scrub: 0.5,
           },
         }
       );
