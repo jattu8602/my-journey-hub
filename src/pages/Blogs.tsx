@@ -25,6 +25,16 @@ const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop',
     tags: ['Next.js', 'React', 'Tutorial'],
   },
+  {
+    id: '2',
+    slug: 'transformers-in-ai',
+    title: 'Transformers in AI',
+    excerpt: 'A deep dive into the Transformer architecture that revolutionized AI - from attention mechanisms to GPT, BERT, and beyond.',
+    date: 'December 22, 2024',
+    readTime: '25 min read',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+    tags: ['AI', 'Machine Learning', 'Transformers'],
+  },
 ];
 
 const Blogs = () => {
