@@ -108,13 +108,13 @@ export const Journey = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen py-24 px-6 relative"
+      className="min-h-screen py-16 sm:py-24 px-4 sm:px-6 relative overflow-x-hidden"
     >
       <div className="max-w-6xl mx-auto">
         {/* Section heading */}
         <h2
           ref={headingRef}
-          className="section-heading text-center mb-20"
+          className="section-heading text-center mb-12 sm:mb-20"
         >
           My Journey<span className="accent-dot" />
         </h2>
@@ -128,26 +128,26 @@ export const Journey = () => {
           />
 
           {/* Experience cards */}
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-8 sm:space-y-16 md:space-y-24">
             {experiences.map((exp, index) => (
               <div
                 key={exp.year}
                 ref={(el) => (cardsRef.current[index] = el)}
-                className={`flex flex-col md:flex-row items-center gap-8 ${
+                className={`flex flex-col md:flex-row items-center gap-4 sm:gap-8 ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
               >
                 {/* Card */}
-                <div className="flex-1">
+                <div className="flex-1 w-full">
                   <div className="journey-card">
-                    <span className="text-accent font-display font-bold text-2xl mb-2 block">
+                    <span className="text-accent font-display font-bold text-xl sm:text-2xl mb-2 block">
                       {exp.year}
                     </span>
-                    <h3 className="text-2xl font-display font-bold mb-1">
+                    <h3 className="text-xl sm:text-2xl font-display font-bold mb-1">
                       {exp.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4">{exp.company}</p>
-                    <p className="text-foreground/80 mb-6 font-body leading-relaxed">
+                    <p className="text-muted-foreground text-sm sm:text-base mb-3 sm:mb-4">{exp.company}</p>
+                    <p className="text-foreground/80 text-sm sm:text-base mb-4 sm:mb-6 font-body leading-relaxed">
                       {exp.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
