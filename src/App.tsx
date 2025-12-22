@@ -18,6 +18,9 @@ import SystemsLowLevel from "./pages/blog/SystemsLowLevel";
 import AlgorithmsBeyondDSA from "./pages/blog/AlgorithmsBeyondDSA";
 import BackendDistributed from "./pages/blog/BackendDistributed";
 import SecurityCoding from "./pages/blog/SecurityCoding";
+import AIAdjacentConcepts from "./pages/blog/AIAdjacentConcepts";
+import AdvancedJavaScript from "./pages/blog/AdvancedJavaScript";
+import BuilderMindset from "./pages/blog/BuilderMindset";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +44,9 @@ const App = () => (
           <Route path="/blog/algorithms-beyond-dsa" element={<AlgorithmsBeyondDSA />} />
           <Route path="/blog/backend-distributed" element={<BackendDistributed />} />
           <Route path="/blog/security-coding" element={<SecurityCoding />} />
+          <Route path="/blog/ai-adjacent-concepts" element={<AIAdjacentConcepts />} />
+          <Route path="/blog/advanced-javascript" element={<AdvancedJavaScript />} />
+          <Route path="/blog/builder-mindset" element={<BuilderMindset />} />
           <Route path="/code" element={<Code />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
