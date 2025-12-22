@@ -3,6 +3,7 @@ import { Hero } from '@/components/Hero';
 import { GitHubContributions } from '@/components/GitHubContributions';
 import { Education } from '@/components/Education';
 import { Journey } from '@/components/Journey';
+import ChessBoard from '@/components/ChessBoard';
 import { useLenis } from '@/hooks/useLenis';
 
 const Index = () => {
@@ -15,6 +16,7 @@ const Index = () => {
       <GitHubContributions />
       <Education />
       <Journey />
+      <ChessBoard />
       
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-border">
