@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 
 const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Certification', href: '#certification' },
-  { label: 'Blogs', href: '#blogs' },
-  { label: 'Code', href: '#code' },
+  { label: 'Home', href: '/' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Certification', href: '/certification' },
+  { label: 'Blogs', href: '/blogs' },
+  { label: 'Code', href: '/code' },
 ];
 
 export const Navigation = () => {
@@ -14,6 +15,7 @@ export const Navigation = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (menuRef.current && menuItemsRef.current) {
@@ -64,13 +66,11 @@ export const Navigation = () => {
     }
   }, [isOpen]);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = () => {
     setIsOpen(false);
-    setTimeout(() => {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: 'smooth' });
-    }, 600);
   };
+
+  const isActive = (href: string) => location.pathname === href;
 
   return (
     <>
@@ -78,17 +78,13 @@ export const Navigation = () => {
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <div className="nav-pill flex items-center gap-2">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
-              className="nav-link hover:text-accent"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.href);
-              }}
+              to={item.href}
+              className={`nav-link hover:text-accent ${isActive(item.href) ? 'text-accent' : ''}`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       </nav>
@@ -127,17 +123,14 @@ export const Navigation = () => {
       >
         <div ref={menuItemsRef} className="flex flex-col items-center gap-8">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
-              className="menu-item text-4xl font-display font-bold text-primary-foreground hover:text-accent transition-colors duration-300"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.href);
-              }}
+              to={item.href}
+              className={`menu-item text-4xl font-display font-bold text-primary-foreground hover:text-accent transition-colors duration-300 ${isActive(item.href) ? 'text-accent' : ''}`}
+              onClick={handleNavClick}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
 
