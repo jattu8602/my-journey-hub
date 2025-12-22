@@ -85,6 +85,16 @@ const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop',
     tags: ['Backend', 'Distributed Systems', 'Advanced'],
   },
+  {
+    id: '8',
+    slug: 'security-coding',
+    title: 'Security-Focused Coding',
+    excerpt: 'Master authentication internals, web attacks (SQL injection, XSS, CSRF), and OAuth 2.0 flows. Security knowledge with very high ROI.',
+    date: 'December 22, 2024',
+    readTime: '45 min read',
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop',
+    tags: ['Security', 'Authentication', 'OAuth'],
+  },
 ];
 
 const Blogs = () => {
