@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const roles = ['Design', 'Development', 'Deployment', 'Innovation', 'Solutions'];
 const nicknames = ['Jatin', 'Justin', 'Jattu'];
@@ -110,6 +111,20 @@ export const Hero = () => {
       </div>
 
       <div className="text-center z-10 max-w-5xl">
+        {/* Profile Photo */}
+        <div className="mb-6 md:mb-8">
+          <Avatar className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 mx-auto ring-4 ring-accent/20 ring-offset-4 ring-offset-background">
+            <AvatarImage 
+              src="https://github.com/jattu8602.png" 
+              alt="Nitesh Chourasiya"
+              className="object-cover"
+            />
+            <AvatarFallback className="text-2xl md:text-3xl lg:text-4xl font-display bg-accent/10 text-accent">
+              NC
+            </AvatarFallback>
+          </Avatar>
+        </div>
+
         {/* Greeting with nickname */}
         <div className="text-muted-foreground text-lg md:text-xl mb-4 font-body flex items-center justify-center gap-2">
           <span>Hello, I'm</span>
