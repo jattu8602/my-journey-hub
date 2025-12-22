@@ -86,7 +86,7 @@ export const Hero = () => {
           ref={nameRef}
           className="section-heading mb-6 text-5xl md:text-7xl lg:text-8xl"
         >
-          Your Name<span className="accent-dot" />
+          Nitesh Chourasiya<span className="accent-dot" />
         </h1>
 
         {/* Running text */}
