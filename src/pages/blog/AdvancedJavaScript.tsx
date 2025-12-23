@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
 import { ArrowLeft, Clock, Calendar, Cpu, Zap, Layers, RefreshCw } from "lucide-react";
+import BackToBlogs from "@/components/blog/BackToBlogs";
 import TableOfContents from "@/components/blog/TableOfContents";
+import MobileTableOfContents from "@/components/blog/MobileTableOfContents";
 import CodeBlock from "@/components/blog/CodeBlock";
 import BlogNote from "@/components/blog/BlogNote";
 import RunnableCode from "@/components/blog/RunnableCode";
@@ -21,14 +22,9 @@ const AdvancedJavaScript = () => {
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="border-b border-border/50 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <Link 
-            to="/blogs" 
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blogs
-          </Link>
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <BackToBlogs />
+          <MobileTableOfContents items={tocItems} />
         </div>
       </header>
 
@@ -47,7 +43,7 @@ const AdvancedJavaScript = () => {
                 <span className="block text-primary mt-2">Runtime Concepts</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-6">
-                Deep dive into the JavaScript event loop, V8 engine optimizations, and Node.js internals. 
+                Deep dive into the JavaScript event loop, V8 engine optimizations, and Node.js internals.
                 Understanding what happens under the hood makes you a significantly better developer.
               </p>
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
@@ -69,13 +65,13 @@ const AdvancedJavaScript = () => {
                 JS Event Loop Deep Dive
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                JavaScript is single-threaded, yet handles thousands of concurrent operations. 
+                JavaScript is single-threaded, yet handles thousands of concurrent operations.
                 The event loop is the magic that makes this possible.
               </p>
 
               <div id="microtasks-macrotasks" className="mb-12">
                 <h3 className="text-2xl font-semibold mb-4">Microtasks vs Macrotasks</h3>
-                
+
                 <div className="bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 rounded-xl p-6 mb-6">
                   <h4 className="font-semibold mb-4">The Event Loop Cycle</h4>
                   <div className="space-y-3 font-mono text-sm">
@@ -132,7 +128,7 @@ console.log("2: Sync end");
                 />
 
                 <BlogNote type="warning">
-                  Microtasks can starve macrotasks! If you keep adding microtasks in a microtask, 
+                  Microtasks can starve macrotasks! If you keep adding microtasks in a microtask,
                   setTimeout callbacks will never run.
                 </BlogNote>
 
@@ -153,9 +149,9 @@ function safeRecursive() {
 
               <div id="settimeout-zero" className="mb-12">
                 <h3 className="text-2xl font-semibold mb-4">Why setTimeout(0) Isn't Instant</h3>
-                
+
                 <p className="text-muted-foreground mb-6">
-                  <code className="bg-muted px-2 py-0.5 rounded">setTimeout(fn, 0)</code> doesn't mean 
+                  <code className="bg-muted px-2 py-0.5 rounded">setTimeout(fn, 0)</code> doesn't mean
                   "run immediately" - it means "run as soon as possible, after current work".
                 </p>
 
@@ -216,9 +212,9 @@ button.onclick = () => {
 
               <div id="jit-compilation" className="mb-12">
                 <h3 className="text-2xl font-semibold mb-4">JIT Compilation</h3>
-                
+
                 <p className="text-muted-foreground mb-6">
-                  V8 doesn't just interpret JavaScript - it compiles it to machine code at runtime. 
+                  V8 doesn't just interpret JavaScript - it compiles it to machine code at runtime.
                   This is called Just-In-Time (JIT) compilation.
                 </p>
 
@@ -275,16 +271,16 @@ hotFunction(["a", "b", "c"]);  // Strings? Abandon optimized code!`}
                 />
 
                 <BlogNote type="tip">
-                  Keep your function inputs consistent in type. Mixing types causes deoptimization, 
+                  Keep your function inputs consistent in type. Mixing types causes deoptimization,
                   which can slow code by 10-100x.
                 </BlogNote>
               </div>
 
               <div id="hidden-classes" className="mb-12">
                 <h3 className="text-2xl font-semibold mb-4">Hidden Classes</h3>
-                
+
                 <p className="text-muted-foreground mb-6">
-                  JavaScript objects are dynamic, but V8 treats them as if they have static "shapes" 
+                  JavaScript objects are dynamic, but V8 treats them as if they have static "shapes"
                   (hidden classes). Objects with the same shape share optimization.
                 </p>
 
@@ -347,9 +343,9 @@ obj3.c = 3;  // Creates a NEW hidden class transition`}
 
               <div id="async-io" className="mb-12">
                 <h3 className="text-2xl font-semibold mb-4">How Async I/O Actually Works</h3>
-                
+
                 <p className="text-muted-foreground mb-6">
-                  Node.js is single-threaded for JavaScript, but uses a thread pool and OS async 
+                  Node.js is single-threaded for JavaScript, but uses a thread pool and OS async
                   primitives for I/O operations. This is powered by libuv.
                 </p>
 
@@ -391,7 +387,7 @@ fs.readFile('big.txt', (err, data) => {
 console.log('After readFile call');
 
 // Execution flow:
-// 
+//
 // Main Thread:
 //   1. fs.readFile() called
 //   2. Request queued to libuv
@@ -439,7 +435,7 @@ console.log('After readFile call');
                 </div>
 
                 <BlogNote type="info">
-                  The thread pool default is 4 threads. Set <code>UV_THREADPOOL_SIZE=8</code> for 
+                  The thread pool default is 4 threads. Set <code>UV_THREADPOOL_SIZE=8</code> for
                   I/O-heavy applications. Max is 1024.
                 </BlogNote>
 

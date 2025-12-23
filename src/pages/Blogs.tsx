@@ -133,7 +133,7 @@ const Blogs = () => {
   return (
     <div className="relative min-h-screen bg-background">
       <Navigation />
-      
+
       <section className="min-h-screen px-6 pt-32 pb-20">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
@@ -143,20 +143,21 @@ const Blogs = () => {
               Thoughts, tutorials, and insights on development and design.
             </p>
           </div>
-          
+
           {/* Blog posts grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {blogPosts.map((post) => (
-              <Link 
-                key={post.id} 
+              <Link
+                key={post.id}
                 to={`/blog/${post.slug}`}
+                state={{ from: 'blogs' }}
                 className="group"
               >
                 <article className="h-full rounded-xl border border-border/50 bg-card/50 overflow-hidden transition-all duration-300 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={post.image} 
+                    <img
+                      src={post.image}
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
@@ -190,7 +191,7 @@ const Blogs = () => {
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-4">
                       {post.tags.map((tag) => (
-                        <span 
+                        <span
                           key={tag}
                           className="px-2 py-1 text-xs bg-secondary/50 text-secondary-foreground rounded-md"
                         >

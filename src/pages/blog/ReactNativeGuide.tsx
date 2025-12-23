@@ -1,11 +1,10 @@
-import { Navigation } from '@/components/Navigation';
-import { useLenis } from '@/hooks/useLenis';
-import CodeBlock from '@/components/blog/CodeBlock';
-import RunnableCode from '@/components/blog/RunnableCode';
-import TableOfContents from '@/components/blog/TableOfContents';
-import BlogNote from '@/components/blog/BlogNote';
-import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowLeft, Clock, Calendar, Smartphone } from "lucide-react";
+import BackToBlogs from "@/components/blog/BackToBlogs";
+import TableOfContents from "@/components/blog/TableOfContents";
+import MobileTableOfContents from "@/components/blog/MobileTableOfContents";
+import CodeBlock from "@/components/blog/CodeBlock";
+import RunnableCode from "@/components/blog/RunnableCode";
+import BlogNote from "@/components/blog/BlogNote";
 
 const tocItems = [
   { id: 'introduction', title: 'Introduction', level: 2 },
@@ -40,227 +39,207 @@ const tocItems = [
 ];
 
 const ReactNativeGuide = () => {
-  useLenis();
-
   return (
-    <div className="relative min-h-screen bg-background">
-      <Navigation />
-      
-      <article className="pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Back button */}
-          <Link 
-            to="/blogs" 
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blogs
-          </Link>
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Header */}
+      <header className="border-b border-border/50 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <BackToBlogs />
+          <MobileTableOfContents items={tocItems} />
+        </div>
+      </header>
 
-          <div className="flex gap-12">
-            {/* Sidebar */}
-            <aside className="hidden lg:block w-64 flex-shrink-0">
-              <div className="sticky top-28">
-                <TableOfContents items={tocItems} />
+      <main className="max-w-6xl mx-auto px-6 py-12">
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
+          {/* Main Content */}
+          <article className="prose prose-invert max-w-none">
+            {/* Hero Section */}
+            <div className="mb-12">
+              <div className="flex items-center gap-2 text-primary mb-4">
+                <span className="text-sm font-medium uppercase tracking-wider">Mobile Development</span>
               </div>
-            </aside>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                React Native for Beginners
+                <span className="block text-primary mt-2">Build Mobile Apps with React</span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-6">
+                Build native mobile apps for iOS and Android using JavaScript and React.
+                A complete beginner's guide to React Native development.
+              </p>
 
-            {/* Main content */}
-            <main className="flex-1 max-w-3xl">
-              {/* Header */}
-              <header className="mb-12">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" />
-                    December 22, 2024
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4" />
-                    30 min read
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <User className="w-4 h-4" />
-                    Nitesh
-                  </span>
+              {/* Featured image */}
+              <div className="mt-8 rounded-xl overflow-hidden border border-border/50 mb-8">
+                <img
+                  src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=600&fit=crop"
+                  alt="Mobile App Development"
+                  className="w-full h-64 md:h-80 object-cover"
+                />
+              </div>
+
+              <div className="flex items-center gap-6 text-sm text-muted-foreground mt-8">
+                <span className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  December 22, 2024
+                </span>
+                <span className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  30 min read
+                </span>
+              </div>
+            </div>
+
+            {/* Introduction */}
+            <section id="introduction" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Introduction</h2>
+              <p className="text-lg text-muted-foreground mb-4">
+                React Native is a powerful framework that lets you build real native mobile apps
+                using JavaScript and React. Unlike hybrid apps that run in a WebView, React Native
+                compiles to actual native code, giving you the performance and feel of a true native app.
+              </p>
+              <p className="text-lg text-muted-foreground mb-8">
+                Created by Facebook (now Meta) in 2015, React Native has become one of the most
+                popular frameworks for cross-platform mobile development, used by companies like
+                Instagram, Airbnb, Uber Eats, Discord, and Pinterest.
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 my-8">
+                <div className="text-center p-4 rounded-lg bg-card/50 border border-border/50">
+                  <div className="text-3xl font-bold text-primary mb-1">2015</div>
+                  <div className="text-xs text-muted-foreground">Year Released</div>
                 </div>
-                
-                <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
-                  React Native for Beginners<span className="text-accent">.</span>
-                </h1>
-                
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  Build native mobile apps for iOS and Android using JavaScript and React. 
-                  A complete beginner's guide to React Native development.
+                <div className="text-center p-4 rounded-lg bg-card/50 border border-border/50">
+                  <div className="text-3xl font-bold text-primary mb-1">2</div>
+                  <div className="text-xs text-muted-foreground">Platforms (iOS & Android)</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-card/50 border border-border/50">
+                  <div className="text-3xl font-bold text-primary mb-1">90%+</div>
+                  <div className="text-xs text-muted-foreground">Code Reuse</div>
+                </div>
+              </div>
+
+              <section id="what-is-react-native" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">What is React Native?</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  React Native is a JavaScript framework for building native mobile applications.
+                  It uses the same design principles as React, letting you compose a rich mobile UI
+                  from declarative components.
                 </p>
 
-                {/* Featured image */}
-                <div className="mt-8 rounded-xl overflow-hidden border border-border/50">
-                  <img 
-                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=600&fit=crop" 
-                    alt="Mobile App Development"
-                    className="w-full h-64 md:h-80 object-cover"
-                  />
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50 mb-4">
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Language:</span>
+                      <span className="text-foreground ml-2">JavaScript / TypeScript</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">UI Framework:</span>
+                      <span className="text-foreground ml-2">React</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Platforms:</span>
+                      <span className="text-foreground ml-2">iOS, Android (+ Web, Windows, macOS)</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Rendering:</span>
+                      <span className="text-foreground ml-2">Native Components</span>
+                    </div>
+                  </div>
                 </div>
-              </header>
+              </section>
 
-              {/* Content */}
-              <div className="prose prose-invert max-w-none">
-                
-                {/* Introduction */}
-                <section id="introduction" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Introduction
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    React Native is a powerful framework that lets you build real native mobile apps 
-                    using JavaScript and React. Unlike hybrid apps that run in a WebView, React Native 
-                    compiles to actual native code, giving you the performance and feel of a true native app.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Created by Facebook (now Meta) in 2015, React Native has become one of the most 
-                    popular frameworks for cross-platform mobile development, used by companies like 
-                    Instagram, Airbnb, Uber Eats, Discord, and Pinterest.
-                  </p>
+              <section id="why-react-native" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Why Choose React Native?</h3>
 
-                  <div className="grid grid-cols-3 gap-4 my-8">
-                    <div className="text-center p-4 rounded-lg bg-card/50 border border-border/50">
-                      <div className="text-3xl font-bold text-accent mb-1">2015</div>
-                      <div className="text-xs text-muted-foreground">Year Released</div>
-                    </div>
-                    <div className="text-center p-4 rounded-lg bg-card/50 border border-border/50">
-                      <div className="text-3xl font-bold text-accent mb-1">2</div>
-                      <div className="text-xs text-muted-foreground">Platforms (iOS & Android)</div>
-                    </div>
-                    <div className="text-center p-4 rounded-lg bg-card/50 border border-border/50">
-                      <div className="text-3xl font-bold text-accent mb-1">90%+</div>
-                      <div className="text-xs text-muted-foreground">Code Reuse</div>
-                    </div>
+                <div className="grid md:grid-cols-2 gap-4 my-6">
+                  <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/5">
+                    <h4 className="font-bold text-green-400 mb-2">✅ Advantages</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Single codebase for iOS & Android</li>
+                      <li>• Native performance & feel</li>
+                      <li>• Hot reloading for fast development</li>
+                      <li>• Large community & ecosystem</li>
+                      <li>• Reuse web React knowledge</li>
+                      <li>• Access to native APIs</li>
+                    </ul>
                   </div>
-
-                  <section id="what-is-react-native" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">What is React Native?</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      React Native is a JavaScript framework for building native mobile applications. 
-                      It uses the same design principles as React, letting you compose a rich mobile UI 
-                      from declarative components.
-                    </p>
-
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50 mb-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="text-muted-foreground">Language:</span>
-                          <span className="text-foreground ml-2">JavaScript / TypeScript</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">UI Framework:</span>
-                          <span className="text-foreground ml-2">React</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Platforms:</span>
-                          <span className="text-foreground ml-2">iOS, Android (+ Web, Windows, macOS)</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Rendering:</span>
-                          <span className="text-foreground ml-2">Native Components</span>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-
-                  <section id="why-react-native" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Why Choose React Native?</h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 my-6">
-                      <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/5">
-                        <h4 className="font-bold text-green-400 mb-2">✅ Advantages</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Single codebase for iOS & Android</li>
-                          <li>• Native performance & feel</li>
-                          <li>• Hot reloading for fast development</li>
-                          <li>• Large community & ecosystem</li>
-                          <li>• Reuse web React knowledge</li>
-                          <li>• Access to native APIs</li>
-                        </ul>
-                      </div>
-                      <div className="p-4 rounded-lg border border-amber-500/30 bg-amber-500/5">
-                        <h4 className="font-bold text-amber-400 mb-2">⚠️ Considerations</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Larger app size than native</li>
-                          <li>• Some native code may be needed</li>
-                          <li>• Platform-specific bugs possible</li>
-                          <li>• Dependency on third-party libs</li>
-                          <li>• Learning curve for native modules</li>
-                          <li>• Updates may break compatibility</li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <BlogNote type="info" title="React Native vs Flutter">
-                      React Native uses JavaScript and native components, while Flutter uses Dart and 
-                      its own rendering engine. Choose React Native if your team knows React/JavaScript, 
-                      or Flutter for potentially better performance with complex animations.
-                    </BlogNote>
-                  </section>
-                </section>
-
-                {/* Getting Started */}
-                <section id="getting-started" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Getting Started
-                  </h2>
-
-                  <div className="rounded-xl overflow-hidden border border-border/50 my-6">
-                    <img 
-                      src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop" 
-                      alt="Getting Started with React Native"
-                      className="w-full h-48 object-cover"
-                    />
+                  <div className="p-4 rounded-lg border border-amber-500/30 bg-amber-500/5">
+                    <h4 className="font-bold text-amber-400 mb-2">⚠️ Considerations</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Larger app size than native</li>
+                      <li>• Some native code may be needed</li>
+                      <li>• Platform-specific bugs possible</li>
+                      <li>• Dependency on third-party libs</li>
+                      <li>• Learning curve for native modules</li>
+                      <li>• Updates may break compatibility</li>
+                    </ul>
                   </div>
+                </div>
 
-                  <section id="expo-vs-cli" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Expo vs React Native CLI</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      There are two main ways to start a React Native project:
-                    </p>
+                <BlogNote type="info" title="React Native vs Flutter">
+                  React Native uses JavaScript and native components, while Flutter uses Dart and
+                  its own rendering engine. Choose React Native if your team knows React/JavaScript,
+                  or Flutter for potentially better performance with complex animations.
+                </BlogNote>
+              </section>
+            </section>
 
-                    <div className="grid md:grid-cols-2 gap-4 my-6">
-                      <div className="p-4 rounded-lg border border-accent/30 bg-accent/5">
-                        <h4 className="font-bold text-accent mb-2">🚀 Expo (Recommended for Beginners)</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• No Xcode or Android Studio needed initially</li>
-                          <li>• Instant testing on physical devices</li>
-                          <li>• Pre-built native modules included</li>
-                          <li>• Over-the-air updates</li>
-                          <li>• Easier to get started</li>
-                        </ul>
-                      </div>
-                      <div className="p-4 rounded-lg border border-border/50 bg-card/50">
-                        <h4 className="font-bold text-foreground mb-2">⚙️ React Native CLI</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Full control over native code</li>
-                          <li>• Required for custom native modules</li>
-                          <li>• Smaller app size possible</li>
-                          <li>• More complex setup</li>
-                          <li>• Requires Xcode / Android Studio</li>
-                        </ul>
-                      </div>
-                    </div>
+            {/* Getting Started */}
+            <section id="getting-started" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Getting Started</h2>
 
-                    <BlogNote type="tip" title="Start with Expo">
-                      For beginners, we strongly recommend starting with Expo. You can always "eject" 
-                      to a bare React Native project later if you need custom native code.
-                    </BlogNote>
-                  </section>
+              <div className="rounded-xl overflow-hidden border border-border/50 my-6">
+                <img
+                  src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop"
+                  alt="Getting Started with React Native"
+                  className="w-full h-48 object-cover"
+                />
+              </div>
 
-                  <section id="installation" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Installation</h3>
-                    
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      <strong>Prerequisites:</strong> Make sure you have Node.js (v18+) installed on your machine.
-                    </p>
+              <section id="expo-vs-cli" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Expo vs React Native CLI</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  There are two main ways to start a React Native project:
+                </p>
 
-                    <CodeBlock
-                      code={`# Create a new Expo project
+                <div className="grid md:grid-cols-2 gap-4 my-6">
+                  <div className="p-4 rounded-lg border border-primary/30 bg-primary/5">
+                    <h4 className="font-bold text-primary mb-2">🚀 Expo (Recommended for Beginners)</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• No Xcode or Android Studio needed initially</li>
+                      <li>• Instant testing on physical devices</li>
+                      <li>• Pre-built native modules included</li>
+                      <li>• Over-the-air updates</li>
+                      <li>• Easier to get started</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 rounded-lg border border-border/50 bg-card/50">
+                    <h4 className="font-bold text-foreground mb-2">⚙️ React Native CLI</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Full control over native code</li>
+                      <li>• Required for custom native modules</li>
+                      <li>• Smaller app size possible</li>
+                      <li>• More complex setup</li>
+                      <li>• Requires Xcode / Android Studio</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <BlogNote type="tip" title="Start with Expo">
+                  For beginners, we strongly recommend starting with Expo. You can always "eject"
+                  to a bare React Native project later if you need custom native code.
+                </BlogNote>
+              </section>
+
+              <section id="installation" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Installation</h3>
+
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  <strong>Prerequisites:</strong> Make sure you have Node.js (v18+) installed on your machine.
+                </p>
+
+                <CodeBlock
+                  code={`# Create a new Expo project
 npx create-expo-app@latest MyFirstApp
 
 # Navigate to project directory
@@ -268,21 +247,21 @@ cd MyFirstApp
 
 # Start the development server
 npx expo start`}
-                      language="bash"
-                      filename="Terminal"
-                    />
+                  language="bash"
+                  filename="Terminal"
+                />
 
-                    <p className="text-muted-foreground leading-relaxed my-4">
-                      After running these commands, you'll see a QR code in your terminal. Scan it with:
-                    </p>
+                <p className="text-muted-foreground leading-relaxed my-4">
+                  After running these commands, you'll see a QR code in your terminal. Scan it with:
+                </p>
 
-                    <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-6 ml-4">
-                      <li><strong>iOS:</strong> Camera app → Scan QR code → Open in Expo Go</li>
-                      <li><strong>Android:</strong> Expo Go app → Scan QR code</li>
-                    </ul>
+                <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-6 ml-4">
+                  <li><strong>iOS:</strong> Camera app → Scan QR code → Open in Expo Go</li>
+                  <li><strong>Android:</strong> Expo Go app → Scan QR code</li>
+                </ul>
 
-                    <CodeBlock
-                      code={`# Alternative: React Native CLI (for advanced users)
+                <CodeBlock
+                  code={`# Alternative: React Native CLI (for advanced users)
 npx react-native@latest init MyFirstApp
 
 # Run on iOS (requires Mac with Xcode)
@@ -291,19 +270,19 @@ npx react-native run-ios
 
 # Run on Android (requires Android Studio)
 npx react-native run-android`}
-                      language="bash"
-                      filename="React Native CLI Setup"
-                    />
-                  </section>
+                  language="bash"
+                  filename="React Native CLI Setup"
+                />
+              </section>
 
-                  <section id="first-app" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Your First App</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      Let's look at the basic structure of a React Native app:
-                    </p>
+              <section id="first-app" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Your First App</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Let's look at the basic structure of a React Native app:
+                </p>
 
-                    <CodeBlock
-                      code={`// App.js - Your main application file
+                <CodeBlock
+                  code={`// App.js - Your main application file
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -338,39 +317,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });`}
-                      language="jsx"
-                      filename="App.js"
-                    />
+                  language="jsx"
+                  filename="App.js"
+                />
 
-                    <BlogNote type="info" title="Key Differences from React Web">
-                      Notice we use <code>View</code> instead of <code>div</code>, and <code>Text</code> 
-                      instead of <code>p</code> or <code>span</code>. React Native has its own set of 
-                      core components that map to native UI elements.
-                    </BlogNote>
-                  </section>
-                </section>
+                <BlogNote type="info" title="Key Differences from React Web">
+                  Notice we use <code>View</code> instead of <code>div</code>, and <code>Text</code>
+                  instead of <code>p</code> or <code>span</code>. React Native has its own set of
+                  core components that map to native UI elements.
+                </BlogNote>
+              </section>
+            </section>
 
-                {/* Core Components */}
-                <section id="core-components" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Core Components
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    React Native provides a set of core components that map to native UI elements. 
-                    Let's explore the most important ones:
-                  </p>
+            {/* Core Components */}
+            <section id="core-components" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Core Components</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                React Native provides a set of core components that map to native UI elements.
+                Let's explore the most important ones:
+              </p>
 
-                  <section id="view-text" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">View & Text</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      <code className="px-1.5 py-0.5 bg-secondary rounded text-sm">View</code> is the 
-                      fundamental container component (like <code>div</code> in web). 
-                      <code className="px-1.5 py-0.5 bg-secondary rounded text-sm ml-1">Text</code> is 
-                      used for displaying text content.
-                    </p>
+              <section id="view-text" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">View & Text</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  <code className="px-1.5 py-0.5 bg-secondary rounded text-sm">View</code> is the
+                  fundamental container component (like <code>div</code> in web).
+                  <code className="px-1.5 py-0.5 bg-secondary rounded text-sm ml-1">Text</code> is
+                  used for displaying text content.
+                </p>
 
-                    <CodeBlock
-                      code={`import { View, Text } from 'react-native';
+                <CodeBlock
+                  code={`import { View, Text } from 'react-native';
 
 function WelcomeCard() {
   return (
@@ -380,8 +357,8 @@ function WelcomeCard() {
       borderRadius: 10,
       margin: 10,
     }}>
-      <Text style={{ 
-        fontSize: 20, 
+      <Text style={{
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 5,
       }}>
@@ -393,21 +370,21 @@ function WelcomeCard() {
     </View>
   );
 }`}
-                      language="jsx"
-                      filename="WelcomeCard.js"
-                    />
+                  language="jsx"
+                  filename="WelcomeCard.js"
+                />
 
-                    <BlogNote type="warning" title="Important">
-                      All text must be wrapped in a <code>Text</code> component. Unlike web, you cannot 
-                      place raw text directly inside a <code>View</code>.
-                    </BlogNote>
-                  </section>
+                <BlogNote type="warning" title="Important">
+                  All text must be wrapped in a <code>Text</code> component. Unlike web, you cannot
+                  place raw text directly inside a <code>View</code>.
+                </BlogNote>
+              </section>
 
-                  <section id="image-scrollview" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Image & ScrollView</h3>
+              <section id="image-scrollview" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Image & ScrollView</h3>
 
-                    <CodeBlock
-                      code={`import { Image, ScrollView, View, Text } from 'react-native';
+                <CodeBlock
+                  code={`import { Image, ScrollView, View, Text } from 'react-native';
 
 function ImageGallery() {
   return (
@@ -417,14 +394,14 @@ function ImageGallery() {
         source={require('./assets/photo.png')}
         style={{ width: 200, height: 200 }}
       />
-      
+
       {/* Remote image - must specify dimensions */}
       <Image
         source={{ uri: 'https://example.com/image.jpg' }}
         style={{ width: 300, height: 200 }}
         resizeMode="cover"
       />
-      
+
       {/* More content... */}
       <View style={{ height: 1000 }}>
         <Text>Scroll to see more!</Text>
@@ -434,20 +411,20 @@ function ImageGallery() {
 }
 
 // resizeMode options: 'cover', 'contain', 'stretch', 'center'`}
-                      language="jsx"
-                      filename="ImageGallery.js"
-                    />
-                  </section>
+                  language="jsx"
+                  filename="ImageGallery.js"
+                />
+              </section>
 
-                  <section id="touchables" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Touchable Components</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      React Native provides several touchable components for handling user interactions:
-                    </p>
+              <section id="touchables" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Touchable Components</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  React Native provides several touchable components for handling user interactions:
+                </p>
 
-                    <CodeBlock
-                      code={`import { 
-  TouchableOpacity, 
+                <CodeBlock
+                  code={`import {
+  TouchableOpacity,
   TouchableHighlight,
   Pressable,
   Text,
@@ -462,7 +439,7 @@ function ButtonExamples() {
   return (
     <>
       {/* TouchableOpacity - fades on press (most common) */}
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={handlePress}
         style={{
           backgroundColor: '#007AFF',
@@ -494,25 +471,25 @@ function ButtonExamples() {
     </>
   );
 }`}
-                      language="jsx"
-                      filename="ButtonExamples.js"
-                    />
+                  language="jsx"
+                  filename="ButtonExamples.js"
+                />
 
-                    <BlogNote type="tip" title="Use Pressable">
-                      <code>Pressable</code> is the newer, more flexible API. It provides better 
-                      customization for pressed states and supports hover on web platforms.
-                    </BlogNote>
-                  </section>
+                <BlogNote type="tip" title="Use Pressable">
+                  <code>Pressable</code> is the newer, more flexible API. It provides better
+                  customization for pressed states and supports hover on web platforms.
+                </BlogNote>
+              </section>
 
-                  <section id="lists" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Lists (FlatList & SectionList)</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      For rendering lists of data, use <code>FlatList</code> for simple lists and 
-                      <code>SectionList</code> for grouped data:
-                    </p>
+              <section id="lists" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Lists (FlatList & SectionList)</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  For rendering lists of data, use <code>FlatList</code> for simple lists and
+                  <code>SectionList</code> for grouped data:
+                </p>
 
-                    <CodeBlock
-                      code={`import { FlatList, View, Text, StyleSheet } from 'react-native';
+                <CodeBlock
+                  code={`import { FlatList, View, Text, StyleSheet } from 'react-native';
 
 const DATA = [
   { id: '1', title: 'Learn React Native' },
@@ -576,12 +553,12 @@ const styles = StyleSheet.create({
     color: '#999',
   },
 });`}
-                      language="jsx"
-                      filename="TodoList.js"
-                    />
+                  language="jsx"
+                  filename="TodoList.js"
+                />
 
-                    <RunnableCode
-                      code={`// FlatList key props explained
+                <RunnableCode
+                  code={`// FlatList key props explained
 const listProps = {
   data: [],           // Array of items to render
   renderItem: null,   // Function to render each item
@@ -593,52 +570,50 @@ const listProps = {
 };
 
 Object.keys(listProps).join('\\n');`}
-                      language="javascript"
-                      filename="FlatList Props"
-                      onRun={() => {
-                        const props = [
-                          'data - Array of items to render',
-                          'renderItem - Function to render each item',
-                          'keyExtractor - Extract unique key for each item',
-                          'horizontal - Enable horizontal scrolling',
-                          'numColumns - Create a grid layout',
-                          'onRefresh - Pull-to-refresh callback',
-                          'refreshing - Control refresh indicator',
-                          'onEndReached - Infinite scroll callback',
-                        ];
-                        return props.join('\n');
-                      }}
-                    />
-                  </section>
-                </section>
+                  language="javascript"
+                  filename="FlatList Props"
+                  onRun={() => {
+                    const props = [
+                      'data - Array of items to render',
+                      'renderItem - Function to render each item',
+                      'keyExtractor - Extract unique key for each item',
+                      'horizontal - Enable horizontal scrolling',
+                      'numColumns - Create a grid layout',
+                      'onRefresh - Pull-to-refresh callback',
+                      'refreshing - Control refresh indicator',
+                      'onEndReached - Infinite scroll callback',
+                    ];
+                    return props.join('\n');
+                  }}
+                />
+              </section>
+            </section>
 
-                {/* Styling */}
-                <section id="styling" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Styling in React Native
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    React Native uses JavaScript objects for styling, similar to inline styles in React 
-                    but with camelCase property names. There's no CSS - everything is done in JS!
-                  </p>
+            {/* Styling */}
+            <section id="styling" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Styling in React Native</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                React Native uses JavaScript objects for styling, similar to inline styles in React
+                but with camelCase property names. There's no CSS - everything is done in JS!
+              </p>
 
-                  <section id="stylesheet" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">StyleSheet API</h3>
+              <section id="stylesheet" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">StyleSheet API</h3>
 
-                    <CodeBlock
-                      code={`import { StyleSheet, View, Text } from 'react-native';
+                <CodeBlock
+                  code={`import { StyleSheet, View, Text } from 'react-native';
 
 function StyledComponent() {
   return (
     <View style={styles.container}>
       {/* Single style */}
       <Text style={styles.title}>Hello World</Text>
-      
+
       {/* Multiple styles (array) */}
       <Text style={[styles.text, styles.bold]}>
         Bold Text
       </Text>
-      
+
       {/* Conditional styles */}
       <Text style={[
         styles.text,
@@ -646,7 +621,7 @@ function StyledComponent() {
       ]}>
         Conditional
       </Text>
-      
+
       {/* Inline + stylesheet combined */}
       <Text style={[styles.text, { color: 'red' }]}>
         Custom Color
@@ -679,31 +654,31 @@ const styles = StyleSheet.create({
     color: '#007AFF',
   },
 });`}
-                      language="jsx"
-                      filename="StyledComponent.js"
-                    />
+                  language="jsx"
+                  filename="StyledComponent.js"
+                />
 
-                    <BlogNote type="info" title="Why StyleSheet.create?">
-                      <code>StyleSheet.create</code> validates styles at compile time, provides better 
-                      performance through caching, and enables better tooling support. Always prefer it 
-                      over plain objects.
-                    </BlogNote>
-                  </section>
+                <BlogNote type="info" title="Why StyleSheet.create?">
+                  <code>StyleSheet.create</code> validates styles at compile time, provides better
+                  performance through caching, and enables better tooling support. Always prefer it
+                  over plain objects.
+                </BlogNote>
+              </section>
 
-                  <section id="flexbox" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Flexbox Layout</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      React Native uses Flexbox for layout, but with some differences from CSS:
-                    </p>
+              <section id="flexbox" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Flexbox Layout</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  React Native uses Flexbox for layout, but with some differences from CSS:
+                </p>
 
-                    <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-6 ml-4">
-                      <li><code>flexDirection</code> defaults to <code>'column'</code> (not row)</li>
-                      <li><code>alignContent</code> defaults to <code>'flex-start'</code></li>
-                      <li><code>flexShrink</code> defaults to <code>0</code></li>
-                    </ul>
+                <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-6 ml-4">
+                  <li><code>flexDirection</code> defaults to <code>'column'</code> (not row)</li>
+                  <li><code>alignContent</code> defaults to <code>'flex-start'</code></li>
+                  <li><code>flexShrink</code> defaults to <code>0</code></li>
+                </ul>
 
-                    <CodeBlock
-                      code={`import { View, Text, StyleSheet } from 'react-native';
+                <CodeBlock
+                  code={`import { View, Text, StyleSheet } from 'react-native';
 
 function FlexboxExamples() {
   return (
@@ -753,40 +728,38 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 });`}
-                      language="jsx"
-                      filename="FlexboxExamples.js"
-                    />
+                  language="jsx"
+                  filename="FlexboxExamples.js"
+                />
 
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
-                      <h4 className="font-bold text-foreground mb-3">Common Flexbox Properties</h4>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <code className="text-accent">flexDirection</code>
-                        <span className="text-muted-foreground">row, column, row-reverse, column-reverse</span>
-                        <code className="text-accent">justifyContent</code>
-                        <span className="text-muted-foreground">flex-start, center, flex-end, space-between, space-around</span>
-                        <code className="text-accent">alignItems</code>
-                        <span className="text-muted-foreground">flex-start, center, flex-end, stretch</span>
-                        <code className="text-accent">flex</code>
-                        <span className="text-muted-foreground">number (how much space to take)</span>
-                        <code className="text-accent">gap</code>
-                        <span className="text-muted-foreground">spacing between children</span>
-                      </div>
-                    </div>
-                  </section>
-                </section>
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
+                  <h4 className="font-bold text-foreground mb-3">Common Flexbox Properties</h4>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <code className="text-primary">flexDirection</code>
+                    <span className="text-muted-foreground">row, column, row-reverse, column-reverse</span>
+                    <code className="text-primary">justifyContent</code>
+                    <span className="text-muted-foreground">flex-start, center, flex-end, space-between, space-around</span>
+                    <code className="text-primary">alignItems</code>
+                    <span className="text-muted-foreground">flex-start, center, flex-end, stretch</span>
+                    <code className="text-primary">flex</code>
+                    <span className="text-muted-foreground">number (how much space to take)</span>
+                    <code className="text-primary">gap</code>
+                    <span className="text-muted-foreground">spacing between children</span>
+                  </div>
+                </div>
+              </section>
+            </section>
 
-                {/* Navigation */}
-                <section id="navigation" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Navigation
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    React Navigation is the standard library for navigation in React Native. 
-                    It provides stack, tab, and drawer navigation patterns.
-                  </p>
+            {/* Navigation */}
+            <section id="navigation" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Navigation</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                React Navigation is the standard library for navigation in React Native.
+                It provides stack, tab, and drawer navigation patterns.
+              </p>
 
-                  <CodeBlock
-                    code={`# Install React Navigation
+              <CodeBlock
+                code={`# Install React Navigation
 npm install @react-navigation/native
 
 # Install dependencies for Expo
@@ -797,15 +770,15 @@ npm install @react-navigation/native-stack
 
 # Install bottom tabs (optional)
 npm install @react-navigation/bottom-tabs`}
-                    language="bash"
-                    filename="Terminal"
-                  />
+                language="bash"
+                filename="Terminal"
+              />
 
-                  <section id="stack-navigation" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Stack Navigation</h3>
+              <section id="stack-navigation" className="mb-12 mt-8">
+                <h3 className="text-2xl font-semibold mb-4">Stack Navigation</h3>
 
-                    <CodeBlock
-                      code={`// App.js
+                <CodeBlock
+                  code={`// App.js
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -817,15 +790,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen 
-          name="Home" 
+        <Stack.Screen
+          name="Home"
           component={HomeScreen}
           options={{ title: 'Welcome' }}
         />
-        <Stack.Screen 
-          name="Details" 
+        <Stack.Screen
+          name="Details"
           component={DetailsScreen}
-          options={{ 
+          options={{
             title: 'Details',
             headerStyle: { backgroundColor: '#007AFF' },
             headerTintColor: '#fff',
@@ -835,19 +808,19 @@ export default function App() {
     </NavigationContainer>
   );
 }`}
-                      language="jsx"
-                      filename="App.js"
-                    />
+                  language="jsx"
+                  filename="App.js"
+                />
 
-                    <CodeBlock
-                      code={`// screens/HomeScreen.js
+                <CodeBlock
+                  code={`// screens/HomeScreen.js
 import { View, Text, Button, StyleSheet } from 'react-native';
 
 function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home Screen</Text>
-      
+
       {/* Navigate to Details */}
       <Button
         title="Go to Details"
@@ -869,7 +842,7 @@ function DetailsScreen({ route, navigation }) {
     <View style={styles.container}>
       <Text>Item ID: {itemId}</Text>
       <Text>Param: {otherParam}</Text>
-      
+
       <Button
         title="Go Back"
         onPress={() => navigation.goBack()}
@@ -877,16 +850,16 @@ function DetailsScreen({ route, navigation }) {
     </View>
   );
 }`}
-                      language="jsx"
-                      filename="screens/HomeScreen.js"
-                    />
-                  </section>
+                  language="jsx"
+                  filename="screens/HomeScreen.js"
+                />
+              </section>
 
-                  <section id="tab-navigation" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Tab Navigation</h3>
+              <section id="tab-navigation" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Tab Navigation</h3>
 
-                    <CodeBlock
-                      code={`import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+                <CodeBlock
+                  code={`import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -901,7 +874,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            
+
             if (route.name === 'Home') {
               iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'Profile') {
@@ -909,7 +882,7 @@ export default function App() {
             } else if (route.name === 'Settings') {
               iconName = focused ? 'settings' : 'settings-outline';
             }
-            
+
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: '#007AFF',
@@ -923,26 +896,24 @@ export default function App() {
     </NavigationContainer>
   );
 }`}
-                      language="jsx"
-                      filename="TabNavigation.js"
-                    />
-                  </section>
-                </section>
+                  language="jsx"
+                  filename="TabNavigation.js"
+                />
+              </section>
+            </section>
 
-                {/* State Management */}
-                <section id="state-management" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> State Management
-                  </h2>
+            {/* State Management */}
+            <section id="state-management" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">State Management</h2>
 
-                  <section id="usestate-useeffect" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">useState & useEffect</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      React hooks work exactly the same in React Native as they do in React web:
-                    </p>
+              <section id="usestate-useeffect" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">useState & useEffect</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  React hooks work exactly the same in React Native as they do in React web:
+                </p>
 
-                    <CodeBlock
-                      code={`import { useState, useEffect } from 'react';
+                <CodeBlock
+                  code={`import { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList, ActivityIndicator } from 'react-native';
 
 function UserList() {
@@ -999,19 +970,19 @@ function UserList() {
     />
   );
 }`}
-                      language="jsx"
-                      filename="UserList.js"
-                    />
-                  </section>
+                  language="jsx"
+                  filename="UserList.js"
+                />
+              </section>
 
-                  <section id="context-api" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Context API</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      For global state like user authentication or theme, use React Context:
-                    </p>
+              <section id="context-api" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Context API</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  For global state like user authentication or theme, use React Context:
+                </p>
 
-                    <CodeBlock
-                      code={`// context/AuthContext.js
+                <CodeBlock
+                  code={`// context/AuthContext.js
 import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
@@ -1059,7 +1030,7 @@ export default function App() {
 // Usage in any component
 function ProfileScreen() {
   const { user, logout } = useAuth();
-  
+
   return (
     <View>
       <Text>Welcome, {user?.name}!</Text>
@@ -1067,30 +1038,28 @@ function ProfileScreen() {
     </View>
   );
 }`}
-                      language="jsx"
-                      filename="context/AuthContext.js"
-                    />
-                  </section>
-                </section>
+                  language="jsx"
+                  filename="context/AuthContext.js"
+                />
+              </section>
+            </section>
 
-                {/* Platform Specific */}
-                <section id="platform-specific" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Platform-Specific Code
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Sometimes you need different behavior or styling for iOS and Android:
-                  </p>
+            {/* Platform Specific */}
+            <section id="platform-specific" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Platform-Specific Code</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Sometimes you need different behavior or styling for iOS and Android:
+              </p>
 
-                  <CodeBlock
-                    code={`import { Platform, StyleSheet, View, Text } from 'react-native';
+              <CodeBlock
+                code={`import { Platform, StyleSheet, View, Text } from 'react-native';
 
 function PlatformExample() {
   return (
     <View style={styles.container}>
       <Text>You are on: {Platform.OS}</Text>
       <Text>Version: {Platform.Version}</Text>
-      
+
       {/* Conditional rendering */}
       {Platform.OS === 'ios' ? (
         <Text>iOS specific content</Text>
@@ -1107,7 +1076,7 @@ const styles = StyleSheet.create({
     padding: 20,
     // Platform-specific values
     paddingTop: Platform.OS === 'ios' ? 50 : 30,
-    
+
     // Or use Platform.select for cleaner code
     ...Platform.select({
       ios: {
@@ -1122,45 +1091,43 @@ const styles = StyleSheet.create({
     }),
   },
 });`}
-                    language="jsx"
-                    filename="PlatformExample.js"
-                  />
+                language="jsx"
+                filename="PlatformExample.js"
+              />
 
-                  <BlogNote type="tip" title="Platform-Specific Files">
-                    You can also create platform-specific files: <code>Component.ios.js</code> and 
-                    <code>Component.android.js</code>. React Native will automatically import the 
-                    correct one based on the platform.
-                  </BlogNote>
-                </section>
+              <BlogNote type="tip" title="Platform-Specific Files">
+                You can also create platform-specific files: <code>Component.ios.js</code> and
+                <code>Component.android.js</code>. React Native will automatically import the
+                correct one based on the platform.
+              </BlogNote>
+            </section>
 
-                {/* Native Features */}
-                <section id="native-features" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Native Features
-                  </h2>
+            {/* Native Features */}
+            <section id="native-features" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Native Features</h2>
 
-                  <div className="rounded-xl overflow-hidden border border-border/50 my-6">
-                    <img 
-                      src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=800&h=400&fit=crop" 
-                      alt="Mobile Phone Features"
-                      className="w-full h-48 object-cover"
-                    />
-                  </div>
+              <div className="rounded-xl overflow-hidden border border-border/50 my-6">
+                <img
+                  src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=800&h=400&fit=crop"
+                  alt="Mobile Phone Features"
+                  className="w-full h-48 object-cover"
+                />
+              </div>
 
-                  <section id="camera-location" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Camera & Location</h3>
+              <section id="camera-location" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Camera & Location</h3>
 
-                    <CodeBlock
-                      code={`# Install Expo packages for native features
+                <CodeBlock
+                  code={`# Install Expo packages for native features
 npx expo install expo-camera
 npx expo install expo-location
 npx expo install expo-image-picker`}
-                      language="bash"
-                      filename="Terminal"
-                    />
+                  language="bash"
+                  filename="Terminal"
+                />
 
-                    <CodeBlock
-                      code={`// Camera Example
+                <CodeBlock
+                  code={`// Camera Example
 import { useState } from 'react';
 import { View, Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -1171,7 +1138,7 @@ function CameraExample() {
   const takePhoto = async () => {
     // Request permission
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    
+
     if (status !== 'granted') {
       alert('Camera permission required!');
       return;
@@ -1194,20 +1161,20 @@ function CameraExample() {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button title="Take Photo" onPress={takePhoto} />
       {image && (
-        <Image 
-          source={{ uri: image }} 
-          style={{ width: 300, height: 300, marginTop: 20 }} 
+        <Image
+          source={{ uri: image }}
+          style={{ width: 300, height: 300, marginTop: 20 }}
         />
       )}
     </View>
   );
 }`}
-                      language="jsx"
-                      filename="CameraExample.js"
-                    />
+                  language="jsx"
+                  filename="CameraExample.js"
+                />
 
-                    <CodeBlock
-                      code={`// Location Example
+                <CodeBlock
+                  code={`// Location Example
 import { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import * as Location from 'expo-location';
@@ -1218,10 +1185,10 @@ function LocationExample() {
 
   const getLocation = async () => {
     setLoading(true);
-    
+
     // Request permission
     const { status } = await Location.requestForegroundPermissionsAsync();
-    
+
     if (status !== 'granted') {
       alert('Location permission required!');
       setLoading(false);
@@ -1236,8 +1203,8 @@ function LocationExample() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button 
-        title={loading ? 'Getting location...' : 'Get My Location'} 
+      <Button
+        title={loading ? 'Getting location...' : 'Get My Location'}
         onPress={getLocation}
         disabled={loading}
       />
@@ -1250,23 +1217,23 @@ function LocationExample() {
     </View>
   );
 }`}
-                      language="jsx"
-                      filename="LocationExample.js"
-                    />
-                  </section>
+                  language="jsx"
+                  filename="LocationExample.js"
+                />
+              </section>
 
-                  <section id="push-notifications" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">Push Notifications</h3>
+              <section id="push-notifications" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Push Notifications</h3>
 
-                    <CodeBlock
-                      code={`# Install notifications package
+                <CodeBlock
+                  code={`# Install notifications package
 npx expo install expo-notifications expo-device`}
-                      language="bash"
-                      filename="Terminal"
-                    />
+                  language="bash"
+                  filename="Terminal"
+                />
 
-                    <CodeBlock
-                      code={`import { useState, useEffect, useRef } from 'react';
+                <CodeBlock
+                  code={`import { useState, useEffect, useRef } from 'react';
 import { View, Text, Button, Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
@@ -1335,50 +1302,48 @@ async function registerForPushNotifications() {
   const token = await Notifications.getExpoPushTokenAsync();
   return token.data;
 }`}
-                      language="jsx"
-                      filename="NotificationExample.js"
-                    />
-                  </section>
-                </section>
+                  language="jsx"
+                  filename="NotificationExample.js"
+                />
+              </section>
+            </section>
 
-                {/* Debugging */}
-                <section id="debugging" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Debugging
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    React Native provides several debugging tools:
+            {/* Debugging */}
+            <section id="debugging" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Debugging</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                React Native provides several debugging tools:
+              </p>
+
+              <div className="space-y-4 mb-8">
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50">
+                  <h4 className="font-bold text-foreground mb-2">1. React Native Debugger</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Standalone app with React DevTools, Redux DevTools, and network inspection.
                   </p>
+                </div>
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50">
+                  <h4 className="font-bold text-foreground mb-2">2. Flipper</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Meta's debugging platform with layout inspector, network, and database tools.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50">
+                  <h4 className="font-bold text-foreground mb-2">3. Console.log</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Simple but effective! Logs appear in Metro bundler terminal or debug console.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50">
+                  <h4 className="font-bold text-foreground mb-2">4. Expo DevTools</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Web interface for Expo projects with logs, device management, and more.
+                  </p>
+                </div>
+              </div>
 
-                  <div className="space-y-4 mb-6">
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50">
-                      <h4 className="font-bold text-foreground mb-2">1. React Native Debugger</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Standalone app with React DevTools, Redux DevTools, and network inspection.
-                      </p>
-                    </div>
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50">
-                      <h4 className="font-bold text-foreground mb-2">2. Flipper</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Meta's debugging platform with layout inspector, network, and database tools.
-                      </p>
-                    </div>
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50">
-                      <h4 className="font-bold text-foreground mb-2">3. Console.log</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Simple but effective! Logs appear in Metro bundler terminal or debug console.
-                      </p>
-                    </div>
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50">
-                      <h4 className="font-bold text-foreground mb-2">4. Expo DevTools</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Web interface for Expo projects with logs, device management, and more.
-                      </p>
-                    </div>
-                  </div>
-
-                  <CodeBlock
-                    code={`// Debugging tips
+              <CodeBlock
+                code={`// Debugging tips
 
 // 1. Console logging
 console.log('Debug info:', someVariable);
@@ -1394,11 +1359,11 @@ import { PerformanceObserver } from 'react-native';
 // 4. Error boundaries for catching render errors
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
-  
+
   static getDerivedStateFromError(error) {
     return { hasError: true };
   }
-  
+
   render() {
     if (this.state.hasError) {
       return <Text>Something went wrong!</Text>;
@@ -1406,25 +1371,23 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }`}
-                    language="jsx"
-                    filename="debugging.js"
-                  />
-                </section>
+                language="jsx"
+                filename="debugging.js"
+              />
+            </section>
 
-                {/* Deployment */}
-                <section id="deployment" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Deployment
-                  </h2>
+            {/* Deployment */}
+            <section id="deployment" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Deployment</h2>
 
-                  <section id="app-store" className="mb-8">
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">App Store & Play Store</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      With Expo, you can build and submit apps using EAS (Expo Application Services):
-                    </p>
+              <section id="app-store" className="mb-12">
+                <h3 className="text-2xl font-semibold mb-4">App Store & Play Store</h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  With Expo, you can build and submit apps using EAS (Expo Application Services):
+                </p>
 
-                    <CodeBlock
-                      code={`# Install EAS CLI
+                <CodeBlock
+                  code={`# Install EAS CLI
 npm install -g eas-cli
 
 # Login to your Expo account
@@ -1447,107 +1410,109 @@ eas submit --platform ios
 
 # Submit to Play Store
 eas submit --platform android`}
-                      language="bash"
-                      filename="Terminal"
-                    />
+                  language="bash"
+                  filename="Terminal"
+                />
 
-                    <BlogNote type="warning" title="Requirements">
-                      <ul className="list-disc list-inside space-y-1 mt-2">
-                        <li><strong>iOS:</strong> Apple Developer account ($99/year)</li>
-                        <li><strong>Android:</strong> Google Play Developer account ($25 one-time)</li>
-                      </ul>
-                    </BlogNote>
+                <BlogNote type="warning" title="Requirements">
+                  <ul className="list-disc list-inside space-y-1 mt-2">
+                    <li><strong>iOS:</strong> Apple Developer account ($99/year)</li>
+                    <li><strong>Android:</strong> Google Play Developer account ($25 one-time)</li>
+                  </ul>
+                </BlogNote>
 
-                    <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
-                      <h4 className="font-bold text-foreground mb-3">App Store Submission Checklist</h4>
-                      <ul className="text-sm text-muted-foreground space-y-2">
-                        <li>✅ App icon (1024x1024 for iOS, 512x512 for Android)</li>
-                        <li>✅ Splash screen</li>
-                        <li>✅ App screenshots for various device sizes</li>
-                        <li>✅ App description and keywords</li>
-                        <li>✅ Privacy policy URL</li>
-                        <li>✅ Age rating questionnaire</li>
-                        <li>✅ In-app purchase configuration (if applicable)</li>
-                      </ul>
-                    </div>
-                  </section>
-                </section>
+                <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
+                  <h4 className="font-bold text-foreground mb-3">App Store Submission Checklist</h4>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li>✅ App icon (1024x1024 for iOS, 512x512 for Android)</li>
+                    <li>✅ Splash screen</li>
+                    <li>✅ App screenshots for various device sizes</li>
+                    <li>✅ App description and keywords</li>
+                    <li>✅ Privacy policy URL</li>
+                    <li>✅ Age rating questionnaire</li>
+                    <li>✅ In-app purchase configuration (if applicable)</li>
+                  </ul>
+                </div>
+              </section>
+            </section>
 
-                {/* Resources */}
-                <section id="resources" className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                    <span className="text-accent">#</span> Resources
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    Continue learning with these resources:
-                  </p>
+            {/* Resources */}
+            <section id="resources" className="mb-16">
+              <h2 className="text-3xl font-bold mb-6">Resources</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Continue learning with these resources:
+              </p>
 
-                  <div className="p-6 rounded-xl border border-accent/30 bg-accent/5 mb-6">
-                    <h4 className="font-display font-bold text-foreground mb-4">📚 Official Documentation</h4>
-                    <ul className="text-muted-foreground space-y-3">
-                      <li>
-                        <a href="https://reactnative.dev/docs/getting-started" target="_blank" rel="noopener noreferrer" 
-                           className="text-accent hover:underline">
-                          React Native Official Docs
-                        </a>
-                        <span className="text-sm ml-2">— Comprehensive official guide</span>
-                      </li>
-                      <li>
-                        <a href="https://docs.expo.dev/" target="_blank" rel="noopener noreferrer"
-                           className="text-accent hover:underline">
-                          Expo Documentation
-                        </a>
-                        <span className="text-sm ml-2">— Expo guides and API reference</span>
-                      </li>
-                      <li>
-                        <a href="https://reactnavigation.org/docs/getting-started" target="_blank" rel="noopener noreferrer"
-                           className="text-accent hover:underline">
-                          React Navigation Docs
-                        </a>
-                        <span className="text-sm ml-2">— Navigation library documentation</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-6 rounded-xl border border-border/50 bg-card/50 mb-6">
-                    <h4 className="font-display font-bold text-foreground mb-4">🎓 Learning Resources</h4>
-                    <ul className="text-muted-foreground space-y-2">
-                      <li>• React Native Express (free online course)</li>
-                      <li>• The Complete React Native + Hooks Course (Udemy)</li>
-                      <li>• React Native in Action (Manning book)</li>
-                      <li>• Expo's Snack Playground (online code editor)</li>
-                    </ul>
-                  </div>
-
-                  <div className="p-6 rounded-xl border border-border/50 bg-card/50">
-                    <h4 className="font-display font-bold text-foreground mb-4">🧩 Useful Libraries</h4>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <code className="text-accent">react-native-reanimated</code>
-                      <span className="text-muted-foreground">Advanced animations</span>
-                      <code className="text-accent">react-native-gesture-handler</code>
-                      <span className="text-muted-foreground">Touch gestures</span>
-                      <code className="text-accent">react-query</code>
-                      <span className="text-muted-foreground">Data fetching</span>
-                      <code className="text-accent">zustand</code>
-                      <span className="text-muted-foreground">State management</span>
-                      <code className="text-accent">nativewind</code>
-                      <span className="text-muted-foreground">Tailwind for RN</span>
-                      <code className="text-accent">react-native-paper</code>
-                      <span className="text-muted-foreground">Material Design UI</span>
-                    </div>
-                  </div>
-
-                  <BlogNote type="success" title="You're Ready!">
-                    You now have a solid foundation in React Native. Start building your first app 
-                    and learn by doing! Remember: the best way to learn is to build real projects.
-                  </BlogNote>
-                </section>
-
+              <div className="p-6 rounded-xl border border-accent/30 bg-accent/5 mb-6">
+                <h4 className="font-display font-bold text-foreground mb-4">📚 Official Documentation</h4>
+                <ul className="text-muted-foreground space-y-3">
+                  <li>
+                    <a href="https://reactnative.dev/docs/getting-started" target="_blank" rel="noopener noreferrer"
+                       className="text-primary hover:underline">
+                      React Native Official Docs
+                    </a>
+                    <span className="text-sm ml-2">— Comprehensive official guide</span>
+                  </li>
+                  <li>
+                    <a href="https://docs.expo.dev/" target="_blank" rel="noopener noreferrer"
+                       className="text-primary hover:underline">
+                      Expo Documentation
+                    </a>
+                    <span className="text-sm ml-2">— Expo guides and API reference</span>
+                  </li>
+                  <li>
+                    <a href="https://reactnavigation.org/docs/getting-started" target="_blank" rel="noopener noreferrer"
+                       className="text-primary hover:underline">
+                      React Navigation Docs
+                    </a>
+                    <span className="text-sm ml-2">— Navigation library documentation</span>
+                  </li>
+                </ul>
               </div>
-            </main>
-          </div>
+
+              <div className="p-6 rounded-xl border border-border/50 bg-card/50 mb-6">
+                <h4 className="font-display font-bold text-foreground mb-4">🎓 Learning Resources</h4>
+                <ul className="text-muted-foreground space-y-2">
+                  <li>• React Native Express (free online course)</li>
+                  <li>• The Complete React Native + Hooks Course (Udemy)</li>
+                  <li>• React Native in Action (Manning book)</li>
+                  <li>• Expo's Snack Playground (online code editor)</li>
+                </ul>
+              </div>
+
+              <div className="p-6 rounded-xl border border-border/50 bg-card/50">
+                <h4 className="font-display font-bold text-foreground mb-4">🧩 Useful Libraries</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <code className="text-accent">react-native-reanimated</code>
+                  <span className="text-muted-foreground">Advanced animations</span>
+                  <code className="text-accent">react-native-gesture-handler</code>
+                  <span className="text-muted-foreground">Touch gestures</span>
+                  <code className="text-accent">react-query</code>
+                  <span className="text-muted-foreground">Data fetching</span>
+                  <code className="text-accent">zustand</code>
+                  <span className="text-muted-foreground">State management</span>
+                  <code className="text-accent">nativewind</code>
+                  <span className="text-muted-foreground">Tailwind for RN</span>
+                  <code className="text-accent">react-native-paper</code>
+                  <span className="text-muted-foreground">Material Design UI</span>
+                </div>
+              </div>
+
+              <BlogNote type="success" title="You're Ready!">
+                You now have a solid foundation in React Native. Start building your first app
+                and learn by doing! Remember: the best way to learn is to build real projects.
+              </BlogNote>
+            </section>
+          </article>
+
+          {/* Sidebar */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <TableOfContents items={tocItems} />
+            </div>
+          </aside>
         </div>
-      </article>
+      </main>
     </div>
   );
 };
