@@ -4,36 +4,34 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 
 // Certificate Imports
-import scalerJavaDsa from '@/assets/certificates/scaler_java_dsa.jpg';
-import designSpeaksHackathon from '@/assets/certificates/designspeaks_hackathon.jpg';
-import niteshCompletion from '@/assets/certificates/nitesh_completion.jpg';
+// Hackathons & Competitions
+import kriyetaParticipate from '@/assets/certificates/kriyeta-4-0-participation.jpeg';
+import virtualVistaParticipate from '@/assets/certificates/virtual-vista-2-0-participation.jpeg';
+import hackwaveParticipate from '@/assets/certificates/hackwave-2-0-participation.jpeg';
+import pravahIdeathon from '@/assets/certificates/pravah-2025-ideathon.jpeg';
+import websiteDevPrize from '@/assets/certificates/website-development-competition-2nd-prize.jpeg';
+import googleSolution from '@/assets/certificates/google-solution-challenge-achievement.jpeg';
+import bestAiSolution from '@/assets/certificates/best-ai-ml-solution-testverse.jpg';
 
-// Day 41 - Design Speaks Learning Series
-import designSpeaksDay41_1 from '@/assets/certificates/designspeaks_day41_1.jpg';
-import designSpeaksDay41_2 from '@/assets/certificates/designspeaks_day41_2.jpg';
-import designSpeaksDay41_3 from '@/assets/certificates/designspeaks_day41_3.jpg';
-import designSpeaksDay41_4 from '@/assets/certificates/designspeaks_day41_4.jpg';
+// Skills & Courses
+import introCybersecurity from '@/assets/certificates/introduction-to-cybersecurity.jpeg';
+import learningDocker from '@/assets/certificates/learning-docker.jpeg';
+import githubActions from '@/assets/certificates/practical-github-actions.jpeg';
+import awsCourse from '@/assets/certificates/aws-free-course-completion.png';
+import introIot from '@/assets/certificates/intro-to-iot-and-digital-transformation.jpg';
+import sweAgile from '@/assets/certificates/software-engineering-and-agile.jpg';
+import applyAi from '@/assets/certificates/apply-ai-analyze-customer-reviews.jpg';
+import introModernAi from '@/assets/certificates/introduction-to-modern-ai.jpg';
+import projectMgmt from '@/assets/certificates/practical-github-project-management.jpg';
+import javaFoundation from '@/assets/certificates/associate-in-it-foundation-skills-java.jpg';
+import dbms1 from '@/assets/certificates/dbms-part-1.jpg';
+import progJava from '@/assets/certificates/programming-using-java.jpg';
+import noSql from '@/assets/certificates/introduction-to-nosql-databases.jpg';
+import sweAgile2 from '@/assets/certificates/software-engineering-and-agile-2.jpg';
+import dsaJava from '@/assets/certificates/data-structures-and-algorithms-using-java.jpg';
+import dbms2 from '@/assets/certificates/dbms-part-2.jpg';
+import javaDsaScaler from '@/assets/certificates/java-dsa-course-master-fundamentals.jpg';
 
-// Day 45 - Nitesh Chourasiya Series
-import niteshDay45_1 from '@/assets/certificates/nitesh_day45_1.jpg';
-import niteshDay45_2 from '@/assets/certificates/nitesh_day45_2.jpg';
-import niteshDay45_3 from '@/assets/certificates/nitesh_day45_3.jpg';
-import niteshDay45_4 from '@/assets/certificates/nitesh_day45_4.jpg';
-import niteshDay45_5 from '@/assets/certificates/nitesh_day45_5.jpg';
-import niteshDay45_6 from '@/assets/certificates/nitesh_day45_6.jpg';
-import niteshDay45_7 from '@/assets/certificates/nitesh_day45_7.jpg';
-
-// Miscellaneous / Unclassified Certificates
-import miscCert1 from '@/assets/certificates/1745643309589.jpeg';
-import miscCert2 from '@/assets/certificates/1745830533036.jpeg';
-import miscCert3 from '@/assets/certificates/1754470361202.jpeg';
-import miscCert4 from '@/assets/certificates/1755091546132.jpeg';
-import miscCert5 from '@/assets/certificates/1756732531282.jpeg';
-import miscCert6 from '@/assets/certificates/1757604796275.jpeg';
-import miscCert7 from '@/assets/certificates/1757605903538.jpeg';
-import miscCert8 from '@/assets/certificates/1759947657838.jpeg';
-import miscCert9 from '@/assets/certificates/1759950513779.jpeg';
-import miscCert10 from '@/assets/certificates/72623b425fb74f61ee3b8b09778385aa003c54cec00e94f8b0198463acdadedd.png';
 
 type Category = 'skills' | 'hackathons' | 'events' | 'others';
 
@@ -47,202 +45,200 @@ interface Certificate {
 }
 
 const certificates: Certificate[] = [
-  // --- Skills ---
+  // --- Hackathons & Competitions ---
   {
-    id: 'scaler-dsa',
-    title: 'Java & DSA Certification',
-    description: 'Comprehensive data structures and algorithms training with Java by Scaler.',
-    image: scalerJavaDsa,
-    tags: ['Java', 'DSA', 'Problem Solving'],
-    category: 'skills',
-  },
-  {
-    id: 'design-speaks-41-1',
-    title: 'Design Speaks - Learning Series I',
-    description: 'Part 1 of the 41-day design learning challenge.',
-    image: designSpeaksDay41_1,
-    tags: ['Design', 'Learning', 'Challenge'],
-    category: 'skills',
+    id: 'kriyeta-4-0',
+    title: 'Kriyeta 4.0 Participation',
+    description: 'Participation in the 48-hour hackathon "Kriyeta 4.0" organized by Acropolis.',
+    image: kriyetaParticipate,
+    tags: ['Hackathon', 'Participation'],
+    category: 'hackathons',
   },
   {
-    id: 'design-speaks-41-2',
-    title: 'Design Speaks - Learning Series II',
-    description: 'Part 2 of the 41-day design learning challenge.',
-    image: designSpeaksDay41_2,
-    tags: ['Design', 'UI/UX'],
-    category: 'skills',
+    id: 'hackwave-2-0',
+    title: 'HackWave 2.0 Participation',
+    description: 'Certificate of participation for the 36-hour "HackWave 2.0" hackathon.',
+    image: hackwaveParticipate,
+    tags: ['Hackathon', 'Coding'],
+    category: 'hackathons',
   },
   {
-    id: 'design-speaks-41-3',
-    title: 'Design Speaks - Learning Series III',
-    description: 'Part 3 of the 41-day design learning challenge.',
-    image: designSpeaksDay41_3,
-    tags: ['Design', 'Creativity'],
-    category: 'skills',
+    id: 'pravah-2025',
+    title: 'Pravah 2025 Ideathon',
+    description: 'Participation in the "IDEATHON" conducted under Pravah 2025.',
+    image: pravahIdeathon,
+    tags: ['Ideathon', 'Innovation'],
+    category: 'hackathons',
   },
   {
-    id: 'design-speaks-41-4',
-    title: 'Design Speaks - Learning Series IV',
-    description: 'Part 4 of the 41-day design learning challenge.',
-    image: designSpeaksDay41_4,
-    tags: ['Design', 'Typography'],
-    category: 'skills',
+    id: 'testverse-award',
+    title: 'Best AI/ML Solution - Testverse',
+    description: 'Awarded Best AI/ML Solution at Hack-to-Hire Ideathon.',
+    image: bestAiSolution,
+    tags: ['Winner', 'AI/ML', 'Hackathon'],
+    category: 'hackathons',
   },
   {
-    id: 'nitesh-day45-1',
-    title: '45-Day Coding Challenge - Milestone I',
-    description: 'Achievement in the 45-day consistent coding streak.',
-    image: niteshDay45_1,
-    tags: ['Coding', 'Consistency', 'Streak'],
-    category: 'skills',
+    id: 'website-dev-competition',
+    title: '2nd Prize - Website Development',
+    description: 'Secured 2nd prize in the Website Development Competition by LNCT Group.',
+    image: websiteDevPrize,
+    tags: ['Winner', 'Web Dev', 'Competition'],
+    category: 'hackathons',
   },
   {
-    id: 'nitesh-day45-2',
-    title: '45-Day Coding Challenge - Milestone II',
-    description: 'Advanced concepts covered during the 45-day challenge.',
-    image: niteshDay45_2,
-    tags: ['Coding', 'Web Dev'],
-    category: 'skills',
+    id: 'virtual-vista',
+    title: 'Virtual Vista 2.0 Participation',
+    description: 'Participation in the National Level Online Project Competition "Virtual Vista 2.0".',
+    image: virtualVistaParticipate,
+    tags: ['Competition', 'Project'],
+    category: 'hackathons',
   },
   {
-    id: 'nitesh-day45-3',
-    title: '45-Day Coding Challenge - Milestone III',
-    description: 'Project submissions for the 45-day challenge.',
-    image: niteshDay45_3,
-    tags: ['Projects', 'Development'],
-    category: 'skills',
-  },
-   {
-    id: 'nitesh-day45-4',
-    title: '45-Day Coding Challenge - Milestone IV',
-    description: 'Data structures mastery verification.',
-    image: niteshDay45_4,
-    tags: ['DSA', 'Logic'],
-    category: 'skills',
-  },
-   {
-    id: 'nitesh-day45-5',
-    title: '45-Day Coding Challenge - Milestone V',
-    description: 'System design and architecture concepts.',
-    image: niteshDay45_5,
-    tags: ['Architecture', 'System Design'],
-    category: 'skills',
-  },
-   {
-    id: 'nitesh-day45-6',
-    title: '45-Day Coding Challenge - Milestone VI',
-    description: 'Full stack development proficiency.',
-    image: niteshDay45_6,
-    tags: ['Full Stack', 'Backend'],
-    category: 'skills',
-  },
-   {
-    id: 'nitesh-day45-7',
-    title: '45-Day Coding Challenge - Milestone VII',
-    description: 'Final completion and excellence award.',
-    image: niteshDay45_7,
-    tags: ['Excellence', 'Completion'],
-    category: 'skills',
-  },
-
-  // --- Hackathons ---
-  {
-    id: 'design-hackathon',
-    title: 'Design Speaks Hackathon',
-    description: 'Participant/Winner in the Design Speaks rigorous hackathon event.',
-    image: designSpeaksHackathon,
-    tags: ['Hackathon', 'Design', 'Competition'],
+    id: 'google-solution',
+    title: 'Google Solution Challenge',
+    description: 'Certificate of Achievement for contributing an innovative idea.',
+    image: googleSolution,
+    tags: ['Achievement', 'Google', 'Innovation'],
     category: 'hackathons',
   },
 
-  // --- Others / Unclassified ---
+  // --- Skills & Courses ---
   {
-    id: 'cert-completion',
-    title: 'Certificate of Completion',
-    description: 'Program completion certificate.',
-    image: niteshCompletion,
-    tags: ['Course', 'Completion'],
-    category: 'others',
+    id: 'scaler-java-dsa',
+    title: 'Java & DSA Certification',
+    description: 'Master the Fundamentals and Beyond in Java DSA by Scaler.',
+    image: javaDsaScaler,
+    tags: ['Java', 'DSA', 'Scaler'],
+    category: 'skills',
   },
   {
-    id: 'misc-1',
-    title: 'Professional Achievement I',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert1,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'aws-free-course',
+    title: 'AWS Free Course Completion',
+    description: 'Certificate of excellence for completing AWS Free Course tutorials.',
+    image: awsCourse,
+    tags: ['Cloud', 'AWS', 'Certificate'],
+    category: 'skills',
   },
   {
-    id: 'misc-2',
-    title: 'Professional Achievement II',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert2,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'java-foundation',
+    title: 'Associate in IT Foundation Skills (Java)',
+    description: 'Infosys Springboard completion for IT Foundation Skills in Java.',
+    image: javaFoundation,
+    tags: ['Java', 'Foundation', 'Infosys'],
+    category: 'skills',
   },
   {
-    id: 'misc-3',
-    title: 'Professional Achievement III',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert3,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'programming-java',
+    title: 'Programming using Java',
+    description: 'Infosys Springboard course completion for Programming using Java.',
+    image: progJava,
+    tags: ['Java', 'Programming'],
+    category: 'skills',
   },
   {
-    id: 'misc-4',
-    title: 'Professional Achievement IV',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert4,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'dsa-java-infosys',
+    title: 'Data Structures & Algorithms using Java',
+    description: 'Infosys Springboard course completion for DSA using Java.',
+    image: dsaJava,
+    tags: ['DSA', 'Java', 'Algorithms'],
+    category: 'skills',
   },
   {
-    id: 'misc-5',
-    title: 'Professional Achievement V',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert5,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'dbms-1',
+    title: 'Database Management System Part - 1',
+    description: 'Infosys Springboard course completion for DBMS Part 1.',
+    image: dbms1,
+    tags: ['Database', 'DBMS'],
+    category: 'skills',
   },
   {
-    id: 'misc-6',
-    title: 'Professional Achievement VI',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert6,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'dbms-2',
+    title: 'Database Management System Part - 2',
+    description: 'Infosys Springboard course completion for DBMS Part 2.',
+    image: dbms2,
+    tags: ['Database', 'DBMS'],
+    category: 'skills',
   },
   {
-    id: 'misc-7',
-    title: 'Professional Achievement VII',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert7,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'nosql-db',
+    title: 'Introduction to NoSQL Databases',
+    description: 'Infosys Springboard course completion for NoSQL databases.',
+    image: noSql,
+    tags: ['Database', 'NoSQL'],
+    category: 'skills',
   },
   {
-    id: 'misc-8',
-    title: 'Professional Achievement VIII',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert8,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'swe-agile',
+    title: 'Software Engineering & Agile',
+    description: 'Infosys Springboard course on Software Engineering and Agile development.',
+    image: sweAgile,
+    tags: ['Software Engineering', 'Agile'],
+    category: 'skills',
   },
   {
-    id: 'misc-9',
-    title: 'Professional Achievement IX',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert9,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'swe-agile-2',
+    title: 'Software Engineering & Agile (Advanced)',
+    description: 'Advanced concepts in Software Engineering and Agile development.',
+    image: sweAgile2,
+    tags: ['Software Engineering', 'Agile'],
+    category: 'skills',
   },
   {
-    id: 'misc-10',
-    title: 'Professional Achievement X',
-    description: 'Various professional milestones and recognitions.',
-    image: miscCert10,
-    tags: ['Professional', 'Achievement'],
-    category: 'others',
+    id: 'modern-ai',
+    title: 'Introduction to Modern AI',
+    description: 'Cisco Networking Academy certificate for Introduction to Modern AI.',
+    image: introModernAi,
+    tags: ['AI', 'Cisco'],
+    category: 'skills',
+  },
+  {
+    id: 'apply-ai',
+    title: 'Apply AI: Analyze Customer Reviews',
+    description: 'Cisco Networking Academy certificate for Applied AI.',
+    image: applyAi,
+    tags: ['AI', 'Analysis', 'Cisco'],
+    category: 'skills',
+  },
+  {
+    id: 'iot-digital',
+    title: 'Intro to IoT & Digital Transformation',
+    description: 'Cisco Networking Academy certificate for IoT and Digital Transformation.',
+    image: introIot,
+    tags: ['IoT', 'Digital Transformation'],
+    category: 'skills',
+  },
+  {
+    id: 'cybersecurity',
+    title: 'Introduction to Cybersecurity',
+    description: 'Cisco Networking Academy course completion for Cybersecurity.',
+    image: introCybersecurity,
+    tags: ['Cybersecurity', 'Security'],
+    category: 'skills',
+  },
+  {
+    id: 'docker-learning',
+    title: 'Learning Docker',
+    description: 'LinkedIn Learning course completion for Docker.',
+    image: learningDocker,
+    tags: ['DevOps', 'Docker'],
+    category: 'skills',
+  },
+  {
+    id: 'github-actions',
+    title: 'Practical GitHub Actions',
+    description: 'LinkedIn Learning course completion for GitHub Actions.',
+    image: githubActions,
+    tags: ['DevOps', 'GitHub'],
+    category: 'skills',
+  },
+  {
+    id: 'project-mgmt',
+    title: 'Practical GitHub Project Management',
+    description: 'LinkedIn Learning certificate for GitHub Project Management.',
+    image: projectMgmt,
+    tags: ['Project Management', 'GitHub'],
+    category: 'skills',
   },
 ];
 
