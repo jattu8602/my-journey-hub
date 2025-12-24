@@ -20,7 +20,7 @@ function DragonModel() {
        if (action) {
            action.reset().fadeIn(0.5).play();
            // Slow down animation significantly
-           action.timeScale = 0.6;
+           action.timeScale = 0.4;
        }
     }
   }, [actions, animations]);
@@ -29,7 +29,7 @@ function DragonModel() {
     if (!group.current) return;
 
     // Time factor - slowed down
-    const t = state.clock.getElapsedTime() * 0.4;
+    const t = state.clock.getElapsedTime() * 0.2;
 
     // "In and out of page" movement (Z-axis) - slower oscillation
     const depth = Math.sin(t * 0.5) * 6 - 2;
@@ -40,11 +40,11 @@ function DragonModel() {
     const targetY = Math.sin(t * 1.3) * 3; // Vertical wandering
 
     // Smoothly update position
-    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.02);
-    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.02);
+    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.01);
+    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.01);
 
     // Apply depth
-    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, depth, 0.02);
+    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, depth, 0.01);
 
     // Rotation logic
     // Look ahead logic
