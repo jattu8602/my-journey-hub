@@ -3,6 +3,38 @@ import { useLenis } from '@/hooks/useLenis';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 
+// Certificate Imports
+import scalerJavaDsa from '@/assets/certificates/scaler_java_dsa.jpg';
+import designSpeaksHackathon from '@/assets/certificates/designspeaks_hackathon.jpg';
+import niteshCompletion from '@/assets/certificates/nitesh_completion.jpg';
+
+// Day 41 - Design Speaks Learning Series
+import designSpeaksDay41_1 from '@/assets/certificates/designspeaks_day41_1.jpg';
+import designSpeaksDay41_2 from '@/assets/certificates/designspeaks_day41_2.jpg';
+import designSpeaksDay41_3 from '@/assets/certificates/designspeaks_day41_3.jpg';
+import designSpeaksDay41_4 from '@/assets/certificates/designspeaks_day41_4.jpg';
+
+// Day 45 - Nitesh Chourasiya Series
+import niteshDay45_1 from '@/assets/certificates/nitesh_day45_1.jpg';
+import niteshDay45_2 from '@/assets/certificates/nitesh_day45_2.jpg';
+import niteshDay45_3 from '@/assets/certificates/nitesh_day45_3.jpg';
+import niteshDay45_4 from '@/assets/certificates/nitesh_day45_4.jpg';
+import niteshDay45_5 from '@/assets/certificates/nitesh_day45_5.jpg';
+import niteshDay45_6 from '@/assets/certificates/nitesh_day45_6.jpg';
+import niteshDay45_7 from '@/assets/certificates/nitesh_day45_7.jpg';
+
+// Miscellaneous / Unclassified Certificates
+import miscCert1 from '@/assets/certificates/1745643309589.jpeg';
+import miscCert2 from '@/assets/certificates/1745830533036.jpeg';
+import miscCert3 from '@/assets/certificates/1754470361202.jpeg';
+import miscCert4 from '@/assets/certificates/1755091546132.jpeg';
+import miscCert5 from '@/assets/certificates/1756732531282.jpeg';
+import miscCert6 from '@/assets/certificates/1757604796275.jpeg';
+import miscCert7 from '@/assets/certificates/1757605903538.jpeg';
+import miscCert8 from '@/assets/certificates/1759947657838.jpeg';
+import miscCert9 from '@/assets/certificates/1759950513779.jpeg';
+import miscCert10 from '@/assets/certificates/72623b425fb74f61ee3b8b09778385aa003c54cec00e94f8b0198463acdadedd.png';
+
 type Category = 'skills' | 'hackathons' | 'events' | 'others';
 
 interface Certificate {
@@ -15,72 +47,201 @@ interface Certificate {
 }
 
 const certificates: Certificate[] = [
-  // Skill Certificates
+  // --- Skills ---
   {
-    id: 'skill-1',
-    title: 'AWS Cloud Practitioner',
-    description: 'Foundational understanding of AWS Cloud services and architecture.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
-    tags: ['AWS', 'Cloud', 'Infrastructure'],
+    id: 'scaler-dsa',
+    title: 'Java & DSA Certification',
+    description: 'Comprehensive data structures and algorithms training with Java by Scaler.',
+    image: scalerJavaDsa,
+    tags: ['Java', 'DSA', 'Problem Solving'],
     category: 'skills',
   },
   {
-    id: 'skill-2',
-    title: 'React Developer Certification',
-    description: 'Advanced React patterns, hooks, and state management expertise.',
-    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=300&fit=crop',
-    tags: ['React', 'Frontend', 'JavaScript'],
+    id: 'design-speaks-41-1',
+    title: 'Design Speaks - Learning Series I',
+    description: 'Part 1 of the 41-day design learning challenge.',
+    image: designSpeaksDay41_1,
+    tags: ['Design', 'Learning', 'Challenge'],
     category: 'skills',
   },
   {
-    id: 'skill-3',
-    title: 'Python for Data Science',
-    description: 'Data analysis, visualization, and machine learning with Python.',
-    image: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop',
-    tags: ['Python', 'Data Science', 'ML'],
+    id: 'design-speaks-41-2',
+    title: 'Design Speaks - Learning Series II',
+    description: 'Part 2 of the 41-day design learning challenge.',
+    image: designSpeaksDay41_2,
+    tags: ['Design', 'UI/UX'],
     category: 'skills',
   },
-  // Hackathon Certificates
   {
-    id: 'hack-1',
-    title: 'HackTheNorth 2024 Winner',
-    description: 'First place in the AI/ML category for building an innovative solution.',
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop',
-    tags: ['Winner', 'AI/ML', '1st Place'],
+    id: 'design-speaks-41-3',
+    title: 'Design Speaks - Learning Series III',
+    description: 'Part 3 of the 41-day design learning challenge.',
+    image: designSpeaksDay41_3,
+    tags: ['Design', 'Creativity'],
+    category: 'skills',
+  },
+  {
+    id: 'design-speaks-41-4',
+    title: 'Design Speaks - Learning Series IV',
+    description: 'Part 4 of the 41-day design learning challenge.',
+    image: designSpeaksDay41_4,
+    tags: ['Design', 'Typography'],
+    category: 'skills',
+  },
+  {
+    id: 'nitesh-day45-1',
+    title: '45-Day Coding Challenge - Milestone I',
+    description: 'Achievement in the 45-day consistent coding streak.',
+    image: niteshDay45_1,
+    tags: ['Coding', 'Consistency', 'Streak'],
+    category: 'skills',
+  },
+  {
+    id: 'nitesh-day45-2',
+    title: '45-Day Coding Challenge - Milestone II',
+    description: 'Advanced concepts covered during the 45-day challenge.',
+    image: niteshDay45_2,
+    tags: ['Coding', 'Web Dev'],
+    category: 'skills',
+  },
+  {
+    id: 'nitesh-day45-3',
+    title: '45-Day Coding Challenge - Milestone III',
+    description: 'Project submissions for the 45-day challenge.',
+    image: niteshDay45_3,
+    tags: ['Projects', 'Development'],
+    category: 'skills',
+  },
+   {
+    id: 'nitesh-day45-4',
+    title: '45-Day Coding Challenge - Milestone IV',
+    description: 'Data structures mastery verification.',
+    image: niteshDay45_4,
+    tags: ['DSA', 'Logic'],
+    category: 'skills',
+  },
+   {
+    id: 'nitesh-day45-5',
+    title: '45-Day Coding Challenge - Milestone V',
+    description: 'System design and architecture concepts.',
+    image: niteshDay45_5,
+    tags: ['Architecture', 'System Design'],
+    category: 'skills',
+  },
+   {
+    id: 'nitesh-day45-6',
+    title: '45-Day Coding Challenge - Milestone VI',
+    description: 'Full stack development proficiency.',
+    image: niteshDay45_6,
+    tags: ['Full Stack', 'Backend'],
+    category: 'skills',
+  },
+   {
+    id: 'nitesh-day45-7',
+    title: '45-Day Coding Challenge - Milestone VII',
+    description: 'Final completion and excellence award.',
+    image: niteshDay45_7,
+    tags: ['Excellence', 'Completion'],
+    category: 'skills',
+  },
+
+  // --- Hackathons ---
+  {
+    id: 'design-hackathon',
+    title: 'Design Speaks Hackathon',
+    description: 'Participant/Winner in the Design Speaks rigorous hackathon event.',
+    image: designSpeaksHackathon,
+    tags: ['Hackathon', 'Design', 'Competition'],
     category: 'hackathons',
   },
+
+  // --- Others / Unclassified ---
   {
-    id: 'hack-2',
-    title: 'DevPost Global Hackathon',
-    description: 'Participated in 48-hour global hackathon building a sustainability app.',
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop',
-    tags: ['Sustainability', 'Global', 'Team'],
-    category: 'hackathons',
-  },
-  // Event Certificates
-  {
-    id: 'event-1',
-    title: 'Google I/O Extended 2024',
-    description: 'Attended Google I/O Extended with hands-on workshops on AI tools.',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop',
-    tags: ['Google', 'AI', 'Workshop'],
-    category: 'events',
+    id: 'cert-completion',
+    title: 'Certificate of Completion',
+    description: 'Program completion certificate.',
+    image: niteshCompletion,
+    tags: ['Course', 'Completion'],
+    category: 'others',
   },
   {
-    id: 'event-2',
-    title: 'React Conf 2024',
-    description: 'Participated in React Conf learning about React 19 and Server Components.',
-    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=300&fit=crop',
-    tags: ['React', 'Conference', 'Networking'],
-    category: 'events',
+    id: 'misc-1',
+    title: 'Professional Achievement I',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert1,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
   },
-  // Others
   {
-    id: 'other-1',
-    title: 'Open Source Contributor',
-    description: 'Recognized contributor to major open source projects.',
-    image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=400&h=300&fit=crop',
-    tags: ['Open Source', 'GitHub', 'Community'],
+    id: 'misc-2',
+    title: 'Professional Achievement II',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert2,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-3',
+    title: 'Professional Achievement III',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert3,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-4',
+    title: 'Professional Achievement IV',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert4,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-5',
+    title: 'Professional Achievement V',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert5,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-6',
+    title: 'Professional Achievement VI',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert6,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-7',
+    title: 'Professional Achievement VII',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert7,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-8',
+    title: 'Professional Achievement VIII',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert8,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-9',
+    title: 'Professional Achievement IX',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert9,
+    tags: ['Professional', 'Achievement'],
+    category: 'others',
+  },
+  {
+    id: 'misc-10',
+    title: 'Professional Achievement X',
+    description: 'Various professional milestones and recognitions.',
+    image: miscCert10,
+    tags: ['Professional', 'Achievement'],
     category: 'others',
   },
 ];
@@ -148,7 +309,7 @@ const Certification = () => {
                       <img
                         src={cert.image}
                         alt={cert.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
 
