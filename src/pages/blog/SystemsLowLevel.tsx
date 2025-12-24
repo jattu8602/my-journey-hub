@@ -44,7 +44,7 @@ const SystemsLowLevel = () => {
 
       <main className="max-w-6xl mx-auto px-6 py-12">
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-12">
           {/* Main Content */}
           <article className="prose prose-invert max-w-none">
             {/* Hero Section */}
@@ -219,7 +219,7 @@ void dangerousRecursion(int n) {
 
                 <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
                   <h4 className="font-bold text-foreground mb-3">Memory Layout Visualization</h4>
-                  <pre className="text-sm font-mono text-muted-foreground">
+                  <pre className="text-sm font-mono text-muted-foreground overflow-x-auto">
 {`High Address
 ┌─────────────────────┐
 │       Stack         │ ↓ Grows downward
@@ -336,7 +336,7 @@ void my_free(void* ptr) {
 
                 <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
                   <h4 className="font-bold text-foreground mb-3">Fragmentation Example</h4>
-                  <pre className="text-sm font-mono text-muted-foreground">
+                  <pre className="text-sm font-mono text-muted-foreground overflow-x-auto">
 {`Before fragmentation:
 ┌────────────────────────────────────────┐
 │            Free Memory                  │
@@ -397,6 +397,8 @@ struct Arena {
     size_t capacity;
     size_t offset;
 };
+
+
 
 void* arena_alloc(Arena* a, size_t size) {
     if (a->offset + size > a->capacity) return NULL;
@@ -669,7 +671,7 @@ void blocked_matmul(int n, float* A, float* B, float* C) {
 
                 <div className="p-4 rounded-lg border border-red-500/30 bg-red-500/5 my-6">
                   <h4 className="font-bold text-red-400 mb-3">⚠️ The Problem</h4>
-                  <pre className="text-sm font-mono text-muted-foreground">
+                  <pre className="text-sm font-mono text-muted-foreground overflow-x-auto">
 {`Cache line (64 bytes):
 ┌────────┬────────┬────────┬────────┐
 │counter0│counter1│counter2│counter3│
@@ -1095,7 +1097,7 @@ void consumer() {
 
                 <div className="p-4 rounded-lg border border-border/50 bg-card/50 my-6">
                   <h4 className="font-bold text-foreground mb-3">CAS Operation</h4>
-                  <pre className="text-sm font-mono text-muted-foreground">
+                  <pre className="text-sm font-mono text-muted-foreground overflow-x-auto">
 {`CAS(address, expected, new):
     atomic {
         if (*address == expected) {
