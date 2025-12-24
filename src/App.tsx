@@ -10,6 +10,7 @@ import Certification from "./pages/Certification";
 import Blogs from "./pages/Blogs";
 import Code from "./pages/Code";
 import NotFound from "./pages/NotFound";
+import Dragon from "./pages/Dragon";
 import NextJsForBeginners from "./pages/blog/NextJsForBeginners";
 import TransformersInAI from "./pages/blog/TransformersInAI";
 import ReactNativeGuide from "./pages/blog/ReactNativeGuide";
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/blog/advanced-javascript" element={<AdvancedJavaScript />} />
           <Route path="/blog/builder-mindset" element={<BuilderMindset />} />
           <Route path="/code" element={<Code />} />
+          <Route path="/dragon" element={<Dragon />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

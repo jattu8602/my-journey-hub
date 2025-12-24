@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { DragonBackground } from '@/components/DragonBackground';
 
 const roles = ['Design', 'Development', 'Deployment', 'Innovation', 'Solutions'];
 const nicknames = ['Jatin', 'Justin', 'Jattu'];
@@ -34,7 +35,7 @@ export const Hero = () => {
           const role = roles[currentIndex];
           let charIndex = 0;
           roleRef.current.textContent = '';
-          
+
           const type = () => {
             if (charIndex < role.length) {
               roleRef.current!.textContent += role[charIndex];
@@ -66,7 +67,7 @@ export const Hero = () => {
           const nickname = nicknames[nicknameIndex];
           let charIndex = 0;
           nicknameRef.current.textContent = '';
-          
+
           const type = () => {
             if (charIndex < nickname.length) {
               nicknameRef.current!.textContent += nickname[charIndex];
@@ -105,7 +106,8 @@ export const Hero = () => {
       className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
+      <DragonBackground />
+      <div className="absolute inset-0 pointer-events-none opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       </div>
@@ -114,8 +116,8 @@ export const Hero = () => {
         {/* Profile Photo */}
         <div className="mb-6 md:mb-8">
           <Avatar className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 mx-auto ring-4 ring-accent/20 ring-offset-4 ring-offset-background">
-            <AvatarImage 
-              src="https://github.com/jattu8602.png" 
+            <AvatarImage
+              src="https://github.com/jattu8602.png"
               alt="Nitesh Chourasiya"
               className="object-cover"
             />
@@ -161,7 +163,7 @@ export const Hero = () => {
           ref={subtitleRef}
           className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed"
         >
-          Crafting digital experiences from concept to deployment. 
+          Crafting digital experiences from concept to deployment.
           Building modern web solutions with passion and precision.
         </p>
 
