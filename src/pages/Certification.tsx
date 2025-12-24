@@ -103,9 +103,9 @@ const Certification = () => {
   return (
     <div className="relative min-h-screen bg-background">
       <Navigation />
-      
+
       <section className="min-h-screen px-6 pt-32 pb-20">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="section-heading mb-6">Certifications<span className="accent-dot" /></h1>
@@ -132,7 +132,7 @@ const Certification = () => {
           </div>
 
           {/* Certificates Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredCertificates.map((cert, index) => (
               <div
                 key={cert.id}
@@ -151,17 +151,17 @@ const Certification = () => {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    
+
                     {/* Certificate Title */}
                     <h3 className="text-lg font-display font-bold text-center text-amber-900 dark:text-amber-100 mb-2 leading-tight">
                       {cert.title}
                     </h3>
-                    
+
                     {/* Description */}
                     <p className="text-xs text-center text-amber-800/70 dark:text-amber-200/60 mb-4 line-clamp-2 leading-relaxed italic">
                       {cert.description}
                     </p>
-                    
+
                     {/* Decorative line */}
                     <div className="flex items-center justify-center gap-2 mb-4">
                       <div className="h-px w-8 bg-amber-600/30 dark:bg-amber-500/20" />

@@ -135,7 +135,7 @@ const Blogs = () => {
       <Navigation />
 
       <section className="min-h-screen px-6 pt-32 pb-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="section-heading mb-6">Blogs<span className="accent-dot" /></h1>
@@ -145,7 +145,7 @@ const Blogs = () => {
           </div>
 
           {/* Blog posts grid */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
               <Link
                 key={post.id}

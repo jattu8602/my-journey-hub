@@ -5,6 +5,7 @@ import MobileTableOfContents from "@/components/blog/MobileTableOfContents";
 import CodeBlock from "@/components/blog/CodeBlock";
 import RunnableCode from "@/components/blog/RunnableCode";
 import BlogNote from "@/components/blog/BlogNote";
+import hardwareImage from "@/assets/image.png";
 
 const tocItems = [
   { id: 'introduction', title: 'Introduction', level: 2 },
@@ -64,7 +65,7 @@ const SystemsLowLevel = () => {
               {/* Featured image */}
               <div className="mt-8 rounded-xl overflow-hidden border border-border/50 mb-8">
                 <img
-                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=600&fit=crop"
+                  src={hardwareImage}
                   alt="Computer Hardware"
                   className="w-full h-64 md:h-80 object-cover"
                 />
