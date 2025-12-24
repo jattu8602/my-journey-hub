@@ -2,6 +2,7 @@ import { Navigation } from '@/components/Navigation';
 import { useLenis } from '@/hooks/useLenis';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
+import { X } from 'lucide-react';
 
 // Certificate Imports
 // Hackathons & Competitions
@@ -252,6 +253,7 @@ const categories: { key: Category; label: string }[] = [
 const Certification = () => {
   useLenis();
   const [activeCategory, setActiveCategory] = useState<Category>('skills');
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
 
   const filteredCertificates = certificates.filter(
     (cert) => cert.category === activeCategory
@@ -293,11 +295,12 @@ const Certification = () => {
             {filteredCertificates.map((cert, index) => (
               <div
                 key={cert.id}
-                className="group"
+                className="group cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => setSelectedCertificate(cert)}
               >
                 {/* Certificate Frame */}
-                <div className="relative bg-[#faf8f5] dark:bg-[#1a1916] border-4 border-double border-amber-700/60 dark:border-amber-600/40 rounded-sm p-1">
+                <div className="relative bg-[#faf8f5] dark:bg-[#1a1916] border-4 border-double border-amber-700/60 dark:border-amber-600/40 rounded-sm p-1 transition-transform duration-300 group-hover:scale-[1.02] shadow-md group-hover:shadow-xl">
                   {/* Inner border */}
                   <div className="border border-amber-600/30 dark:border-amber-500/20 p-4">
                     {/* Certificate Image - A4 Landscape ratio (1.414:1) */}
@@ -351,6 +354,70 @@ const Certification = () => {
           )}
         </div>
       </section>
+
+      {/* Certificate Modal */}
+      {selectedCertificate && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setSelectedCertificate(null)}
+        >
+          <div
+            className="relative w-full max-w-4xl bg-[#faf8f5] dark:bg-[#1a1916] rounded-lg shadow-2xl p-1.5 md:p-2 border-4 border-double border-amber-700/60 dark:border-amber-600/40 animate-in fade-in zoom-in-95 duration-300 max-h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedCertificate(null)}
+              className="absolute -top-3 -right-3 md:-top-5 md:-right-5 p-2 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-colors z-20 border-2 border-white dark:border-zinc-900"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4 md:w-5 md:h-5" />
+            </button>
+
+            {/* Modal Content - Scrollable Area */}
+            <div className="flex-1 overflow-y-auto border border-amber-600/30 dark:border-amber-500/20 rounded-sm">
+               <div className="p-6 md:p-8 pb-12">
+                 {/* Image */}
+                 <div className="relative w-full mb-6 border border-amber-600/20 dark:border-amber-500/15 overflow-hidden rounded-sm shadow-inner bg-black/5">
+                    <img
+                      src={selectedCertificate.image}
+                      alt={selectedCertificate.title}
+                      className="w-full h-auto object-contain max-h-[40vh] md:max-h-[60vh] mx-auto"
+                    />
+                 </div>
+
+                 {/* Details */}
+                 <div className="text-center">
+                   <h2 className="text-xl md:text-3xl font-display font-bold text-amber-900 dark:text-amber-100 mb-3 leading-tight">
+                     {selectedCertificate.title}
+                   </h2>
+
+                   <div className="flex items-center justify-center gap-4 mb-4 opacity-70">
+                     <div className="h-px flex-1 max-w-[60px] md:max-w-[100px] bg-amber-600/30 dark:bg-amber-500/20" />
+                     <div className="w-2 h-2 md:w-3 md:h-3 rotate-45 border-2 border-amber-600/40 dark:border-amber-500/30" />
+                     <div className="h-px flex-1 max-w-[60px] md:max-w-[100px] bg-amber-600/30 dark:bg-amber-500/20" />
+                   </div>
+
+                   <p className="text-amber-800/80 dark:text-amber-200/70 text-base md:text-lg mb-6 leading-relaxed max-w-2xl mx-auto italic">
+                     {selectedCertificate.description}
+                   </p>
+
+                   <div className="flex flex-wrap justify-center gap-2 mb-2">
+                     {selectedCertificate.tags.map((tag) => (
+                       <span
+                         key={tag}
+                         className="px-3 py-1.5 text-xs md:text-sm font-medium uppercase tracking-wider text-amber-700 dark:text-amber-400 border border-amber-600/40 dark:border-amber-500/30 rounded-sm bg-amber-50/50 dark:bg-amber-900/20"
+                       >
+                         {tag}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
