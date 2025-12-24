@@ -1,5 +1,5 @@
 import { useRef, useEffect, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, useAnimations, Environment, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import dragonGlb from '@/assets/chinese_dragon_with_skeletal_animation.glb';
@@ -11,6 +11,7 @@ function DragonModel() {
   const group = useRef<THREE.Group>(null);
   const { scene, animations } = useGLTF(dragonGlb);
   const { actions } = useAnimations(animations, group);
+  const { viewport } = useThree();
 
   // Play animation if available
   useEffect(() => {
@@ -31,13 +32,18 @@ function DragonModel() {
     // Time factor - slowed down
     const t = state.clock.getElapsedTime() * 0.2;
 
-    // "In and out of page" movement (Z-axis) - slower oscillation
-    const depth = Math.sin(t * 0.5) * 6 - 2;
+    // "In and out of page" movement (Z-axis)
+    // Increased frequency (previously 0.5 -> 0.8) so it "comes" more often
+    const depth = Math.sin(t * 0.8) * 6 - 2;
 
     // Autonomous Wandering (Figure 8 / Lissajous pattern)
-    // Larger range to cover screen
-    const targetX = Math.sin(t * 0.6) * 8;
-    const targetY = Math.sin(t * 1.3) * 3; // Vertical wandering
+    // Use viewport width to keep it on screen, with some padding
+    // On mobile, viewport.width is small, so we don't want to go too far out
+    const widthRange = viewport.width * 0.35;
+    const heightRange = viewport.height * 0.35;
+
+    const targetX = Math.sin(t * 0.6) * widthRange;
+    const targetY = Math.sin(t * 1.3) * heightRange; // Vertical wandering
 
     // Smoothly update position
     group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX, 0.01);
@@ -48,14 +54,14 @@ function DragonModel() {
 
     // Rotation logic
     // Look ahead logic
-    const dx = 0.6 * Math.cos(t * 0.6) * 8; // approx velocity X
-    const dy = 1.3 * Math.cos(t * 1.3) * 3; // approx velocity Y
+    const dx = 0.6 * Math.cos(t * 0.6) * widthRange; // approx velocity X
+    const dy = 1.3 * Math.cos(t * 1.3) * heightRange; // approx velocity Y
 
     // Calculate target angle based on velocity
     const targetRotationY = Math.atan2(dx, 10); // Dampen look angle
     const targetRotationX = -Math.atan2(dy, 10);
 
-    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetRotationY + (targetX * 0.1), 0.05);
+    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetRotationY + (targetX * 0.05), 0.05);
     group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, targetRotationX, 0.05);
 
     // Add some "swimming" rotation
