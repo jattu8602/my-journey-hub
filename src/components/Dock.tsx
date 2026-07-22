@@ -8,9 +8,8 @@ export function Dock() {
     if (typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem("theme")
-        if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-          return "dark"
-        }
+        if (stored === "dark") return "dark"
+        if (stored === "light") return "light"
       } catch {}
     }
     return "light"
