@@ -421,12 +421,12 @@ export default function Index() {
             </div>
 
             <span className="font-cinzel text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-none">
-              CHOURASIYA GAZETTE
+              NITESH CHOURASIYA TIMES
             </span>
           </div>
 
           <p className="text-[9px] sm:text-[11px] font-mono tracking-widest text-center mt-2 font-semibold uppercase opacity-90">
-            NITESH CHOURASIYA • INDIA'S NATIONAL NEWSPAPER & SOFTWARE PORTFOLIO SINCE 2023
+            OFFICIAL SOFTWARE JOURNAL OF NITESH CHOURASIYA • B.TECH CSE (AI & DS)
           </p>
         </div>
 
