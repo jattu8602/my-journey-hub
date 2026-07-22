@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cinzel:wght@400..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,10 +6,10 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 40 10% 97%;
     --foreground: 220 20% 10%;
 
-    --card: 0 0% 100%;
+    --card: 40 10% 98%;
     --card-foreground: 220 20% 10%;
 
     --popover: 0 0% 100%;
@@ -187,5 +187,75 @@
 
   .will-change-transform {
     will-change: transform;
+  }
+
+  /* Newspaper custom typography and utilities */
+  .font-playfair {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-cinzel {
+    font-family: 'Cinzel', Georgia, serif;
+  }
+
+  .newspaper-drop-cap::first-letter {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    margin-top: 0.1em;
+    margin-right: 0.08em;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 900;
+  }
+
+  .newspaper-cols-2 {
+    column-count: 2;
+    column-gap: 1.5rem;
+  }
+
+  .newspaper-cols-3 {
+    column-count: 3;
+    column-gap: 1.5rem;
+  }
+
+  .newspaper-cols-4 {
+    column-count: 4;
+    column-gap: 1.5rem;
+  }
+
+  .newspaper-col-border {
+    column-rule: 1px solid currentColor;
+  }
+  
+  /* Vintage half-tone/paper texture effect matching The Hindu newsprint */
+  .paper-texture {
+    background-color: var(--newsprint-bg, #f5f4ef);
+    background-image: radial-gradient(hsl(220 10% 10% / 0.015) 1px, transparent 0),
+                      radial-gradient(hsl(220 10% 10% / 0.015) 1px, transparent 0);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
+  }
+
+  .paper-texture-dark {
+    background-color: var(--midnightprint-bg, #121212);
+    background-image: radial-gradient(hsl(0 0% 100% / 0.015) 1px, transparent 0),
+                      radial-gradient(hsl(0 0% 100% / 0.015) 1px, transparent 0);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
+  }
+
+  /* Financial stock ticker animation */
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-ticker {
+    display: inline-flex;
+    animation: ticker 40s linear infinite;
+  }
+
+  .animate-ticker:hover {
+    animation-play-state: paused;
   }
 }
