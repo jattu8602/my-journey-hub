@@ -41,7 +41,7 @@ export function Dock() {
 
   const socialItems = [
     { href: "https://github.com/jattu8602", icon: SiGithub, label: "GitHub" },
-    { href: "https://linkedin.com/in/nitesh-chourasiya", icon: FaLinkedin, label: "LinkedIn" },
+    { href: "https://www.linkedin.com/in/nitesh-chourasiya-a66715292/", icon: FaLinkedin, label: "LinkedIn" },
   ]
 
   return (

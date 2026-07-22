@@ -524,7 +524,7 @@ export default function Index() {
               <Github className="w-4 h-4" /> @jattu8602
             </a>
             <span className="text-border hidden sm:inline">|</span>
-            <a href="https://linkedin.com/in/nitesh-chourasiya" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors">
+            <a href="https://www.linkedin.com/in/nitesh-chourasiya-a66715292/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors">
               <Linkedin className="w-4 h-4" /> Nitesh Chourasiya
             </a>
             <span className="text-border hidden sm:inline">|</span>
