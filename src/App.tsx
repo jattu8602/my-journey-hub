@@ -2,11 +2,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
-import Experience from "./pages/Experience";
-import Certification from "./pages/Certification";
 import Blogs from "./pages/Blogs";
 import Code from "./pages/Code";
 import NotFound from "./pages/NotFound";
@@ -35,8 +33,8 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/certification" element={<Certification />} />
+          <Route path="/experience" element={<Navigate to="/#journey" replace />} />
+          <Route path="/certification" element={<Navigate to="/#certifications" replace />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blog/nextjs-for-beginners" element={<NextJsForBeginners />} />
           <Route path="/blog/transformers-in-ai" element={<TransformersInAI />} />
